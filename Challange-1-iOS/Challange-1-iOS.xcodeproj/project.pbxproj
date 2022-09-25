@@ -9,64 +9,27 @@
 /* Begin PBXBuildFile section */
 		081F2B9428DDC2860003AB99 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 081F2B9328DDC2860003AB99 /* AppDelegate.swift */; };
 		081F2B9628DDC2860003AB99 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 081F2B9528DDC2860003AB99 /* SceneDelegate.swift */; };
-		081F2B9828DDC2860003AB99 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 081F2B9728DDC2860003AB99 /* ViewController.swift */; };
-		081F2B9B28DDC2860003AB99 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 081F2B9928DDC2860003AB99 /* Main.storyboard */; };
+		081F2B9828DDC2860003AB99 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 081F2B9728DDC2860003AB99 /* MainViewController.swift */; };
 		081F2B9D28DDC2870003AB99 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 081F2B9C28DDC2870003AB99 /* Assets.xcassets */; };
 		081F2BA028DDC2870003AB99 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 081F2B9E28DDC2870003AB99 /* LaunchScreen.storyboard */; };
-		081F2BAB28DDC2870003AB99 /* Challange_1_iOSTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 081F2BAA28DDC2870003AB99 /* Challange_1_iOSTests.swift */; };
-		081F2BB528DDC2870003AB99 /* Challange_1_iOSUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 081F2BB428DDC2870003AB99 /* Challange_1_iOSUITests.swift */; };
-		081F2BB728DDC2870003AB99 /* Challange_1_iOSUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 081F2BB628DDC2870003AB99 /* Challange_1_iOSUITestsLaunchTests.swift */; };
+		08DEF20F28E0D6DA00B98548 /* EmojisListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08DEF20E28E0D6DA00B98548 /* EmojisListViewController.swift */; };
+		08DEF21228E0D9B900B98548 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08DEF21128E0D9B900B98548 /* Constants.swift */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		081F2BA728DDC2870003AB99 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 081F2B8828DDC2860003AB99 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 081F2B8F28DDC2860003AB99;
-			remoteInfo = "Challange-1-iOS";
-		};
-		081F2BB128DDC2870003AB99 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 081F2B8828DDC2860003AB99 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 081F2B8F28DDC2860003AB99;
-			remoteInfo = "Challange-1-iOS";
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		081F2B9028DDC2860003AB99 /* Challange-1-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Challange-1-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		081F2B9328DDC2860003AB99 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		081F2B9528DDC2860003AB99 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		081F2B9728DDC2860003AB99 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		081F2B9A28DDC2860003AB99 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		081F2B9728DDC2860003AB99 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		081F2B9C28DDC2870003AB99 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		081F2B9F28DDC2870003AB99 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		081F2BA128DDC2870003AB99 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		081F2BA628DDC2870003AB99 /* Challange-1-iOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Challange-1-iOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		081F2BAA28DDC2870003AB99 /* Challange_1_iOSTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Challange_1_iOSTests.swift; sourceTree = "<group>"; };
-		081F2BB028DDC2870003AB99 /* Challange-1-iOSUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Challange-1-iOSUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		081F2BB428DDC2870003AB99 /* Challange_1_iOSUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Challange_1_iOSUITests.swift; sourceTree = "<group>"; };
-		081F2BB628DDC2870003AB99 /* Challange_1_iOSUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Challange_1_iOSUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		08DEF20E28E0D6DA00B98548 /* EmojisListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojisListViewController.swift; sourceTree = "<group>"; };
+		08DEF21128E0D9B900B98548 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		081F2B8D28DDC2860003AB99 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		081F2BA328DDC2870003AB99 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		081F2BAD28DDC2870003AB99 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -80,8 +43,6 @@
 			isa = PBXGroup;
 			children = (
 				081F2B9228DDC2860003AB99 /* Challange-1-iOS */,
-				081F2BA928DDC2870003AB99 /* Challange-1-iOSTests */,
-				081F2BB328DDC2870003AB99 /* Challange-1-iOSUITests */,
 				081F2B9128DDC2860003AB99 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -90,8 +51,6 @@
 			isa = PBXGroup;
 			children = (
 				081F2B9028DDC2860003AB99 /* Challange-1-iOS.app */,
-				081F2BA628DDC2870003AB99 /* Challange-1-iOSTests.xctest */,
-				081F2BB028DDC2870003AB99 /* Challange-1-iOSUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -99,10 +58,10 @@
 		081F2B9228DDC2860003AB99 /* Challange-1-iOS */ = {
 			isa = PBXGroup;
 			children = (
+				08DEF21028E0D9A800B98548 /* Constans */,
 				081F2B9328DDC2860003AB99 /* AppDelegate.swift */,
 				081F2B9528DDC2860003AB99 /* SceneDelegate.swift */,
-				081F2B9728DDC2860003AB99 /* ViewController.swift */,
-				081F2B9928DDC2860003AB99 /* Main.storyboard */,
+				08DEF20D28E0D6A100B98548 /* ViewControllers */,
 				081F2B9C28DDC2870003AB99 /* Assets.xcassets */,
 				081F2B9E28DDC2870003AB99 /* LaunchScreen.storyboard */,
 				081F2BA128DDC2870003AB99 /* Info.plist */,
@@ -110,21 +69,21 @@
 			path = "Challange-1-iOS";
 			sourceTree = "<group>";
 		};
-		081F2BA928DDC2870003AB99 /* Challange-1-iOSTests */ = {
+		08DEF20D28E0D6A100B98548 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				081F2BAA28DDC2870003AB99 /* Challange_1_iOSTests.swift */,
+				081F2B9728DDC2860003AB99 /* MainViewController.swift */,
+				08DEF20E28E0D6DA00B98548 /* EmojisListViewController.swift */,
 			);
-			path = "Challange-1-iOSTests";
+			path = ViewControllers;
 			sourceTree = "<group>";
 		};
-		081F2BB328DDC2870003AB99 /* Challange-1-iOSUITests */ = {
+		08DEF21028E0D9A800B98548 /* Constans */ = {
 			isa = PBXGroup;
 			children = (
-				081F2BB428DDC2870003AB99 /* Challange_1_iOSUITests.swift */,
-				081F2BB628DDC2870003AB99 /* Challange_1_iOSUITestsLaunchTests.swift */,
+				08DEF21128E0D9B900B98548 /* Constants.swift */,
 			);
-			path = "Challange-1-iOSUITests";
+			path = Constans;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -147,42 +106,6 @@
 			productReference = 081F2B9028DDC2860003AB99 /* Challange-1-iOS.app */;
 			productType = "com.apple.product-type.application";
 		};
-		081F2BA528DDC2870003AB99 /* Challange-1-iOSTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 081F2BBD28DDC2870003AB99 /* Build configuration list for PBXNativeTarget "Challange-1-iOSTests" */;
-			buildPhases = (
-				081F2BA228DDC2870003AB99 /* Sources */,
-				081F2BA328DDC2870003AB99 /* Frameworks */,
-				081F2BA428DDC2870003AB99 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				081F2BA828DDC2870003AB99 /* PBXTargetDependency */,
-			);
-			name = "Challange-1-iOSTests";
-			productName = "Challange-1-iOSTests";
-			productReference = 081F2BA628DDC2870003AB99 /* Challange-1-iOSTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
-		081F2BAF28DDC2870003AB99 /* Challange-1-iOSUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 081F2BC028DDC2870003AB99 /* Build configuration list for PBXNativeTarget "Challange-1-iOSUITests" */;
-			buildPhases = (
-				081F2BAC28DDC2870003AB99 /* Sources */,
-				081F2BAD28DDC2870003AB99 /* Frameworks */,
-				081F2BAE28DDC2870003AB99 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				081F2BB228DDC2870003AB99 /* PBXTargetDependency */,
-			);
-			name = "Challange-1-iOSUITests";
-			productName = "Challange-1-iOSUITests";
-			productReference = 081F2BB028DDC2870003AB99 /* Challange-1-iOSUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -195,14 +118,6 @@
 				TargetAttributes = {
 					081F2B8F28DDC2860003AB99 = {
 						CreatedOnToolsVersion = 13.4.1;
-					};
-					081F2BA528DDC2870003AB99 = {
-						CreatedOnToolsVersion = 13.4.1;
-						TestTargetID = 081F2B8F28DDC2860003AB99;
-					};
-					081F2BAF28DDC2870003AB99 = {
-						CreatedOnToolsVersion = 13.4.1;
-						TestTargetID = 081F2B8F28DDC2860003AB99;
 					};
 				};
 			};
@@ -220,8 +135,6 @@
 			projectRoot = "";
 			targets = (
 				081F2B8F28DDC2860003AB99 /* Challange-1-iOS */,
-				081F2BA528DDC2870003AB99 /* Challange-1-iOSTests */,
-				081F2BAF28DDC2870003AB99 /* Challange-1-iOSUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -233,21 +146,6 @@
 			files = (
 				081F2BA028DDC2870003AB99 /* LaunchScreen.storyboard in Resources */,
 				081F2B9D28DDC2870003AB99 /* Assets.xcassets in Resources */,
-				081F2B9B28DDC2860003AB99 /* Main.storyboard in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		081F2BA428DDC2870003AB99 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		081F2BAE28DDC2870003AB99 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -258,53 +156,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				081F2B9828DDC2860003AB99 /* ViewController.swift in Sources */,
+				08DEF21228E0D9B900B98548 /* Constants.swift in Sources */,
+				081F2B9828DDC2860003AB99 /* MainViewController.swift in Sources */,
 				081F2B9428DDC2860003AB99 /* AppDelegate.swift in Sources */,
 				081F2B9628DDC2860003AB99 /* SceneDelegate.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		081F2BA228DDC2870003AB99 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				081F2BAB28DDC2870003AB99 /* Challange_1_iOSTests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		081F2BAC28DDC2870003AB99 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				081F2BB728DDC2870003AB99 /* Challange_1_iOSUITestsLaunchTests.swift in Sources */,
-				081F2BB528DDC2870003AB99 /* Challange_1_iOSUITests.swift in Sources */,
+				08DEF20F28E0D6DA00B98548 /* EmojisListViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
-/* Begin PBXTargetDependency section */
-		081F2BA828DDC2870003AB99 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 081F2B8F28DDC2860003AB99 /* Challange-1-iOS */;
-			targetProxy = 081F2BA728DDC2870003AB99 /* PBXContainerItemProxy */;
-		};
-		081F2BB228DDC2870003AB99 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 081F2B8F28DDC2860003AB99 /* Challange-1-iOS */;
-			targetProxy = 081F2BB128DDC2870003AB99 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
-
 /* Begin PBXVariantGroup section */
-		081F2B9928DDC2860003AB99 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				081F2B9A28DDC2860003AB99 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		081F2B9E28DDC2870003AB99 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -441,7 +303,6 @@
 				INFOPLIST_FILE = "Challange-1-iOS/Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -468,7 +329,6 @@
 				INFOPLIST_FILE = "Challange-1-iOS/Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -481,78 +341,6 @@
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Release;
-		};
-		081F2BBE28DDC2870003AB99 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.dasilva.Challange-1-iOSTests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Challange-1-iOS.app/Challange-1-iOS";
-			};
-			name = Debug;
-		};
-		081F2BBF28DDC2870003AB99 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.dasilva.Challange-1-iOSTests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Challange-1-iOS.app/Challange-1-iOS";
-			};
-			name = Release;
-		};
-		081F2BC128DDC2870003AB99 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.dasilva.Challange-1-iOSUITests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = "Challange-1-iOS";
-			};
-			name = Debug;
-		};
-		081F2BC228DDC2870003AB99 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.dasilva.Challange-1-iOSUITests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = "Challange-1-iOS";
 			};
 			name = Release;
 		};
@@ -573,24 +361,6 @@
 			buildConfigurations = (
 				081F2BBB28DDC2870003AB99 /* Debug */,
 				081F2BBC28DDC2870003AB99 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		081F2BBD28DDC2870003AB99 /* Build configuration list for PBXNativeTarget "Challange-1-iOSTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				081F2BBE28DDC2870003AB99 /* Debug */,
-				081F2BBF28DDC2870003AB99 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		081F2BC028DDC2870003AB99 /* Build configuration list for PBXNativeTarget "Challange-1-iOSUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				081F2BC128DDC2870003AB99 /* Debug */,
-				081F2BC228DDC2870003AB99 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
