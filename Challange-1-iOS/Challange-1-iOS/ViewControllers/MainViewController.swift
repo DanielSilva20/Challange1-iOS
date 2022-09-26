@@ -1,6 +1,37 @@
 import UIKit
 
-class MainViewController: UIViewController {
+class BaseGenericView: UIView {
+    required init() {
+        super.init(frame: .zero)
+        setupView()
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        fatalError()
+    }
+    
+    func setupView() {}
+}
+
+class BaseGenericViewController<View: BaseGenericView>: UIViewController {
+
+    var genericView: View {
+        view as! View
+    }
+    
+    override func loadView() {
+        view = View()
+    }
+}
+
+class MainView: BaseGenericView {
+    func businessLogicOfMain() {}
+}
+
+class MainViewController: BaseGenericViewController<BaseGenericView>, Coordinating {
+    var coordinator: Coordinator?
+    
     private var verticalStackView: UIStackView
     private var searchStackView: UIStackView
     private var btnRandomEmoji: UIButton
@@ -9,6 +40,7 @@ class MainViewController: UIViewController {
     private var btnAppleRepos: UIButton
     private var searchBar: UISearchBar
     private var searchBtn: UIButton
+    private var emojiImage: UIImage
     
     init() {
         // 0 - Create the Views
@@ -20,6 +52,7 @@ class MainViewController: UIViewController {
         searchBar = .init(frame: .zero)
         searchStackView = .init(arrangedSubviews: [searchBar, searchBtn])
         verticalStackView = .init(arrangedSubviews: [btnRandomEmoji, btnEmojisList, searchStackView, btnAvatarsList, btnAppleRepos])
+        emojiImage = .init()
 
         super.init(nibName: nil, bundle: nil)
     }
@@ -34,11 +67,14 @@ class MainViewController: UIViewController {
         setUpViews()
         addViewsToSuperview()
         setUpConstraints()
+//        genericView.businessLogicOfMain()
     }
     
     // 1 - SetUp the views
     private func setUpViews() {
         view.backgroundColor = .systemBlue
+        view.tintColor = .lightGray
+        
         
         verticalStackView.axis = .vertical
         searchStackView.axis = .horizontal
@@ -47,19 +83,24 @@ class MainViewController: UIViewController {
         btnAvatarsList.setTitle("Avatars List", for: .normal)
         btnAppleRepos.setTitle("Apple Repos", for: .normal)
         searchBtn.setTitle("Search", for: .normal)
+   
         
         let buttonArray = [btnRandomEmoji, btnEmojisList, searchBtn, btnAvatarsList, btnAppleRepos]
         buttonArray.forEach {
-            $0.backgroundColor = .gray
-            $0.setTitleColor(.white, for: .normal)
-            $0.layer.cornerRadius = 5.0
+            $0.configuration = .filled()
         }
         
+        self.navigationController?.navigationBar.tintColor = .white
+        
         btnEmojisList.addTarget(self, action: #selector(didTapEmojisLIst), for: .touchUpInside)
+        btnRandomEmoji.addTarget(self, action: #selector(didTapRandomEmoji), for: .touchUpInside)
+        btnAvatarsList.addTarget(self, action: #selector(didTapAvatarsList), for: .touchUpInside)
+        btnAppleRepos.addTarget(self, action: #selector(didTapAppleRepos), for: .touchUpInside)
     }
     
     // 2 - Add to superview
     private func addViewsToSuperview() {
+        
         view.addSubview(verticalStackView)
     }
     
@@ -70,9 +111,8 @@ class MainViewController: UIViewController {
         
         NSLayoutConstraint.activate([
             verticalStackView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-            verticalStackView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            verticalStackView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 30),
-            searchBtn.widthAnchor.constraint(equalToConstant: 70)
+            verticalStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 30),
+            verticalStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -30),
         ])
         
         verticalStackView.spacing = 20;
@@ -80,7 +120,19 @@ class MainViewController: UIViewController {
     }
     
     @objc func didTapEmojisLIst(_ sender: UIButton) {
-        let destinationController = EmojisListViewController()
-        self.present(destinationController, animated: true)
+        coordinator?.eventOccurred(with: .buttonEmojisListTapped)
     }
+    
+    @objc func didTapRandomEmoji(_ sender: UIButton) {
+        coordinator?.eventOccurred(with: .buttonRandomListTapped)
+    }
+    
+    @objc func didTapAvatarsList(_ sender: UIButton) {
+        coordinator?.eventOccurred(with: .buttonAvatarsListTapped)
+    }
+    
+    @objc func didTapAppleRepos(_ sender: UIButton) {
+        coordinator?.eventOccurred(with: .buttonAppleReposTapped)
+    }
+    
 }
