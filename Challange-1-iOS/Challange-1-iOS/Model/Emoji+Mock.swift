@@ -7,4 +7,9 @@
 
 import Foundation
 
-var emojis = [Emoji(name: "1", url: "https://github.githubassets.com/images/icons/emoji/unicode/1f18e.png?v8")]
+
+class MockedEmojiStorage: EmojiStorage {
+    weak var delegate: EmojiStorageDelegate?
+    var emojis: [Emoji] = [Emoji(name: "1", url: "https://github.githubassets.com/images/icons/emoji/unicode/1f18e.png?v8")]
+}
+

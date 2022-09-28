@@ -8,14 +8,21 @@
 import Foundation
 import UIKit
 
-class MainCoordinator: Coordinator {
+class MainCoordinator: Coordinator, EmojiPresenter {
     var navigationController: UINavigationController?
+    var emojiStorage: EmojiStorage?
+    
+    init(emojiStorage: EmojiStorage) {
+        self.emojiStorage = emojiStorage
+        self.emojiStorage?.delegate = self
+    }
     
     func eventOccurred(with type: Event) {
         switch type {
         case .buttonEmojisListTapped:
-            var vc: UICollectionViewController & Coordinating = EmojisListViewController()
+            var vc: UIViewController & Coordinating & EmojiPresenter = EmojisListViewController()
             vc.coordinator = self
+            vc.emojiStorage = emojiStorage
             navigationController?.pushViewController(vc, animated: true)
         case .buttonAvatarsListTapped:
             var vc: UIViewController & Coordinating = AvatarsListViewController()
@@ -29,9 +36,18 @@ class MainCoordinator: Coordinator {
     }
     
     func start() {
-        var vc: UIViewController & Coordinating = MainViewController()
+        var vc: UIViewController & Coordinating & EmojiPresenter = MainViewController()
         vc.coordinator = self
+        vc.emojiStorage = emojiStorage
         navigationController?.setViewControllers([vc], animated: false)
     }
      
+}
+
+extension MainCoordinator: EmojiStorageDelegate {
+    func emojiListUpdated() {
+        navigationController?.viewControllers.forEach {
+            ($0 as? EmojiPresenter)?.emojiListUpdated()
+        }
+    }
 }

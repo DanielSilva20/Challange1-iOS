@@ -26,3 +26,16 @@ protocol Coordinator {
 protocol Coordinating {
     var coordinator: Coordinator? { get set }
 }
+
+protocol EmojiPresenter: EmojiStorageDelegate {
+    var emojiStorage: EmojiStorage? { get set }
+}
+
+protocol EmojiStorage {
+    var delegate: EmojiStorageDelegate? { get set }
+    var emojis: [Emoji] { get set }
+}
+
+protocol EmojiStorageDelegate: AnyObject {
+    func emojiListUpdated()
+}
