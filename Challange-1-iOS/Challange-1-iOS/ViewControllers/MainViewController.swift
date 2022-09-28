@@ -30,6 +30,12 @@ class MainView: BaseGenericView {
     func businessLogicOfMain() {}
 }
 
+extension Array {
+    func item(at: Int) -> Element? {
+        count > at ? self[at] : nil
+    }
+}
+
 class MainViewController: BaseGenericViewController<BaseGenericView>, Coordinating {
     var coordinator: Coordinator?
     
@@ -44,15 +50,9 @@ class MainViewController: BaseGenericViewController<BaseGenericView>, Coordinati
     private var searchBtn: UIButton
     private var emojiImage: UIImageView
     
-    private var urlEmojiImage : String 
+    private var urlEmojiImage : String
     
     let url = URL(string: "https://api.github.com/emojis")!
-    
-
-    struct Emoji {
-        var name: String
-        var url: String
-    }
 
     var emojisList = [Emoji]()
     
@@ -76,7 +76,7 @@ class MainViewController: BaseGenericViewController<BaseGenericView>, Coordinati
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+        
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -111,12 +111,9 @@ class MainViewController: BaseGenericViewController<BaseGenericView>, Coordinati
         self.navigationController?.navigationBar.tintColor = .white
         
         btnEmojisList.addTarget(self, action: #selector(didTapEmojisLIst), for: .touchUpInside)
-        btnRandomEmoji.addTarget(self, action: #selector(didTapRandomEmoji), for: .touchUpInside)
+        btnRandomEmoji.addTarget(self, action: #selector(getRandomEmoji), for: .touchUpInside)
         btnAvatarsList.addTarget(self, action: #selector(didTapAvatarsList), for: .touchUpInside)
         btnAppleRepos.addTarget(self, action: #selector(didTapAppleRepos), for: .touchUpInside)
-    
-        let url = URL(string: "https://github.githubassets.com/images/icons/emoji/unicode/1f44d.png?v8")!
-        downloadImage(from: url)
     }
     
     // 2 - Add to superview
@@ -154,11 +151,6 @@ class MainViewController: BaseGenericViewController<BaseGenericView>, Coordinati
         coordinator?.eventOccurred(with: .buttonEmojisListTapped)
     }
     
-    @objc func didTapRandomEmoji(_ sender: UIButton) {
-//        coordinator?.eventOccurred(with: .buttonRandomListTapped)
-        getRandomEmoji()
-    }
-    
     @objc func didTapAvatarsList(_ sender: UIButton) {
         coordinator?.eventOccurred(with: .buttonAvatarsListTapped)
     }
@@ -166,6 +158,20 @@ class MainViewController: BaseGenericViewController<BaseGenericView>, Coordinati
     @objc func didTapAppleRepos(_ sender: UIButton) {
         coordinator?.eventOccurred(with: .buttonAppleReposTapped)
     }
+    
+    @objc func getRandomEmoji() {
+        let randomNumber = Int.random(in: 0 ... self.emojisList.count)
+        
+        guard let emoji = emojisList.item(at: randomNumber) else { return }
+
+        urlEmojiImage = emoji.url
+        
+        let url = URL(string: urlEmojiImage)!
+        downloadImage(from: url)
+        
+        
+    }
+    
  
     func getData(from url: URL, completion: @escaping (Data?, URLResponse?, Error?) -> ()) {
         URLSession.shared.dataTask(with: url, completionHandler: completion).resume()
@@ -197,6 +203,7 @@ class MainViewController: BaseGenericViewController<BaseGenericView>, Coordinati
                         print(self.emojisList.count)
                     }
                 }
+                self.getRandomEmoji()
             } else if let error = error {
                 print("HTTP Request Failed \(error)")
             }
@@ -204,20 +211,6 @@ class MainViewController: BaseGenericViewController<BaseGenericView>, Coordinati
 
         task.resume()
     }
-    
-    
-    func getRandomEmoji() {
-        let randomNumber = Int.random(in: 0 ... self.emojisList.count)
-        
-//        urlEmojiImage = "https://github.githubassets.com/images/icons/emoji/unicode/1f44d.png?v8"
-        
-        urlEmojiImage = self.emojisList[randomNumber].url
-        print(self.emojisList)
-        
-        let url = URL(string: urlEmojiImage)!
-        downloadImage(from: url)
-        
-    }
-    
    
 }
+

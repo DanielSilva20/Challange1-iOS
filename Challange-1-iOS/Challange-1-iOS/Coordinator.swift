@@ -11,7 +11,6 @@ import UIKit
 
 enum Event {
     case buttonEmojisListTapped
-    case buttonRandomListTapped
     case buttonAvatarsListTapped
     case buttonAppleReposTapped
 }

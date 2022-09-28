@@ -7,7 +7,7 @@
 
 import UIKit
 
-class EmojisListViewController: UIViewController, Coordinating {
+class EmojisListViewController: UICollectionViewController, Coordinating {
     var coordinator: Coordinator?
 
     override func viewDidLoad() {

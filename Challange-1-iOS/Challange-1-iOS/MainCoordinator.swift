@@ -14,11 +14,7 @@ class MainCoordinator: Coordinator {
     func eventOccurred(with type: Event) {
         switch type {
         case .buttonEmojisListTapped:
-            var vc: UIViewController & Coordinating = EmojisListViewController()
-            vc.coordinator = self
-            navigationController?.pushViewController(vc, animated: true)
-        case .buttonRandomListTapped:
-            var vc: UIViewController & Coordinating = RandomEmojiViewController()
+            var vc: UICollectionViewController & Coordinating = EmojisListViewController()
             vc.coordinator = self
             navigationController?.pushViewController(vc, animated: true)
         case .buttonAvatarsListTapped:
