@@ -27,7 +27,6 @@ class LiveEmojiStorage: EmojiStorage {
                 if let array = json {
                     for (emojiName,emojiUrl) in array {
                         self.emojis.append(Emoji (name: "\(emojiName)", url: "\(emojiUrl)"))
-                        print(self.emojis.count)
                     }
                 }
                 DispatchQueue.main.async {

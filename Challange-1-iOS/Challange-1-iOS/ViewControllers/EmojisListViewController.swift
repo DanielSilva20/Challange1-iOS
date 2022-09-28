@@ -10,6 +10,7 @@ import UIKit
 class EmojisListViewController: UIViewController, Coordinating, EmojiPresenter {
     var coordinator: Coordinator?
     var emojiStorage: EmojiStorage?
+    var colors: [UIColor] = [.blue, .green, .red, .yellow, .black]
     lazy var collectionView: UICollectionView = {
         let v = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
         return v
@@ -17,10 +18,23 @@ class EmojisListViewController: UIViewController, Coordinating, EmojiPresenter {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "Emojis List"
-        view.backgroundColor = .systemBlue
+        
+        setUpViews()
+        addViewsToSuperview()
+        setUpConstraints()
+    }
+    
+    private func setUpViews(){
+        setUpCollectionView()
+    }
+    
+    private func addViewsToSuperview(){
         view.addSubview(collectionView)
+    }
+    
+    private func setUpConstraints(){
         collectionView.translatesAutoresizingMaskIntoConstraints = false
+        
         NSLayoutConstraint.activate([
             collectionView.topAnchor.constraint(equalTo: view.topAnchor),
             collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
@@ -29,16 +43,67 @@ class EmojisListViewController: UIViewController, Coordinating, EmojiPresenter {
         ])
     }
     
+    private func setUpCollectionView() {
+        title = "Emojis List"
+        view.backgroundColor = .systemBlue
+
+            let layout = UICollectionViewFlowLayout()
+            layout.scrollDirection = .vertical
+            
+            layout.minimumLineSpacing = 8
+            layout.minimumInteritemSpacing = 4
+
+            collectionView = .init(frame: .zero, collectionViewLayout: layout)
+
+            collectionView.register(ColorCell.self, forCellWithReuseIdentifier: "cell")
+
+            collectionView.delegate = self
+            collectionView.dataSource = self
+        }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        print("Emojis: \(emojiStorage?.emojis.count)")
+        print("Emojis: \(String(describing: emojiStorage?.emojis.count))")
         
     }
 }
 
 extension EmojisListViewController: EmojiStorageDelegate {
     func emojiListUpdated() {
-        print("Emojis: \(emojiStorage?.emojis.count)")
+        print("Emojis: \(String(describing: emojiStorage?.emojis.count))")
         collectionView.reloadData()
+    }
+}
+
+
+extension EmojisListViewController: UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return colors.count
+    }
+
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as? ColorCell else {
+            return UICollectionViewCell()
+        }
+        cell.color = colors[indexPath.row]
+        return cell
+    }
+}
+
+
+extension EmojisListViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView,
+                  layout collectionViewLayout: UICollectionViewLayout,
+                  insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsets(top: 1.0, left: 8.0, bottom: 1.0, right: 8.0)
+    }
+
+    func collectionView(_ collectionView: UICollectionView,
+                   layout collectionViewLayout: UICollectionViewLayout,
+                   sizeForItemAt indexPath: IndexPath) -> CGSize {
+        
+        let layout = collectionViewLayout as! UICollectionViewFlowLayout
+        let widthPerItem = collectionView.frame.width / 3 - layout.minimumInteritemSpacing
+        return CGSize(width: widthPerItem - 8, height: widthPerItem)
     }
 }

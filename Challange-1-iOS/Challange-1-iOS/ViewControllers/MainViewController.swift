@@ -173,7 +173,6 @@ class MainViewController: BaseGenericViewController<BaseGenericView>, Coordinati
         let url = URL(string: urlEmojiImage)!
         downloadImage(from: url)
         
-        
     }
     
  
