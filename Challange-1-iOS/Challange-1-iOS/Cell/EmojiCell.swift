@@ -37,7 +37,6 @@ class EmojiCell: UICollectionViewCell {
                                      imageView.trailingAnchor.constraint(equalTo: self.trailingAnchor)])
     }
     
-    
     override func prepareForReuse() {
         super.prepareForReuse()
         
@@ -45,7 +44,6 @@ class EmojiCell: UICollectionViewCell {
         
         imageView.image = nil
     }
-    
     
     func getData(from url: URL, completion: @escaping (Data?, URLResponse?, Error?) -> ()) {
         dataTask?.cancel()

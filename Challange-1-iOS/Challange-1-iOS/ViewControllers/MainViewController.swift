@@ -88,11 +88,6 @@ class MainViewController: BaseGenericViewController<BaseGenericView>, Coordinati
 //        genericView.businessLogicOfMain()
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        getRandomEmoji()
-    }
-    
     // 1 - SetUp the views
     private func setUpViews() {
         view.backgroundColor = .systemBlue
@@ -167,10 +162,8 @@ class MainViewController: BaseGenericViewController<BaseGenericView>, Coordinati
         let randomNumber = Int.random(in: 0 ... (emojiStorage?.emojis.count ?? 0))
         
         guard let emoji = emojiStorage?.emojis.item(at: randomNumber) else { return }
-
-        urlEmojiImage = emoji.url
         
-        let url = URL(string: urlEmojiImage)!
+        let url = emoji.emojiUrl
         downloadImage(from: url)
         
     }

@@ -10,9 +10,6 @@ import UIKit
 class EmojisListViewController: UIViewController, Coordinating, EmojiPresenter {
     var coordinator: Coordinator?
     var emojiStorage: EmojiStorage?
-//    var mockedEmojiList: [Emoji] = []
-//    var colors: [UIColor] = [.blue, .green, .red, .yellow, .black]
-//    var emojiImage: UIImageView?
     lazy var collectionView: UICollectionView = {
         let v = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
         return v
@@ -68,25 +65,10 @@ class EmojisListViewController: UIViewController, Coordinating, EmojiPresenter {
         print("Emojis: \(String(describing: emojiStorage?.emojis.count))")
         
     }
-    
-    func getData(from url: URL, completion: @escaping (Data?, URLResponse?, Error?) -> ()) {
-        URLSession.shared.dataTask(with: url, completionHandler: completion).resume()
-    }
-
-    func downloadImage(url: URL, imageView: UIImageView){
-        getData(from: url) { data, response, error in
-            guard let data = data, error == nil else { return }
-            // always update the UI from the main thread
-            DispatchQueue.main.async() {
-                imageView.image = UIImage(data: data)
-            }
-        }
-    }
 }
 
 extension EmojisListViewController: EmojiStorageDelegate {
     func emojiListUpdated() {
-        print("Emojis: \(String(describing: emojiStorage?.emojis.count))")
         collectionView.reloadData()
     }
 }
@@ -105,7 +87,7 @@ extension EmojisListViewController: UICollectionViewDataSource {
             return UICollectionViewCell()
         }
 
-        let url = URL(string: (emojiStorage?.emojis[indexPath.row].url)!)!
+        let url = (emojiStorage?.emojis[indexPath.row].emojiUrl)!
         
         cell.setUpCell(url: url)
         

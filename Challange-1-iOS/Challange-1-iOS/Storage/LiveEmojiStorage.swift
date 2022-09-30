@@ -10,35 +10,33 @@ import Foundation
 class LiveEmojiStorage: EmojiStorage {
     var emojis: [Emoji] = []
     weak var delegate: EmojiStorageDelegate?
-    let url = URL(string: "https://api.github.com/emojis")!
     
     init(){
         loadEmojis()
     }
     
     func loadEmojis() {
-        var request = URLRequest(url: url)
-
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-
-        let task = URLSession.shared.dataTask(with: url) { data, response, error in
-            if let data = data {
-                let json = try? JSONSerialization.jsonObject(with: data) as? Dictionary<String,String>
-                if let array = json {
-                    for (emojiName,emojiUrl) in array {
-                        self.emojis.append(Emoji (name: "\(emojiName)", url: "\(emojiUrl)"))
-                    }
-                }
+        executeNetworkCall(EmojiAPI.getEmojis) { (result: Result<EmojisAPICAllResult, Error>) in
+            switch result {
+            case .success(let success):
+                self.emojis = success.emojis
                 self.emojis.sort()
                 DispatchQueue.main.async {
-                    
                     self.delegate?.emojiListUpdated()
                 }
-            } else if let error = error {
-                print("HTTP Request Failed \(error)")
+                print("Success: \(success)")
+            case .failure(let failure):
+                print("Error: \(failure)")
             }
         }
-
-        task.resume()
     }
+}
+
+protocol EmojiPresenter: EmojiStorageDelegate {
+    var emojiStorage: EmojiStorage? { get set }
+}
+
+protocol EmojiStorage {
+    var delegate: EmojiStorageDelegate? { get set }
+    var emojis: [Emoji] { get set }
 }
