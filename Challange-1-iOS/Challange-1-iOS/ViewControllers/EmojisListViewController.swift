@@ -10,7 +10,9 @@ import UIKit
 class EmojisListViewController: UIViewController, Coordinating, EmojiPresenter {
     var coordinator: Coordinator?
     var emojiStorage: EmojiStorage?
-    var colors: [UIColor] = [.blue, .green, .red, .yellow, .black]
+//    var mockedEmojiList: [Emoji] = []
+//    var colors: [UIColor] = [.blue, .green, .red, .yellow, .black]
+//    var emojiImage: UIImageView?
     lazy var collectionView: UICollectionView = {
         let v = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
         return v
@@ -47,24 +49,38 @@ class EmojisListViewController: UIViewController, Coordinating, EmojiPresenter {
         title = "Emojis List"
         view.backgroundColor = .systemBlue
 
-            let layout = UICollectionViewFlowLayout()
-            layout.scrollDirection = .vertical
-            
-            layout.minimumLineSpacing = 8
-            layout.minimumInteritemSpacing = 4
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .vertical
+        
+        layout.minimumLineSpacing = 8
+        layout.minimumInteritemSpacing = 4
 
-            collectionView = .init(frame: .zero, collectionViewLayout: layout)
+        collectionView = .init(frame: .zero, collectionViewLayout: layout)
 
-            collectionView.register(ColorCell.self, forCellWithReuseIdentifier: "cell")
+        collectionView.register(EmojiCell.self, forCellWithReuseIdentifier: "cell")
 
-            collectionView.delegate = self
-            collectionView.dataSource = self
+        collectionView.delegate = self
+        collectionView.dataSource = self
         }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         print("Emojis: \(String(describing: emojiStorage?.emojis.count))")
         
+    }
+    
+    func getData(from url: URL, completion: @escaping (Data?, URLResponse?, Error?) -> ()) {
+        URLSession.shared.dataTask(with: url, completionHandler: completion).resume()
+    }
+
+    func downloadImage(url: URL, imageView: UIImageView){
+        getData(from: url) { data, response, error in
+            guard let data = data, error == nil else { return }
+            // always update the UI from the main thread
+            DispatchQueue.main.async() {
+                imageView.image = UIImage(data: data)
+            }
+        }
     }
 }
 
@@ -78,14 +94,21 @@ extension EmojisListViewController: EmojiStorageDelegate {
 
 extension EmojisListViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return colors.count
+        
+        let countEmojis = emojiStorage?.emojis.count ?? 0
+        
+        return countEmojis
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as? ColorCell else {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as? EmojiCell else {
             return UICollectionViewCell()
         }
-        cell.color = colors[indexPath.row]
+
+        let url = URL(string: (emojiStorage?.emojis[indexPath.row].url)!)!
+        
+        cell.setUpCell(url: url)
+        
         return cell
     }
 }

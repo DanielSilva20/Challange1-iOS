@@ -29,6 +29,7 @@ class LiveEmojiStorage: EmojiStorage {
                         self.emojis.append(Emoji (name: "\(emojiName)", url: "\(emojiUrl)"))
                     }
                 }
+                self.emojis.sort()
                 DispatchQueue.main.async {
                     
                     self.delegate?.emojiListUpdated()
