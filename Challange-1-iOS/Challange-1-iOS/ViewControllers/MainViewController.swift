@@ -107,7 +107,7 @@ class MainViewController: BaseGenericViewController<BaseGenericView>, Coordinati
             $0.configuration = .filled()
         }
         
-        self.navigationController?.navigationBar.tintColor = .black
+        self.navigationController?.navigationBar.tintColor = .white
         
         btnEmojisList.addTarget(self, action: #selector(didTapEmojisLIst), for: .touchUpInside)
         btnRandomEmoji.addTarget(self, action: #selector(getRandomEmoji), for: .touchUpInside)

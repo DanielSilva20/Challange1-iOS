@@ -7,7 +7,7 @@
 
 import UIKit
 
-class GaleryCell: UICollectionViewCell {
+class EmojiCell: UICollectionViewCell {
     
     let imageView: UIImageView
     var dataTask: URLSessionDataTask?

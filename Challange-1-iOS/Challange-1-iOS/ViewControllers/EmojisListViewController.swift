@@ -54,7 +54,7 @@ class EmojisListViewController: UIViewController, Coordinating, EmojiPresenter {
 
         collectionView = .init(frame: .zero, collectionViewLayout: layout)
 
-        collectionView.register(GaleryCell.self, forCellWithReuseIdentifier: "cell")
+        collectionView.register(EmojiCell.self, forCellWithReuseIdentifier: "cell")
 
         collectionView.delegate = self
         collectionView.dataSource = self
@@ -83,7 +83,7 @@ extension EmojisListViewController: UICollectionViewDataSource {
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as? GaleryCell else {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as? EmojiCell else {
             return UICollectionViewCell()
         }
 

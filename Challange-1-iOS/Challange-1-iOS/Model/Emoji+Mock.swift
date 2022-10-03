@@ -8,6 +8,7 @@
 import Foundation
 
 
+import Foundation
 
 //var mockedEmojis: [Emoji] = [Emoji(name: "1", emojiUrl: "https://github.githubassets.com/images/icons/emoji/unicode/1f18e.png?v8"),
 //                       Emoji(name: "2", emojiUrl: "https://github.githubassets.com/images/icons/emoji/unicode/1f18e.png?v8"),
