@@ -20,10 +20,14 @@
 		08490FAC28E723B800DAB664 /* EmojiApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08490FAB28E723B800DAB664 /* EmojiApi.swift */; };
 		08490FAE28E726DF00DAB664 /* GeralApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08490FAD28E726DF00DAB664 /* GeralApi.swift */; };
 		089CA0B528E31F8000386DF0 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 089CA0B428E31F8000386DF0 /* Alamofire */; };
+		08DF7D4D28EB039400B900BC /* AvatarApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08DF7D4C28EB039400B900BC /* AvatarApi.swift */; };
+		08DF7D4F28EB044800B900BC /* Avatar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08DF7D4E28EB044800B900BC /* Avatar.swift */; };
+		08DF7D5128EB045500B900BC /* Avatar+Mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08DF7D5028EB045500B900BC /* Avatar+Mock.swift */; };
+		08DF7D5328EB3C4C00B900BC /* LiveAvatarStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08DF7D5228EB3C4C00B900BC /* LiveAvatarStorage.swift */; };
 		08FB470128E48246000CC6E7 /* Emoji.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08FB470028E48246000CC6E7 /* Emoji.swift */; };
 		08FB470328E48B03000CC6E7 /* Emoji+Mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08FB470228E48B03000CC6E7 /* Emoji+Mock.swift */; };
 		08FB470628E491D4000CC6E7 /* LiveEmojiStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08FB470528E491D4000CC6E7 /* LiveEmojiStorage.swift */; };
-		08FB470B28E4AB51000CC6E7 /* EmojiCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08FB470A28E4AB51000CC6E7 /* EmojiCell.swift */; };
+		08FB470B28E4AB51000CC6E7 /* GaleryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08FB470A28E4AB51000CC6E7 /* GaleryCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -41,10 +45,14 @@
 		081F2BA128DDC2870003AB99 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		08490FAB28E723B800DAB664 /* EmojiApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiApi.swift; sourceTree = "<group>"; };
 		08490FAD28E726DF00DAB664 /* GeralApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeralApi.swift; sourceTree = "<group>"; };
+		08DF7D4C28EB039400B900BC /* AvatarApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarApi.swift; sourceTree = "<group>"; };
+		08DF7D4E28EB044800B900BC /* Avatar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Avatar.swift; sourceTree = "<group>"; };
+		08DF7D5028EB045500B900BC /* Avatar+Mock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Avatar+Mock.swift"; sourceTree = "<group>"; };
+		08DF7D5228EB3C4C00B900BC /* LiveAvatarStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveAvatarStorage.swift; sourceTree = "<group>"; };
 		08FB470028E48246000CC6E7 /* Emoji.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Emoji.swift; sourceTree = "<group>"; };
 		08FB470228E48B03000CC6E7 /* Emoji+Mock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Emoji+Mock.swift"; sourceTree = "<group>"; };
 		08FB470528E491D4000CC6E7 /* LiveEmojiStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveEmojiStorage.swift; sourceTree = "<group>"; };
-		08FB470A28E4AB51000CC6E7 /* EmojiCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiCell.swift; sourceTree = "<group>"; };
+		08FB470A28E4AB51000CC6E7 /* GaleryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GaleryCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,6 +106,7 @@
 			isa = PBXGroup;
 			children = (
 				08490FAB28E723B800DAB664 /* EmojiApi.swift */,
+				08DF7D4C28EB039400B900BC /* AvatarApi.swift */,
 				08490FAD28E726DF00DAB664 /* GeralApi.swift */,
 			);
 			path = API;
@@ -119,6 +128,8 @@
 			children = (
 				08FB470028E48246000CC6E7 /* Emoji.swift */,
 				08FB470228E48B03000CC6E7 /* Emoji+Mock.swift */,
+				08DF7D4E28EB044800B900BC /* Avatar.swift */,
+				08DF7D5028EB045500B900BC /* Avatar+Mock.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -127,6 +138,7 @@
 			isa = PBXGroup;
 			children = (
 				08FB470528E491D4000CC6E7 /* LiveEmojiStorage.swift */,
+				08DF7D5228EB3C4C00B900BC /* LiveAvatarStorage.swift */,
 			);
 			path = Storage;
 			sourceTree = "<group>";
@@ -134,7 +146,7 @@
 		08FB470928E4AB43000CC6E7 /* Cell */ = {
 			isa = PBXGroup;
 			children = (
-				08FB470A28E4AB51000CC6E7 /* EmojiCell.swift */,
+				08FB470A28E4AB51000CC6E7 /* GaleryCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -215,13 +227,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				08DF7D5328EB3C4C00B900BC /* LiveAvatarStorage.swift in Sources */,
 				0817A4F128E1AE17007217C2 /* AvatarsListViewController.swift in Sources */,
 				081F2B9828DDC2860003AB99 /* MainViewController.swift in Sources */,
 				0817A4F728E1B898007217C2 /* MainCoordinator.swift in Sources */,
 				08FB470128E48246000CC6E7 /* Emoji.swift in Sources */,
 				081F2B9428DDC2860003AB99 /* AppDelegate.swift in Sources */,
-				08FB470B28E4AB51000CC6E7 /* EmojiCell.swift in Sources */,
+				08FB470B28E4AB51000CC6E7 /* GaleryCell.swift in Sources */,
+				08DF7D4F28EB044800B900BC /* Avatar.swift in Sources */,
 				081F2B9628DDC2860003AB99 /* SceneDelegate.swift in Sources */,
+				08DF7D4D28EB039400B900BC /* AvatarApi.swift in Sources */,
 				0817A4F328E1AE2F007217C2 /* AppleReposViewController.swift in Sources */,
 				08490FAE28E726DF00DAB664 /* GeralApi.swift in Sources */,
 				08490FAC28E723B800DAB664 /* EmojiApi.swift in Sources */,
@@ -229,6 +244,7 @@
 				0817A4F528E1B774007217C2 /* Coordinator.swift in Sources */,
 				08FB470328E48B03000CC6E7 /* Emoji+Mock.swift in Sources */,
 				08FB470628E491D4000CC6E7 /* LiveEmojiStorage.swift in Sources */,
+				08DF7D5128EB045500B900BC /* Avatar+Mock.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
