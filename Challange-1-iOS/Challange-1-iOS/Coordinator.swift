@@ -30,3 +30,7 @@ protocol Coordinating {
 protocol EmojiStorageDelegate: AnyObject {
     func emojiListUpdated()
 }
+
+protocol AvatarStorageDelegate: AnyObject {
+    func avatarListUpdated()
+}

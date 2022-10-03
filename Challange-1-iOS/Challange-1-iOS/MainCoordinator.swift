@@ -8,13 +8,18 @@
 import Foundation
 import UIKit
 
-class MainCoordinator: Coordinator, EmojiPresenter {
+class MainCoordinator: Coordinator, EmojiPresenter, AvatarPresenter {
+    var avatarStorage: AvatarStorage?
     var navigationController: UINavigationController?
     var emojiStorage: EmojiStorage?
     
-    init(emojiStorage: EmojiStorage) {
+    //O avatar Storage só precisa de ser chamada quando se clica no avatars list button
+    init(emojiStorage: EmojiStorage, avatarStorage: AvatarStorage) {
         self.emojiStorage = emojiStorage
         self.emojiStorage?.delegate = self
+        
+        self.avatarStorage = avatarStorage
+        self.avatarStorage?.delegate = self
     }
     
     func eventOccurred(with type: Event) {
@@ -25,8 +30,9 @@ class MainCoordinator: Coordinator, EmojiPresenter {
             vc.emojiStorage = emojiStorage
             navigationController?.pushViewController(vc, animated: true)
         case .buttonAvatarsListTapped:
-            var vc: UIViewController & Coordinating = AvatarsListViewController()
+            var vc: UIViewController & Coordinating & AvatarPresenter = AvatarsListViewController()
             vc.coordinator = self
+            vc.avatarStorage = avatarStorage
             navigationController?.pushViewController(vc, animated: true)
         case .buttonAppleReposTapped:
             var vc: UIViewController & Coordinating = AvatarsListViewController()
@@ -44,10 +50,20 @@ class MainCoordinator: Coordinator, EmojiPresenter {
      
 }
 
+//É preciso fazer abstração nestas extensões?
+
 extension MainCoordinator: EmojiStorageDelegate {
     func emojiListUpdated() {
         navigationController?.viewControllers.forEach {
             ($0 as? EmojiPresenter)?.emojiListUpdated()
+        }
+    }
+}
+
+extension MainCoordinator: AvatarStorageDelegate {
+    func avatarListUpdated() {
+        navigationController?.viewControllers.forEach {
+            ($0 as? AvatarPresenter)?.avatarListUpdated()
         }
     }
 }
