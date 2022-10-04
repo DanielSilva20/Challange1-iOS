@@ -46,9 +46,11 @@ class MainCoordinator: Coordinator, EmojiPresenter, AvatarPresenter {
         var vc: UIViewController & Coordinating & EmojiPresenter = MainViewController()
         vc.coordinator = self
         vc.emojiStorage = emojiStorage
-        liveEmojiStorage.fetchEmojis({ (result: EmojisAPICAllResult) in
-            vc.emojiStorage?.emojis = result.emojis
-        })
+        if((vc.emojiStorage?.emojis.count) == 0) {
+            liveEmojiStorage.fetchEmojis({ (result: EmojisAPICAllResult) in
+                vc.emojiStorage?.emojis = result.emojis
+            })
+        }
         vc.emojiStorage?.emojis.sort()
         navigationController?.setViewControllers([vc], animated: false)
     }
