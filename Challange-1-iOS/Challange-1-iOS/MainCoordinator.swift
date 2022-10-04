@@ -12,6 +12,7 @@ class MainCoordinator: Coordinator, EmojiPresenter, AvatarPresenter {
     var avatarStorage: AvatarStorage?
     var navigationController: UINavigationController?
     var emojiStorage: EmojiStorage?
+    var liveEmojiStorage: LiveEmojiStorage = .init()
     
     //O avatar Storage só precisa de ser chamada quando se clica no avatars list button
     init(emojiStorage: EmojiStorage, avatarStorage: AvatarStorage) {
@@ -45,6 +46,10 @@ class MainCoordinator: Coordinator, EmojiPresenter, AvatarPresenter {
         var vc: UIViewController & Coordinating & EmojiPresenter = MainViewController()
         vc.coordinator = self
         vc.emojiStorage = emojiStorage
+        liveEmojiStorage.fetchEmojis({ (result: EmojisAPICAllResult) in
+            vc.emojiStorage?.emojis = result.emojis
+        })
+        vc.emojiStorage?.emojis.sort()
         navigationController?.setViewControllers([vc], animated: false)
     }
      

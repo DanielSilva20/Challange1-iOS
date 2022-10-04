@@ -51,9 +51,9 @@ class MainViewController: BaseGenericViewController<BaseGenericView>, Coordinati
     private var searchBtn: UIButton
     private var emojiImage: UIImageView
     
-    private var urlEmojiImage : String
+    private var urlEmojiImage: String
     
-    
+    var emojiService: LiveEmojiStorage = .init()
 
     
     init() {
@@ -86,6 +86,12 @@ class MainViewController: BaseGenericViewController<BaseGenericView>, Coordinati
         setUpConstraints()
         
 //        genericView.businessLogicOfMain()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        getRandomEmoji()
     }
     
     // 1 - SetUp the views
@@ -159,29 +165,36 @@ class MainViewController: BaseGenericViewController<BaseGenericView>, Coordinati
     }
     
     @objc func getRandomEmoji() {
-        let randomNumber = Int.random(in: 0 ... (emojiStorage?.emojis.count ?? 0))
+//        let randomNumber = Int.random(in: 0 ... (emojiStorage?.emojis.count ?? 0))
+//
+//        guard let emoji = emojiStorage?.emojis.item(at: randomNumber) else { return }
+//
+//        let url = emoji.emojiUrl
+//        downloadImage(from: url)
+//
         
-        guard let emoji = emojiStorage?.emojis.item(at: randomNumber) else { return }
         
-        let url = emoji.emojiUrl
-        downloadImage(from: url)
+        
+        emojiService.getRandomEmojiUrl({ (url: URL) in
+            self.emojiImage.downloaded(from: url)
+        })
         
     }
     
  
-    func getData(from url: URL, completion: @escaping (Data?, URLResponse?, Error?) -> ()) {
-        URLSession.shared.dataTask(with: url, completionHandler: completion).resume()
-    }
-    
-    func downloadImage(from url: URL) {
-        getData(from: url) { data, response, error in
-            guard let data = data, error == nil else { return }
-            // always update the UI from the main thread
-            DispatchQueue.main.async() { [weak self] in
-                self?.emojiImage.image = UIImage(data: data)
-            }
-        }
-    }
+//    func getData(from url: URL, completion: @escaping (Data?, URLResponse?, Error?) -> ()) {
+//        URLSession.shared.dataTask(with: url, completionHandler: completion).resume()
+//    }
+//
+//    func downloadImage(from url: URL) {
+//        getData(from: url) { data, response, error in
+//            guard let data = data, error == nil else { return }
+//            // always update the UI from the main thread
+//            DispatchQueue.main.async() { [weak self] in
+//                self?.emojiImage.image = UIImage(data: data)
+//            }
+//        }
+//    }
    
 }
 
