@@ -38,7 +38,7 @@ extension Array {
 
 class MainViewController: BaseGenericViewController<BaseGenericView>, Coordinating, EmojiPresenter {
     var coordinator: Coordinator?
-    var emojiStorage: EmojiStorage?
+    var emojiService: EmojiService?
     
     private var verticalStackView: UIStackView
     private var searchStackView: UIStackView
@@ -53,7 +53,7 @@ class MainViewController: BaseGenericViewController<BaseGenericView>, Coordinati
     
     private var urlEmojiImage: String
     
-    var emojiService: LiveEmojiStorage = .init()
+//    var emojiService: LiveEmojiStorage = .init()
 
     
     init() {
@@ -175,7 +175,7 @@ class MainViewController: BaseGenericViewController<BaseGenericView>, Coordinati
         
         
         
-        emojiService.getRandomEmojiUrl({ (url: URL) in
+        emojiService?.getRandomEmojiUrl({ (url: URL) in
             self.emojiImage.downloaded(from: url)
         })
         

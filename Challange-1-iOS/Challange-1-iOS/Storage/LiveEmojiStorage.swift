@@ -7,34 +7,30 @@
 
 import Foundation
 
-class LiveEmojiStorage: EmojiStorage {
+class LiveEmojiStorage: EmojiService {
     var emojis: [Emoji] = []
     weak var delegate: EmojiStorageDelegate?
     
     private var networkManager: NetworkManager = .init()
     
+    private var liveEmojiStorage: LiveEmojiStorage?
+    private var emojisViewController: EmojisListViewController?
+    
     init(){
-//        loadEmojis()
-    }
 
-//    func loadEmojis() {
-//        networkManager.executeNetworkCall(EmojiAPI.getEmojis) { (result: Result<EmojisAPICAllResult, Error>) in
-//            switch result {
-//            case .success(let success):
-//                self.emojis = success.emojis
-//                self.emojis.sort()
-//                DispatchQueue.main.async {
-//                    self.delegate?.emojiListUpdated()
-//                }
-//                print("Success: \(success)")
-//            case .failure(let failure):
-//                print("Error: \(failure)")
-//            }
-//        }
-//    }
+    }
+    
+    func loadEmojis() {
+        liveEmojiStorage?.getEmojisList({ (result: EmojisAPICAllResult) in
+            self.emojisViewController?.emojiStorage?.emojis = result.emojis
+            DispatchQueue.main.async() { [weak self] in
+                self?.emojisViewController?.collectionView.reloadData()
+            }
+        })
+    }
     
     
-    func fetchEmojis(_ resultHandler: @escaping (EmojisAPICAllResult) -> Void) {
+    func getEmojisList(_ resultHandler: @escaping (EmojisAPICAllResult) -> Void) {
         networkManager.executeNetworkCall(EmojiAPI.getEmojis) { (result: Result<EmojisAPICAllResult, Error>) in
             switch result {
             case .success(let success):
@@ -48,7 +44,7 @@ class LiveEmojiStorage: EmojiStorage {
     
     func getRandomEmojiUrl(_ resultUrl: @escaping (URL) -> Void) {
         // fetch emojis and return a random emoji
-        fetchEmojis { (result: EmojisAPICAllResult) in
+        getEmojisList { (result: EmojisAPICAllResult) in
             guard let randomUrl = result.emojis.randomElement()?.emojiUrl else { return }
             
             resultUrl(randomUrl)
@@ -57,10 +53,8 @@ class LiveEmojiStorage: EmojiStorage {
 }
 
 protocol EmojiPresenter: EmojiStorageDelegate {
-    var emojiStorage: EmojiStorage? { get set }
+    var emojiService: EmojiService? { get set }
 }
 
-protocol EmojiStorage {
-    var delegate: EmojiStorageDelegate? { get set }
-    var emojis: [Emoji] { get set }
-}
+
+

@@ -8,8 +8,11 @@
 import UIKit
 
 class EmojisListViewController: UIViewController, Coordinating, EmojiPresenter {
+    var emojiService: EmojiService?
+    
     var coordinator: Coordinator?
     var emojiStorage: EmojiStorage?
+    var liveEmojiStorage: LiveEmojiStorage = .init()
     lazy var collectionView: UICollectionView = {
         let v = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
         return v
@@ -62,6 +65,14 @@ class EmojisListViewController: UIViewController, Coordinating, EmojiPresenter {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+//        emojiService?.getEmojisList({ (result: EmojisAPICAllResult) in
+//            self.emojiStorage?.emojis = result.emojis
+//            DispatchQueue.main.async() { [weak self] in
+//                self?.collectionView.reloadData()
+//            }
+//        })
+
+    
         print("Emojis: \(String(describing: emojiStorage?.emojis.count))")
         
     }
