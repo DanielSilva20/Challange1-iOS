@@ -8,18 +8,16 @@
 import UIKit
 
 class MockEmojiStorage: EmojiService {
+
     var delegate: EmojiStorageDelegate?
-    
     
     private var mockedEmojis: MockedEmojisStorage = .init()
     
     var emojis: [Emoji] = []
     
-    func getRandomEmojiUrl(_ resultUrl: @escaping (URL) -> Void) {
+    func getEmojisList(_ resultHandler: @escaping (Result<[Emoji], Error>) -> Void) {
         emojis = mockedEmojis.emojis
-        guard let url = emojis.randomElement()?.emojiUrl else { return }
-        resultUrl(url)
+        resultHandler(.success(emojis))
     }
-    
-    
+
 }

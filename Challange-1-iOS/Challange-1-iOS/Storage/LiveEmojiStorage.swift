@@ -20,21 +20,21 @@ class LiveEmojiStorage: EmojiService {
 
     }
     
-    func loadEmojis() {
-        liveEmojiStorage?.getEmojisList({ (result: EmojisAPICAllResult) in
-            self.emojisViewController?.emojiStorage?.emojis = result.emojis
-            DispatchQueue.main.async() { [weak self] in
-                self?.emojisViewController?.collectionView.reloadData()
-            }
-        })
-    }
+//    func loadEmojis() {
+//        liveEmojiStorage?.getEmojisList({ (result: EmojisAPICAllResult) in
+//            self.emojisViewController?.emojiStorage?.emojis = result.emojis
+//            DispatchQueue.main.async() { [weak self] in
+//                self?.emojisViewController?.collectionView.reloadData()
+//            }
+//        })
+//    }
     
     
-    func getEmojisList(_ resultHandler: @escaping (EmojisAPICAllResult) -> Void) {
+    func getEmojisList(_ resultHandler: @escaping (Result<[Emoji], Error>) -> Void) {
         networkManager.executeNetworkCall(EmojiAPI.getEmojis) { (result: Result<EmojisAPICAllResult, Error>) in
             switch result {
             case .success(let success):
-                resultHandler(success)
+                resultHandler(.success(success.emojis))
 //                print("Success: \(success)")
             case .failure(let failure):
                 print("Error: \(failure)")
@@ -42,14 +42,15 @@ class LiveEmojiStorage: EmojiService {
         }
     }
     
-    func getRandomEmojiUrl(_ resultUrl: @escaping (URL) -> Void) {
-        // fetch emojis and return a random emoji
-        getEmojisList { (result: EmojisAPICAllResult) in
-            guard let randomUrl = result.emojis.randomElement()?.emojiUrl else { return }
-            
-            resultUrl(randomUrl)
-        }
-    }
+//    func getRandomEmojiUrl(_ resultUrl: @escaping (URL) -> Void) {
+//        // fetch emojis and return a random emoji
+//        getEmojisList { (result: [Emoji]) in
+//            guard let randomUrl = result.randomElement()?.emojiUrl else { return }
+//            
+//            resultUrl(randomUrl)
+//        }
+//    }
+    
 }
 
 protocol EmojiPresenter: EmojiStorageDelegate {

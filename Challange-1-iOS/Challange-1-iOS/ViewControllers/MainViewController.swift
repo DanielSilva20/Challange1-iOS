@@ -175,10 +175,18 @@ class MainViewController: BaseGenericViewController<BaseGenericView>, Coordinati
         
         
         
-        emojiService?.getRandomEmojiUrl({ (url: URL) in
-            self.emojiImage.downloaded(from: url)
-        })
-        
+//        emojiService?.getEmojisList({ (url: URL) in
+//            self.emojiImage.downloaded(from: url)
+//        })
+        emojiService?.getEmojisList{
+            (result: Result<[Emoji], Error>) in
+            switch result {
+            case .success(let success):
+                self.emojiImage.downloaded(from: success.randomElement()!.emojiUrl)
+            case .failure(let failure):
+                print("Error: \(failure)")
+            }
+        }
     }
     
  
