@@ -9,12 +9,11 @@ import Foundation
 
 class LiveEmojiStorage: EmojiService {
     var emojis: [Emoji] = []
-    weak var delegate: EmojiStorageDelegate?
     
     private var networkManager: NetworkManager = .init()
     
-    private var liveEmojiStorage: LiveEmojiStorage?
-    private var emojisViewController: EmojisListViewController?
+//    private var liveEmojiStorage: LiveEmojiStorage?
+//    private var emojisViewController: EmojisListViewController?
     
     init(){
 
