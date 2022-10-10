@@ -80,7 +80,7 @@ class MainViewController: BaseGenericViewController<BaseGenericView>, Coordinati
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
+        overrideUserInterfaceStyle = .light
         setUpViews()
         addViewsToSuperview()
         setUpConstraints()
@@ -96,8 +96,8 @@ class MainViewController: BaseGenericViewController<BaseGenericView>, Coordinati
     
     // 1 - SetUp the views
     private func setUpViews() {
-        view.backgroundColor = .systemBlue
-        view.tintColor = .lightGray
+        view.backgroundColor = .appColor(name: .surface)
+        view.tintColor = .appColor(name: .secondary)
         
         verticalStackView.axis = .vertical
         searchStackView.axis = .horizontal
@@ -113,7 +113,7 @@ class MainViewController: BaseGenericViewController<BaseGenericView>, Coordinati
             $0.configuration = .filled()
         }
         
-        self.navigationController?.navigationBar.tintColor = .black
+        self.navigationController?.navigationBar.tintColor = .appColor(name: .primary)
         
         btnEmojisList.addTarget(self, action: #selector(didTapEmojisLIst), for: .touchUpInside)
         btnRandomEmoji.addTarget(self, action: #selector(getRandomEmoji), for: .touchUpInside)

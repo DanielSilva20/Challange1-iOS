@@ -52,7 +52,7 @@ class EmojisListViewController: UIViewController, Coordinating, EmojiPresenter {
     
     private func setUpCollectionView() {
         title = "Emojis List"
-        view.backgroundColor = .systemBlue
+//        view.backgroundColor = .appColor(name: .surface)
 
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
@@ -65,7 +65,7 @@ class EmojisListViewController: UIViewController, Coordinating, EmojiPresenter {
         collectionView.register(GaleryCell.self, forCellWithReuseIdentifier: "cell")
 
         collectionView.delegate = self
-        collectionView.dataSource = strong
+        collectionView.dataSource = self
         }
     
     override func viewDidAppear(_ animated: Bool) {
