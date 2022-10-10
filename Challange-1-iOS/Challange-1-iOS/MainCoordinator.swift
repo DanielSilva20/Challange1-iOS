@@ -9,14 +9,16 @@ import Foundation
 import UIKit
 
 class MainCoordinator: Coordinator, EmojiPresenter, AvatarPresenter {
+    var emojiService: EmojiService?
+    
     var avatarStorage: AvatarStorage?
     var navigationController: UINavigationController?
-    var emojiStorage: EmojiStorage?
+
+    var liveEmojiStorage: LiveEmojiStorage = .init()
     
     //O avatar Storage só precisa de ser chamada quando se clica no avatars list button
-    init(emojiStorage: EmojiStorage, avatarStorage: AvatarStorage) {
-        self.emojiStorage = emojiStorage
-        self.emojiStorage?.delegate = self
+    init(emojiService: EmojiService, avatarStorage: AvatarStorage) {
+        self.emojiService = emojiService
         
         self.avatarStorage = avatarStorage
         self.avatarStorage?.delegate = self
@@ -27,7 +29,7 @@ class MainCoordinator: Coordinator, EmojiPresenter, AvatarPresenter {
         case .buttonEmojisListTapped:
             var vc: UIViewController & Coordinating & EmojiPresenter = EmojisListViewController()
             vc.coordinator = self
-            vc.emojiStorage = emojiStorage
+            vc.emojiService = emojiService
             navigationController?.pushViewController(vc, animated: true)
         case .buttonAvatarsListTapped:
             var vc: UIViewController & Coordinating & AvatarPresenter = AvatarsListViewController()
@@ -44,7 +46,7 @@ class MainCoordinator: Coordinator, EmojiPresenter, AvatarPresenter {
     func start() {
         var vc: UIViewController & Coordinating & EmojiPresenter = MainViewController()
         vc.coordinator = self
-        vc.emojiStorage = emojiStorage
+        vc.emojiService = emojiService
         navigationController?.setViewControllers([vc], animated: false)
     }
      
