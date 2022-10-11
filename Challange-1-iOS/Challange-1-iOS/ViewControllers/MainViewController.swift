@@ -80,7 +80,7 @@ class MainViewController: BaseGenericViewController<BaseGenericView>, Coordinati
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        overrideUserInterfaceStyle = .light
+
         setUpViews()
         addViewsToSuperview()
         setUpConstraints()
@@ -90,12 +90,13 @@ class MainViewController: BaseGenericViewController<BaseGenericView>, Coordinati
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        getRandomEmoji()
+
     }
     
     // 1 - SetUp the views
     private func setUpViews() {
+//        overrideUserInterfaceStyle = .dark
+        
         view.backgroundColor = .appColor(name: .surface)
         view.tintColor = .appColor(name: .secondary)
         
@@ -119,6 +120,9 @@ class MainViewController: BaseGenericViewController<BaseGenericView>, Coordinati
         btnRandomEmoji.addTarget(self, action: #selector(getRandomEmoji), for: .touchUpInside)
         btnAvatarsList.addTarget(self, action: #selector(didTapAvatarsList), for: .touchUpInside)
         btnAppleRepos.addTarget(self, action: #selector(didTapAppleRepos), for: .touchUpInside)
+        
+        
+        getRandomEmoji()
     }
     
     // 2 - Add to superview
