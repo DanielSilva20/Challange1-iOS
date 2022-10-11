@@ -25,6 +25,8 @@
 		089CA0B528E31F8000386DF0 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 089CA0B428E31F8000386DF0 /* Alamofire */; };
 		08B6D33628F5611600BBCD38 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 081F2B9728DDC2860003AB99 /* MainViewController.swift */; };
 		08B6D33728F561EE00BBCD38 /* ColorProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 087F8DD328F42CBE00D1C77B /* ColorProvider.swift */; };
+		08B6D39C28F5849600BBCD38 /* EmojiPersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08B6D39B28F5849600BBCD38 /* EmojiPersistence.swift */; };
+		08B6D39F28F5B7B600BBCD38 /* EmojiList.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 08B6D39D28F5B7B600BBCD38 /* EmojiList.xcdatamodeld */; };
 		08BB8FC428EC798200CE4576 /* EmojiResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08BB8FC328EC798200CE4576 /* EmojiResponse.swift */; };
 		08BB8FC728EC871900CE4576 /* ImageView+Download.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08BB8FC628EC871900CE4576 /* ImageView+Download.swift */; };
 		08DF7D4D28EB039400B900BC /* AvatarApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08DF7D4C28EB039400B900BC /* AvatarApi.swift */; };
@@ -57,6 +59,8 @@
 		086398E628F0833C0031B62A /* Spacing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Spacing.swift; sourceTree = "<group>"; };
 		086398E928F087CC0031B62A /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		087F8DD328F42CBE00D1C77B /* ColorProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorProvider.swift; sourceTree = "<group>"; };
+		08B6D39B28F5849600BBCD38 /* EmojiPersistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiPersistence.swift; sourceTree = "<group>"; };
+		08B6D39E28F5B7B600BBCD38 /* EmojiList.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = EmojiList.xcdatamodel; sourceTree = "<group>"; };
 		08BB8FC328EC798200CE4576 /* EmojiResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiResponse.swift; sourceTree = "<group>"; };
 		08BB8FC628EC871900CE4576 /* ImageView+Download.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ImageView+Download.swift"; sourceTree = "<group>"; };
 		08DF7D4C28EB039400B900BC /* AvatarApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarApi.swift; sourceTree = "<group>"; };
@@ -100,6 +104,7 @@
 		081F2B9228DDC2860003AB99 /* Challange-1-iOS */ = {
 			isa = PBXGroup;
 			children = (
+				08B6D39728F5838F00BBCD38 /* Persistence */,
 				08BB8FC528EC870A00CE4576 /* Utilities */,
 				08490FAA28E6F6AC00DAB664 /* Network */,
 				08FB470928E4AB43000CC6E7 /* Cell */,
@@ -136,6 +141,15 @@
 				087F8DD328F42CBE00D1C77B /* ColorProvider.swift */,
 			);
 			path = "Design System";
+			sourceTree = "<group>";
+		};
+		08B6D39728F5838F00BBCD38 /* Persistence */ = {
+			isa = PBXGroup;
+			children = (
+				08B6D39B28F5849600BBCD38 /* EmojiPersistence.swift */,
+				08B6D39D28F5B7B600BBCD38 /* EmojiList.xcdatamodeld */,
+			);
+			path = Persistence;
 			sourceTree = "<group>";
 		};
 		08BB8FC128EC792300CE4576 /* API */ = {
@@ -293,9 +307,11 @@
 				08BB8FC428EC798200CE4576 /* EmojiResponse.swift in Sources */,
 				08BB8FC728EC871900CE4576 /* ImageView+Download.swift in Sources */,
 				08DF7D4F28EB044800B900BC /* Avatar.swift in Sources */,
+				08B6D39C28F5849600BBCD38 /* EmojiPersistence.swift in Sources */,
 				081F2B9628DDC2860003AB99 /* SceneDelegate.swift in Sources */,
 				08DF7D4D28EB039400B900BC /* AvatarApi.swift in Sources */,
 				086398E728F0833C0031B62A /* Spacing.swift in Sources */,
+				08B6D39F28F5B7B600BBCD38 /* EmojiList.xcdatamodeld in Sources */,
 				08B6D33628F5611600BBCD38 /* MainViewController.swift in Sources */,
 				0817A4F328E1AE2F007217C2 /* AppleReposViewController.swift in Sources */,
 				08490FAE28E726DF00DAB664 /* NetworkManager.swift in Sources */,
@@ -529,6 +545,19 @@
 			productName = Alamofire;
 		};
 /* End XCSwiftPackageProductDependency section */
+
+/* Begin XCVersionGroup section */
+		08B6D39D28F5B7B600BBCD38 /* EmojiList.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				08B6D39E28F5B7B600BBCD38 /* EmojiList.xcdatamodel */,
+			);
+			currentVersion = 08B6D39E28F5B7B600BBCD38 /* EmojiList.xcdatamodel */;
+			path = EmojiList.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 081F2B8828DDC2860003AB99 /* Project object */;
 }

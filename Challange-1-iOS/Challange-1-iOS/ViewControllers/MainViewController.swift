@@ -1,5 +1,6 @@
 import UIKit
 import Alamofire
+import CoreData
 
 class BaseGenericView: UIView {
     required init() {
@@ -52,6 +53,7 @@ class MainViewController: BaseGenericViewController<BaseGenericView>, Coordinati
     private var emojiImage: UIImageView
     
     private var urlEmojiImage: String
+    let persistence: EmojiPersistence = EmojiPersistence()
     
 //    var emojiService: LiveEmojiStorage = .init()
 
@@ -69,7 +71,7 @@ class MainViewController: BaseGenericViewController<BaseGenericView>, Coordinati
         urlEmojiImage = .init()
         searchStackView = .init(arrangedSubviews: [searchBar, searchBtn])
         verticalStackView = .init(arrangedSubviews: [emojiContainer, btnRandomEmoji, btnEmojisList, searchStackView, btnAvatarsList, btnAppleRepos])
-
+        
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -84,6 +86,7 @@ class MainViewController: BaseGenericViewController<BaseGenericView>, Coordinati
         setUpViews()
         addViewsToSuperview()
         setUpConstraints()
+        
         
 //        genericView.businessLogicOfMain()
     }
@@ -119,7 +122,7 @@ class MainViewController: BaseGenericViewController<BaseGenericView>, Coordinati
         btnEmojisList.addTarget(self, action: #selector(didTapEmojisLIst), for: .touchUpInside)
         btnRandomEmoji.addTarget(self, action: #selector(getRandomEmoji), for: .touchUpInside)
         btnAvatarsList.addTarget(self, action: #selector(didTapAvatarsList), for: .touchUpInside)
-        btnAppleRepos.addTarget(self, action: #selector(didTapAppleRepos), for: .touchUpInside)
+        btnAppleRepos.addTarget(self, action: #selector(printCoreData), for: .touchUpInside)
         
         
         getRandomEmoji()
@@ -168,6 +171,11 @@ class MainViewController: BaseGenericViewController<BaseGenericView>, Coordinati
         coordinator?.eventOccurred(with: .buttonAppleReposTapped)
     }
     
+    @objc func printCoreData() {
+        print("Apple Repos tapped")
+        print(persistence.emojisPersistenceList.description)
+    }
+    
     @objc func getRandomEmoji() {
 //        let randomNumber = Int.random(in: 0 ... (emojiStorage?.emojis.count ?? 0))
 //
@@ -207,6 +215,8 @@ class MainViewController: BaseGenericViewController<BaseGenericView>, Coordinati
 //            }
 //        }
 //    }
+    
+    
    
 }
 
