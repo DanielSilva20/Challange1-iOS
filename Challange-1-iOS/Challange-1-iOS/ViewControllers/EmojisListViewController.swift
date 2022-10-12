@@ -8,6 +8,7 @@
 import UIKit
 
 class EmojisListViewController: UIViewController, Coordinating, EmojiPresenter {
+    private var collectionView: UICollectionView
     var emojiService: EmojiService?
     
     var coordinator: Coordinator?
@@ -18,10 +19,26 @@ class EmojisListViewController: UIViewController, Coordinating, EmojiPresenter {
     
     var strong = MockedDataSource()
     
-    lazy var collectionView: UICollectionView = {
-        let v = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
-        return v
-    }()
+//    lazy var collectionView: UICollectionView = {
+//        let v = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
+//        return v
+//    }()
+    
+    init(){
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .vertical
+        
+        layout.minimumLineSpacing = 8
+        layout.minimumInteritemSpacing = 4
+
+        collectionView = .init(frame: .zero, collectionViewLayout: layout)
+        
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -52,15 +69,6 @@ class EmojisListViewController: UIViewController, Coordinating, EmojiPresenter {
     
     private func setUpCollectionView() {
         title = "Emojis List"
-//        view.backgroundColor = .appColor(name: .surface)
-
-        let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .vertical
-        
-        layout.minimumLineSpacing = 8
-        layout.minimumInteritemSpacing = 4
-
-        collectionView = .init(frame: .zero, collectionViewLayout: layout)
 
         collectionView.register(GaleryCell.self, forCellWithReuseIdentifier: "cell")
 
@@ -68,7 +76,7 @@ class EmojisListViewController: UIViewController, Coordinating, EmojiPresenter {
         collectionView.dataSource = self
         }
     
-    override func viewDidAppear(_ animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         emojiService?.getEmojisList({ (result: Result<[Emoji], Error>) in
             switch result {
