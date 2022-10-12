@@ -122,6 +122,8 @@ class MainViewController: BaseGenericViewController<BaseGenericView>, Coordinati
         btnRandomEmoji.addTarget(self, action: #selector(getRandomEmoji), for: .touchUpInside)
         btnAvatarsList.addTarget(self, action: #selector(didTapAvatarsList), for: .touchUpInside)
         btnAppleRepos.addTarget(self, action: #selector(printCoreData), for: .touchUpInside)
+        
+        emojiImage.showLoading()
         getRandomEmoji()
     }
     
@@ -174,7 +176,7 @@ class MainViewController: BaseGenericViewController<BaseGenericView>, Coordinati
     }
     
     @objc func getRandomEmoji() {
-        emojiImage.showLoading()
+
         emojiService?.getEmojisList{
             
             (result: Result<[Emoji], Error>) in
