@@ -7,10 +7,7 @@
 
 import Foundation
 
-
-
-class MockedAvatarStorage: AvatarStorage {
-    weak var delegate: AvatarStorageDelegate?
+class MockedAvatarStorage {
     var avatars: [Avatar] = [Avatar(login: "blissapps1", id: 01, avatarUrl: URL(string: "https://avatars0.githubusercontent.com/u/223156?v=4")!),
                              Avatar(login: "blissapps2", id: 02, avatarUrl: URL(string: "https://avatars0.githubusercontent.com/u/223156?v=4")!),
                              Avatar(login: "blissapps3", id: 03, avatarUrl: URL(string: "https://avatars0.githubusercontent.com/u/223156?v=4")!),

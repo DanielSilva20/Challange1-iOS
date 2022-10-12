@@ -31,8 +31,3 @@ extension AvatarAPI: APIProtocol {
         ["Content-Type": "application/json"]
     }
 }
-
-struct AvatarsAPICAllResult: Decodable {
-
-}
-

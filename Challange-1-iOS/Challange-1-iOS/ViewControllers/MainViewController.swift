@@ -49,11 +49,11 @@ class MainViewController: BaseGenericViewController<BaseGenericView>, Coordinati
     private var btnAvatarsList: UIButton
     private var btnAppleRepos: UIButton
     private var searchBar: UISearchBar
-    private var searchBtn: UIButton
+    private var btnSearch: UIButton
     private var emojiImage: UIImageView
     
     private var urlEmojiImage: String
-    let persistence: EmojiPersistence = EmojiPersistence()
+    var avatarPersistence: AvatarPersistence?
     
     //    var emojiService: LiveEmojiStorage = .init()
     
@@ -64,12 +64,12 @@ class MainViewController: BaseGenericViewController<BaseGenericView>, Coordinati
         btnEmojisList = .init(type: .system)
         btnAvatarsList = .init(type: .system)
         btnAppleRepos = .init(type: .system)
-        searchBtn = .init(type: .system)
+        btnSearch = .init(type: .system)
         searchBar = .init(frame: .zero)
         emojiImage = .init(frame: .zero)
         emojiContainer = .init(frame: .zero)
         urlEmojiImage = .init()
-        searchStackView = .init(arrangedSubviews: [searchBar, searchBtn])
+        searchStackView = .init(arrangedSubviews: [searchBar, btnSearch])
         verticalStackView = .init(arrangedSubviews: [emojiContainer, btnRandomEmoji, btnEmojisList, searchStackView, btnAvatarsList, btnAppleRepos])
         
         super.init(nibName: nil, bundle: nil)
@@ -85,14 +85,13 @@ class MainViewController: BaseGenericViewController<BaseGenericView>, Coordinati
         setUpViews()
         addViewsToSuperview()
         setUpConstraints()
-        
-        
+
+        fetchAvatarData()
         //        genericView.businessLogicOfMain()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
     }
     
     // 1 - SetUp the views
@@ -108,10 +107,10 @@ class MainViewController: BaseGenericViewController<BaseGenericView>, Coordinati
         btnEmojisList.setTitle("Emojis List", for: .normal)
         btnAvatarsList.setTitle("Avatars List", for: .normal)
         btnAppleRepos.setTitle("Apple Repos", for: .normal)
-        searchBtn.setTitle("Search", for: .normal)
+        btnSearch.setTitle("Search", for: .normal)
         
         
-        let buttonArray = [btnRandomEmoji, btnEmojisList, searchBtn, btnAvatarsList, btnAppleRepos]
+        let buttonArray = [btnRandomEmoji, btnEmojisList, btnSearch, btnAvatarsList, btnAppleRepos]
         buttonArray.forEach {
             $0.configuration = .filled()
         }
@@ -121,7 +120,8 @@ class MainViewController: BaseGenericViewController<BaseGenericView>, Coordinati
         btnEmojisList.addTarget(self, action: #selector(didTapEmojisLIst), for: .touchUpInside)
         btnRandomEmoji.addTarget(self, action: #selector(getRandomEmoji), for: .touchUpInside)
         btnAvatarsList.addTarget(self, action: #selector(didTapAvatarsList), for: .touchUpInside)
-        btnAppleRepos.addTarget(self, action: #selector(printCoreData), for: .touchUpInside)
+        btnAppleRepos.addTarget(self, action: #selector(didTapAppleRepos), for: .touchUpInside)
+        btnSearch.addTarget(self, action: #selector(saveSearchContent), for: .touchUpInside)
         
         emojiImage.showLoading()
         getRandomEmoji()
@@ -136,7 +136,7 @@ class MainViewController: BaseGenericViewController<BaseGenericView>, Coordinati
     
     // 3 - Set the constraints
     private func setUpConstraints() {
-        searchBtn.translatesAutoresizingMaskIntoConstraints = false
+        btnSearch.translatesAutoresizingMaskIntoConstraints = false
         verticalStackView.translatesAutoresizingMaskIntoConstraints = false
         emojiImage.translatesAutoresizingMaskIntoConstraints = false
         emojiContainer.translatesAutoresizingMaskIntoConstraints = false
@@ -170,13 +170,8 @@ class MainViewController: BaseGenericViewController<BaseGenericView>, Coordinati
         coordinator?.eventOccurred(with: .buttonAppleReposTapped)
     }
     
-    @objc func printCoreData() {
-        print("Apple Repos tapped")
-        print(persistence.emojisPersistenceList.description)
-    }
-    
     @objc func getRandomEmoji() {
-
+        
         emojiService?.getEmojisList{
             
             (result: Result<[Emoji], Error>) in
@@ -189,6 +184,34 @@ class MainViewController: BaseGenericViewController<BaseGenericView>, Coordinati
             }
         }
         
+    }
+    
+    @objc func saveSearchContent() {
+        //        print(searchBar.text)
+        guard let avatarName = searchBar.text else { return }
+        avatarPersistence?.saveAvatar(login: avatarName, id: 1, avatarUrl: "https://avatars.githubusercontent.com/u/3?v=4")
+    }
+    
+    
+    func fetchAvatarData() {
+        guard let appDelegate =
+                UIApplication.shared.delegate as? AppDelegate else {
+            return
+        }
+        
+        let managedContext =
+        appDelegate.persistentContainer.viewContext
+        
+        //2
+        let fetchRequest =
+        NSFetchRequest<NSManagedObject>(entityName: "AvatarEntity")
+        
+        //3
+        do {
+            avatarPersistence?.avatarsPersistenceList = try managedContext.fetch(fetchRequest)
+        } catch let error as NSError {
+            print("Could not fetch. \(error), \(error.userInfo)")
+        }
     }
     
 }

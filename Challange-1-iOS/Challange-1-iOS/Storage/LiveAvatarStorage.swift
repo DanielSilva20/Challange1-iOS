@@ -7,7 +7,11 @@
 
 import Foundation
 
-class LiveAvatarStorage: AvatarStorage {
+class LiveAvatarStorage: AvatarService {
+    func getAvatarList(_ resultHandler: @escaping (Result<[Avatar], Error>) -> Void) {
+        
+    }
+    
     weak var delegate: AvatarStorageDelegate?
     var avatars: [Avatar] = []
     
@@ -22,10 +26,5 @@ class LiveAvatarStorage: AvatarStorage {
 
 
 protocol AvatarPresenter: AvatarStorageDelegate {
-    var avatarStorage: AvatarStorage? { get set }
-}
-
-protocol AvatarStorage {
-    var delegate: AvatarStorageDelegate? { get set }
-    var avatars: [Avatar] { get set }
+    var avatarService: AvatarService? { get set }
 }

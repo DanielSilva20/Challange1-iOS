@@ -11,17 +11,18 @@ import UIKit
 class MainCoordinator: Coordinator, EmojiPresenter, AvatarPresenter {
     var emojiService: EmojiService?
     
-    var avatarStorage: AvatarStorage?
+    var avatarService: AvatarService?
     var navigationController: UINavigationController?
 
     var liveEmojiStorage: LiveEmojiStorage = .init()
     
+    var avatarPersistence: AvatarPersistence = AvatarPersistence()
+    
     //O avatar Storage só precisa de ser chamada quando se clica no avatars list button
-    init(emojiService: EmojiService, avatarStorage: AvatarStorage) {
+    init(emojiService: EmojiService, avatarService: AvatarService) {
         self.emojiService = emojiService
         
-        self.avatarStorage = avatarStorage
-        self.avatarStorage?.delegate = self
+        self.avatarService = avatarService
     }
     
     func eventOccurred(with type: Event) {
@@ -32,9 +33,10 @@ class MainCoordinator: Coordinator, EmojiPresenter, AvatarPresenter {
             vc.emojiService = emojiService
             navigationController?.pushViewController(vc, animated: true)
         case .buttonAvatarsListTapped:
-            var vc: UIViewController & Coordinating & AvatarPresenter = AvatarsListViewController()
+            var vc = AvatarsListViewController()
             vc.coordinator = self
-            vc.avatarStorage = avatarStorage
+            vc.avatarService = avatarService
+            vc.avatarPersistence = avatarPersistence
             navigationController?.pushViewController(vc, animated: true)
         case .buttonAppleReposTapped:
             var vc: UIViewController & Coordinating = AvatarsListViewController()
@@ -44,9 +46,10 @@ class MainCoordinator: Coordinator, EmojiPresenter, AvatarPresenter {
     }
     
     func start() {
-        var vc: UIViewController & Coordinating & EmojiPresenter = MainViewController()
+        var vc = MainViewController()
         vc.coordinator = self
         vc.emojiService = emojiService
+        vc.avatarPersistence = avatarPersistence
         navigationController?.setViewControllers([vc], animated: false)
     }
      
