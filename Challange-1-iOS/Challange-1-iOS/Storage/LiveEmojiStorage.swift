@@ -54,15 +54,6 @@ class LiveEmojiStorage: EmojiService {
         }
     }
     
-    //    func getRandomEmojiUrl(_ resultUrl: @escaping (URL) -> Void) {
-    //        // fetch emojis and return a random emoji
-    //        getEmojisList { (result: [Emoji]) in
-    //            guard let randomUrl = result.randomElement()?.emojiUrl else { return }
-    //
-    //            resultUrl(randomUrl)
-    //        }
-    //    }
-    
 }
 
 protocol EmojiPresenter: EmojiStorageDelegate {

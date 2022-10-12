@@ -17,7 +17,7 @@ class BaseGenericView: UIView {
 }
 
 class BaseGenericViewController<View: BaseGenericView>: UIViewController {
-
+    
     var genericView: View {
         view as! View
     }
@@ -55,8 +55,8 @@ class MainViewController: BaseGenericViewController<BaseGenericView>, Coordinati
     private var urlEmojiImage: String
     let persistence: EmojiPersistence = EmojiPersistence()
     
-//    var emojiService: LiveEmojiStorage = .init()
-
+    //    var emojiService: LiveEmojiStorage = .init()
+    
     
     init() {
         // 0 - Create the Views
@@ -78,27 +78,26 @@ class MainViewController: BaseGenericViewController<BaseGenericView>, Coordinati
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-        
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-
         setUpViews()
         addViewsToSuperview()
         setUpConstraints()
         
         
-//        genericView.businessLogicOfMain()
+        //        genericView.businessLogicOfMain()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-
+        
     }
     
     // 1 - SetUp the views
     private func setUpViews() {
-//        overrideUserInterfaceStyle = .dark
+        //        overrideUserInterfaceStyle = .dark
         
         view.backgroundColor = .appColor(name: .surface)
         view.tintColor = .appColor(name: .secondary)
@@ -110,7 +109,7 @@ class MainViewController: BaseGenericViewController<BaseGenericView>, Coordinati
         btnAvatarsList.setTitle("Avatars List", for: .normal)
         btnAppleRepos.setTitle("Apple Repos", for: .normal)
         searchBtn.setTitle("Search", for: .normal)
-   
+        
         
         let buttonArray = [btnRandomEmoji, btnEmojisList, searchBtn, btnAvatarsList, btnAppleRepos]
         buttonArray.forEach {
@@ -123,8 +122,6 @@ class MainViewController: BaseGenericViewController<BaseGenericView>, Coordinati
         btnRandomEmoji.addTarget(self, action: #selector(getRandomEmoji), for: .touchUpInside)
         btnAvatarsList.addTarget(self, action: #selector(didTapAvatarsList), for: .touchUpInside)
         btnAppleRepos.addTarget(self, action: #selector(printCoreData), for: .touchUpInside)
-        
-        
         getRandomEmoji()
     }
     
@@ -177,47 +174,21 @@ class MainViewController: BaseGenericViewController<BaseGenericView>, Coordinati
     }
     
     @objc func getRandomEmoji() {
-//        let randomNumber = Int.random(in: 0 ... (emojiStorage?.emojis.count ?? 0))
-//
-//        guard let emoji = emojiStorage?.emojis.item(at: randomNumber) else { return }
-//
-//        let url = emoji.emojiUrl
-//        downloadImage(from: url)
-//
-        
-        
-        
-//        emojiService?.getEmojisList({ (url: URL) in
-//            self.emojiImage.downloaded(from: url)
-//        })
+        emojiImage.showLoading()
         emojiService?.getEmojisList{
+            
             (result: Result<[Emoji], Error>) in
             switch result {
             case .success(let success):
                 self.emojiImage.downloaded(from: success.randomElement()!.emojiUrl)
+                self.emojiImage.stopLoading()
             case .failure(let failure):
                 print("Error: \(failure)")
             }
         }
+        
     }
     
- 
-//    func getData(from url: URL, completion: @escaping (Data?, URLResponse?, Error?) -> ()) {
-//        URLSession.shared.dataTask(with: url, completionHandler: completion).resume()
-//    }
-//
-//    func downloadImage(from url: URL) {
-//        getData(from: url) { data, response, error in
-//            guard let data = data, error == nil else { return }
-//            // always update the UI from the main thread
-//            DispatchQueue.main.async() { [weak self] in
-//                self?.emojiImage.image = UIImage(data: data)
-//            }
-//        }
-//    }
-    
-    
-   
 }
 
 extension MainViewController: EmojiStorageDelegate {

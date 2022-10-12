@@ -13,7 +13,7 @@ class EmojiPersistence {
 
     func saveEmoji(name: String, url: String) {
         
-//        DispatchQueue.main.async {
+        DispatchQueue.main.async {
             guard let appDelegate =
               UIApplication.shared.delegate as? AppDelegate else {
               return
@@ -34,9 +34,6 @@ class EmojiPersistence {
             // 3
               emoji.setValue(name, forKeyPath: "name")
               emoji.setValue(url, forKey: "url")
-//        print(emojisPersistenceList.description.codingKey.)
-        print(name)
-            
             
             // 4
             do {
@@ -45,7 +42,7 @@ class EmojiPersistence {
             } catch let error as NSError {
               print("Could not save. \(error), \(error.userInfo)")
             }
-//        }
+        }
       
       
     }
