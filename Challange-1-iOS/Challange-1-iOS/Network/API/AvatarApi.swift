@@ -13,9 +13,13 @@ enum AvatarAPI{
 }
 
 extension AvatarAPI: APIProtocol {
-
     var url: URL {
-        URL(string: "https://api.github.com/users")!
+        get {
+            return URL(string: "https://api.github.com/users/")!
+        }
+        set(newValue) {
+            self.url = newValue
+        }
     }
 
     var method: Method {

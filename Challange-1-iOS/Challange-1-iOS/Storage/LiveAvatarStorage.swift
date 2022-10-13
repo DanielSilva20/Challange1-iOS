@@ -7,20 +7,45 @@
 
 import Foundation
 
+struct AvatarData: Codable {
+    let login: String
+    let id: Int
+    let avatar_url: String
+}
+
+
 class LiveAvatarStorage: AvatarService {
-    func getAvatarList(_ resultHandler: @escaping (Result<[Avatar], Error>) -> Void) {
-        
-    }
+    
+
+    var currentAvatar: AvatarData?
+
+    private var networkManager: NetworkManager = .init()
     
     weak var delegate: AvatarStorageDelegate?
     var avatars: [Avatar] = []
+    var avatarPersistence: AvatarPersistence?
     
     init(){
-        loadAvatars()
+        
+    }
+
+    func getAvatar(_ resultHandler: @escaping (Result<[Avatar], Error>) -> Void) {
+
     }
     
-    func loadAvatars() {
-        
+    func parse(jsonData: Data) {
+        do {
+            let decodedData = try JSONDecoder().decode(AvatarData.self,
+                                                       from: jsonData)
+            
+            print("Login: ", decodedData.login)
+            print("Id: ", decodedData.id)
+            print("AvatarUrl: ", decodedData.avatar_url)
+            print("===================================")
+            currentAvatar = decodedData
+        } catch {
+            print("decode error")
+        }
     }
 }
 

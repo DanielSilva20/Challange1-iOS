@@ -55,6 +55,9 @@ class MainViewController: BaseGenericViewController<BaseGenericView>, Coordinati
     private var urlEmojiImage: String
     var avatarPersistence: AvatarPersistence?
     
+    var networkManager: NetworkManager = .init()
+    var liveAvatarStorage: LiveAvatarStorage = .init()
+    
     //    var emojiService: LiveEmojiStorage = .init()
     
     
@@ -187,15 +190,28 @@ class MainViewController: BaseGenericViewController<BaseGenericView>, Coordinati
     }
     
     @objc func saveSearchContent() {
+
         guard let avatarName = searchBar.text else { return }
         
-        let id: Int16 = 1
-        let avatarUrl: String = "https://avatars.githubusercontent.com/u/3?v=4"
+        guard let avatarExistLocal = avatarPersistence?.checkIfItemExist(login: avatarName) else { return }
         
-        guard let avatarResult = avatarPersistence?.checkIfItemExist(login: avatarName) else { return }
-        
-        if(!avatarResult){
-            avatarPersistence?.saveAvatar(login: avatarName, id: id, avatarUrl: avatarUrl)
+        if(!avatarExistLocal){
+            let testString: String = String(describing: AvatarAPI.getAvatars.url) + avatarName
+            networkManager.loadJson(fromURLString: testString) { (result) in
+                switch result {
+                case .success(let data):
+                    self.liveAvatarStorage.parse(jsonData: data)
+                    let currentAvatar: AvatarData = self.liveAvatarStorage.currentAvatar!
+                    self.avatarPersistence?.saveAvatar(login: currentAvatar.login, id: Int64(currentAvatar.id), avatarUrl: currentAvatar.avatar_url)
+                    self.emojiImage.downloaded(from: currentAvatar.avatar_url)
+                case .failure(let error):
+                    print(error)
+                }
+            }
+//            let testString: String = String(describing: AvatarAPI.getAvatars.url) + avatarName
+//            print(testString)
+//            avatarPersistence?.saveAvatar(login: avatarName, id: id, avatarUrl: avatarUrl)
+//            self.emojiImage.downloaded(from: avatarUrl)
             print("Avatar saved")
         }
         searchBar.text = ""

@@ -7,17 +7,14 @@
 
 import UIKit
 
-class AvatarsListViewController: UIViewController, Coordinating, AvatarPresenter {
+class AvatarsListViewController: UIViewController, Coordinating {
     private var collectionView: UICollectionView
     var coordinator: Coordinator?
     var avatarService: AvatarService?
     var avatarMocked: MockedAvatarStorage?
     var avatarPersistence: AvatarPersistence?
     
-//    lazy var collectionView: UICollectionView = {
-//        let v = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
-//        return v
-//    }()
+
     
     init(){
         let layout = UICollectionViewFlowLayout()
@@ -107,8 +104,6 @@ extension AvatarsListViewController: UICollectionViewDataSource {
         }
 
         guard let url = avatarPersistence?.avatarsPersistenceList[indexPath.row].value(forKey: "avatarUrl") as? String else { return UICollectionViewCell() }
-        
-        print("url: \(url)")
         
         cell.setUpCell(url: URL(string: url)!)
         

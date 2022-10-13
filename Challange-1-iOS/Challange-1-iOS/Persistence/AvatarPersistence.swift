@@ -3,8 +3,14 @@ import CoreData
 
 class AvatarPersistence {
     var avatarsPersistenceList: [NSManagedObject] = []
+    
+    struct AvatarData: Codable {
+        let login: String
+        let id: Int
+        let avatar_url: String
+    }
 
-    func saveAvatar(login: String, id: Int16, avatarUrl: String) {
+    func saveAvatar(login: String, id: Int64, avatarUrl: String) {
         
         DispatchQueue.main.async {
             guard let appDelegate =

@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 protocol APIProtocol {
-    var url: URL { get }
+    var url: URL { get set }
     var method: Method { get }
     var headers: [String: String] { get }
 }
@@ -51,6 +51,46 @@ class NetworkManager {
         }
 
         task.resume()
+    }
+    
+//    func loadJson(fromURLString urlString: String,
+//                  resultHandler: @escaping (Result<Data, Error>) -> Void) {
+//        let decoder = JSONDecoder()
+//
+//        if let url = URL(string: urlString) {
+//            let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
+//                if let data = data {
+//                    if let result = try? decoder.decode(Data.self, from: data) {
+//                        print(result)
+//                        resultHandler(.success(result))
+//                    } else {
+//                        resultHandler(.failure(APIError.unknownError))
+//                    }
+//                }
+//                if let error = error {
+//                    resultHandler(.failure(error))
+//                }
+//            }
+//
+//            task.resume()
+//        }
+//    }
+    
+    func loadJson(fromURLString urlString: String,
+                          completion: @escaping (Result<Data, Error>) -> Void) {
+        if let url = URL(string: urlString) {
+            let urlSession = URLSession(configuration: .default).dataTask(with: url) { (data, response, error) in
+                if let error = error {
+                    completion(.failure(error))
+                }
+                
+                if let data = data {
+                    completion(.success(data))
+                }
+            }
+            
+            urlSession.resume()
+        }
     }
 
 }
