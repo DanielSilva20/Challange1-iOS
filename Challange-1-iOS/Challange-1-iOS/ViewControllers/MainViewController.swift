@@ -86,7 +86,7 @@ class MainViewController: BaseGenericViewController<BaseGenericView>, Coordinati
         addViewsToSuperview()
         setUpConstraints()
 
-        fetchAvatarData()
+        avatarPersistence?.fetchAvatarData()
         //        genericView.businessLogicOfMain()
     }
     
@@ -187,32 +187,21 @@ class MainViewController: BaseGenericViewController<BaseGenericView>, Coordinati
     }
     
     @objc func saveSearchContent() {
-        //        print(searchBar.text)
         guard let avatarName = searchBar.text else { return }
-        avatarPersistence?.saveAvatar(login: avatarName, id: 1, avatarUrl: "https://avatars.githubusercontent.com/u/3?v=4")
+        
+        let id: Int16 = 1
+        let avatarUrl: String = "https://avatars.githubusercontent.com/u/3?v=4"
+        
+        guard let avatarResult = avatarPersistence?.checkIfItemExist(login: avatarName) else { return }
+        
+        if(!avatarResult){
+            avatarPersistence?.saveAvatar(login: avatarName, id: id, avatarUrl: avatarUrl)
+            print("Avatar saved")
+        }
+        searchBar.text = ""
     }
     
     
-    func fetchAvatarData() {
-        guard let appDelegate =
-                UIApplication.shared.delegate as? AppDelegate else {
-            return
-        }
-        
-        let managedContext =
-        appDelegate.persistentContainer.viewContext
-        
-        //2
-        let fetchRequest =
-        NSFetchRequest<NSManagedObject>(entityName: "AvatarEntity")
-        
-        //3
-        do {
-            avatarPersistence?.avatarsPersistenceList = try managedContext.fetch(fetchRequest)
-        } catch let error as NSError {
-            print("Could not fetch. \(error), \(error.userInfo)")
-        }
-    }
     
 }
 

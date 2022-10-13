@@ -98,8 +98,6 @@ extension AvatarsListViewController: AvatarStorageDelegate {
 extension AvatarsListViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
-        print("number of avatars \(avatarPersistence)")
-        
         return (avatarPersistence?.avatarsPersistenceList.count)!
     }
 

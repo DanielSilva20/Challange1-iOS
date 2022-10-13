@@ -4,7 +4,7 @@ import CoreData
 class AvatarPersistence {
     var avatarsPersistenceList: [NSManagedObject] = []
 
-    func saveAvatar(login: String, id: Int32, avatarUrl: String) {
+    func saveAvatar(login: String, id: Int16, avatarUrl: String) {
         
         DispatchQueue.main.async {
             guard let appDelegate =
@@ -29,8 +29,6 @@ class AvatarPersistence {
               avatar.setValue(id, forKey: "id")
               avatar.setValue(avatarUrl, forKey: "avatarUrl")
             
-            print("number of avatars inside avatar persistence \(self.avatarsPersistenceList)")
-            
             // 4
             do {
               try managedContext.save()
@@ -45,29 +43,48 @@ class AvatarPersistence {
       
     }
     
-    func loadData() -> [NSManagedObject] {
-        var array: [NSManagedObject] = []
-        //1
+    func fetchAvatarData() {
+        guard let appDelegate =
+                UIApplication.shared.delegate as? AppDelegate else {
+            return
+        }
+        
+        let managedContext =
+        appDelegate.persistentContainer.viewContext
+        
+        //2
+        let fetchRequest =
+        NSFetchRequest<NSManagedObject>(entityName: "AvatarEntity")
+        
+        //3
+        do {
+            avatarsPersistenceList = try managedContext.fetch(fetchRequest)
+        } catch let error as NSError {
+            print("Could not fetch. \(error), \(error.userInfo)")
+        }
+    }
+    
+    func checkIfItemExist(login: String) -> Bool {
         guard let appDelegate =
           UIApplication.shared.delegate as? AppDelegate else {
-            return array
+          return false
         }
         
         let managedContext =
           appDelegate.persistentContainer.viewContext
         
-        //2
-        let fetchRequest =
-          NSFetchRequest<NSManagedObject>(entityName: "AvatarEntity")
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>.init(entityName: "AvatarEntity")
+        fetchRequest.predicate = NSPredicate(format: "login = %@", login)
         
-        //3
         do {
-            array = try managedContext.fetch(fetchRequest)
-        } catch let error as NSError {
-          print("Could not fetch. \(error), \(error.userInfo)")
+            let test = try managedContext.fetch(fetchRequest)
+            if test.isEmpty {
+                return false
+            }
+        } catch {
+            print(error)
         }
-        
-        return array
+        return true
     }
 }
 
