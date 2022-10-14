@@ -196,6 +196,7 @@ class MainViewController: BaseGenericViewController<BaseGenericView>, Coordinati
         guard let avatarExistLocal = avatarPersistence?.checkIfItemExist(login: avatarName) else { return }
         
         if(!avatarExistLocal){
+            print("It's a new avatar")
             let testString: String = String(describing: AvatarAPI.getAvatars.url) + avatarName
             networkManager.loadJson(fromURLString: testString) { (result) in
                 switch result {
@@ -208,10 +209,6 @@ class MainViewController: BaseGenericViewController<BaseGenericView>, Coordinati
                     print(error)
                 }
             }
-//            let testString: String = String(describing: AvatarAPI.getAvatars.url) + avatarName
-//            print(testString)
-//            avatarPersistence?.saveAvatar(login: avatarName, id: id, avatarUrl: avatarUrl)
-//            self.emojiImage.downloaded(from: avatarUrl)
             print("Avatar saved")
         }
         searchBar.text = ""

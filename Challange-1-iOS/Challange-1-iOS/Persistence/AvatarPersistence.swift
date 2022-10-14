@@ -80,11 +80,11 @@ class AvatarPersistence {
           appDelegate.persistentContainer.viewContext
         
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>.init(entityName: "AvatarEntity")
-        fetchRequest.predicate = NSPredicate(format: "login = %@", login)
+        fetchRequest.predicate = NSPredicate(format: "login ==[cd] %@", login)
         
         do {
-            let test = try managedContext.fetch(fetchRequest)
-            if test.isEmpty {
+            let matchAvatar = try managedContext.fetch(fetchRequest)
+            if matchAvatar.isEmpty {
                 return false
             }
         } catch {

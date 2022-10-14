@@ -53,44 +53,45 @@ class NetworkManager {
         task.resume()
     }
     
-//    func loadJson(fromURLString urlString: String,
-//                  resultHandler: @escaping (Result<Data, Error>) -> Void) {
-//        let decoder = JSONDecoder()
-//
-//        if let url = URL(string: urlString) {
-//            let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
-//                if let data = data {
-//                    if let result = try? decoder.decode(Data.self, from: data) {
-//                        print(result)
-//                        resultHandler(.success(result))
-//                    } else {
-//                        resultHandler(.failure(APIError.unknownError))
-//                    }
-//                }
-//                if let error = error {
-//                    resultHandler(.failure(error))
-//                }
-//            }
-//
-//            task.resume()
-//        }
-//    }
-    
-    func loadJson(fromURLString urlString: String,
-                          completion: @escaping (Result<Data, Error>) -> Void) {
-        if let url = URL(string: urlString) {
-            let urlSession = URLSession(configuration: .default).dataTask(with: url) { (data, response, error) in
-                if let error = error {
-                    completion(.failure(error))
-                }
-                
+    func loadJson(fromURLString urlString: String, _ resultHandler: @escaping (Result<Data, Error>) -> Void) {
+        let decoder = JSONDecoder()
+        
+        if let request = URL(string: urlString) {
+            
+            let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
                 if let data = data {
-                    completion(.success(data))
+                    resultHandler(.success(data))
+                }
+                if let error = error {
+                    resultHandler(.failure(error))
                 }
             }
             
-            urlSession.resume()
+            task.resume()
         }
     }
+    
+    //    func loadJson(fromURLString urlString: String,
+    //                  resultHandler: @escaping (Result<Data, Error>) -> Void) {
+    //        let decoder = JSONDecoder()
+    //
+    //        if let url = URL(string: urlString) {
+    //            let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
+    //                if let data = data {
+    //                    if let result = try? decoder.decode(Data.self, from: data) {
+    //                        print(result)
+    //                        resultHandler(.success(result))
+    //                    } else {
+    //                        resultHandler(.failure(APIError.unknownError))
+    //                    }
+    //                }
+    //                if let error = error {
+    //                    resultHandler(.failure(error))
+    //                }
+    //            }
+    //
+    //            task.resume()
+    //        }
+    //    }
 
 }

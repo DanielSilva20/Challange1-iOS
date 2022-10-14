@@ -15,7 +15,6 @@ struct AvatarData: Codable {
 
 
 class LiveAvatarStorage: AvatarService {
-    
 
     var currentAvatar: AvatarData?
 
@@ -47,6 +46,7 @@ class LiveAvatarStorage: AvatarService {
             print("decode error")
         }
     }
+    
 }
 
 

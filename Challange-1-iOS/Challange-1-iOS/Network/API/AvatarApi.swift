@@ -18,7 +18,7 @@ extension AvatarAPI: APIProtocol {
             return URL(string: "https://api.github.com/users/")!
         }
         set(newValue) {
-            self.url = newValue
+
         }
     }
 
