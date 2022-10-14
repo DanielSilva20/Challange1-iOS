@@ -7,12 +7,14 @@
 
 import Foundation
 
-struct Avatar: Codable, CustomStringConvertible {
+struct Avatar: Decodable {
     var login: String
     var id: Int
     var avatarUrl: URL
-
-    var description: String {
-        "\(login):\(id) :\(avatarUrl)"
+    
+    enum CodingKeys: String, CodingKey {
+        case login
+        case id
+        case avatarUrl = "avatar_url"
     }
 }

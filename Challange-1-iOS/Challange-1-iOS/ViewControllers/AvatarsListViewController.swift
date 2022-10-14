@@ -10,10 +10,8 @@ import UIKit
 class AvatarsListViewController: UIViewController, Coordinating {
     private var collectionView: UICollectionView
     var coordinator: Coordinator?
-    var avatarService: AvatarService?
-    var avatarMocked: MockedAvatarStorage?
-    var avatarPersistence: AvatarPersistence?
-    
+    var avatarService: LiveAvatarStorage?
+    var avatars: [Avatar] = []
 
     
     init(){
@@ -39,6 +37,13 @@ class AvatarsListViewController: UIViewController, Coordinating {
         addViewsToSuperview()
         setUpConstraints()
         
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        avatarService?.fetchAvatarList({ (result: [Avatar]) in
+            self.avatars = result
+        })
     }
     
     private func setUpViews(){
@@ -95,7 +100,7 @@ extension AvatarsListViewController: AvatarStorageDelegate {
 extension AvatarsListViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
-        return (avatarPersistence?.avatarsPersistenceList.count)!
+        return avatars.count
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -103,9 +108,9 @@ extension AvatarsListViewController: UICollectionViewDataSource {
             return UICollectionViewCell()
         }
 
-        guard let url = avatarPersistence?.avatarsPersistenceList[indexPath.row].value(forKey: "avatarUrl") as? String else { return UICollectionViewCell() }
+        let url = avatars[indexPath.row].avatarUrl
         
-        cell.setUpCell(url: URL(string: url)!)
+        cell.setUpCell(url: url)
         
         return cell
     }

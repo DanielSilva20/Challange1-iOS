@@ -53,23 +53,23 @@ class NetworkManager {
         task.resume()
     }
     
-    func loadJson(fromURLString urlString: String, _ resultHandler: @escaping (Result<Data, Error>) -> Void) {
-        let decoder = JSONDecoder()
-        
-        if let request = URL(string: urlString) {
-            
-            let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
-                if let data = data {
-                    resultHandler(.success(data))
-                }
-                if let error = error {
-                    resultHandler(.failure(error))
-                }
-            }
-            
-            task.resume()
-        }
-    }
+//    func loadJson(fromURLString urlString: String, _ resultHandler: @escaping (Result<Data, Error>) -> Void) {
+//        let decoder = JSONDecoder()
+//        
+//        if let request = URL(string: urlString) {
+//            
+//            let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
+//                if let data = data {
+//                    resultHandler(.success(data))
+//                }
+//                if let error = error {
+//                    resultHandler(.failure(error))
+//                }
+//            }
+//            
+//            task.resume()
+//        }
+//    }
     
     //    func loadJson(fromURLString urlString: String,
     //                  resultHandler: @escaping (Result<Data, Error>) -> Void) {

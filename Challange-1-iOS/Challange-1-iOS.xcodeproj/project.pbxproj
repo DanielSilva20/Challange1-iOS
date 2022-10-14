@@ -37,6 +37,7 @@
 		08DF7D5128EB045500B900BC /* Avatar+Mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08DF7D5028EB045500B900BC /* Avatar+Mock.swift */; };
 		08DF7D5328EB3C4C00B900BC /* LiveAvatarStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08DF7D5228EB3C4C00B900BC /* LiveAvatarStorage.swift */; };
 		08E8255E28F848A800F1009E /* AvatarService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E8255D28F848A800F1009E /* AvatarService.swift */; };
+		08E8256028F9A3A800F1009E /* NSManagedObject+Avatar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E8255F28F9A3A800F1009E /* NSManagedObject+Avatar.swift */; };
 		08FB470128E48246000CC6E7 /* Emoji.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08FB470028E48246000CC6E7 /* Emoji.swift */; };
 		08FB470328E48B03000CC6E7 /* Emoji+Mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08FB470228E48B03000CC6E7 /* Emoji+Mock.swift */; };
 		08FB470628E491D4000CC6E7 /* LiveEmojiStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08FB470528E491D4000CC6E7 /* LiveEmojiStorage.swift */; };
@@ -75,6 +76,7 @@
 		08DF7D5028EB045500B900BC /* Avatar+Mock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Avatar+Mock.swift"; sourceTree = "<group>"; };
 		08DF7D5228EB3C4C00B900BC /* LiveAvatarStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveAvatarStorage.swift; sourceTree = "<group>"; };
 		08E8255D28F848A800F1009E /* AvatarService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarService.swift; sourceTree = "<group>"; };
+		08E8255F28F9A3A800F1009E /* NSManagedObject+Avatar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSManagedObject+Avatar.swift"; sourceTree = "<group>"; };
 		08FB470028E48246000CC6E7 /* Emoji.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Emoji.swift; sourceTree = "<group>"; };
 		08FB470228E48B03000CC6E7 /* Emoji+Mock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Emoji+Mock.swift"; sourceTree = "<group>"; };
 		08FB470528E491D4000CC6E7 /* LiveEmojiStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveEmojiStorage.swift; sourceTree = "<group>"; };
@@ -184,6 +186,7 @@
 			children = (
 				08BB8FC628EC871900CE4576 /* ImageView+Download.swift */,
 				08B6D3A028F6C52400BBCD38 /* View+ActivityIndicator.swift */,
+				08E8255F28F9A3A800F1009E /* NSManagedObject+Avatar.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -307,6 +310,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				08E8256028F9A3A800F1009E /* NSManagedObject+Avatar.swift in Sources */,
 				08B6D33728F561EE00BBCD38 /* ColorProvider.swift in Sources */,
 				08DF7D5328EB3C4C00B900BC /* LiveAvatarStorage.swift in Sources */,
 				08B6D3A128F6C52400BBCD38 /* View+ActivityIndicator.swift in Sources */,

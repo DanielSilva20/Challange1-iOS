@@ -56,7 +56,7 @@ class MainViewController: BaseGenericViewController<BaseGenericView>, Coordinati
     var avatarPersistence: AvatarPersistence?
     
     var networkManager: NetworkManager = .init()
-    var liveAvatarStorage: LiveAvatarStorage = .init()
+    var avatarService: LiveAvatarStorage = .init()
     
     //    var emojiService: LiveEmojiStorage = .init()
     
@@ -89,7 +89,6 @@ class MainViewController: BaseGenericViewController<BaseGenericView>, Coordinati
         addViewsToSuperview()
         setUpConstraints()
 
-        avatarPersistence?.fetchAvatarData()
         //        genericView.businessLogicOfMain()
     }
     
@@ -193,24 +192,15 @@ class MainViewController: BaseGenericViewController<BaseGenericView>, Coordinati
 
         guard let avatarName = searchBar.text else { return }
         
-        guard let avatarExistLocal = avatarPersistence?.checkIfItemExist(login: avatarName) else { return }
-        
-        if(!avatarExistLocal){
-            print("It's a new avatar")
-            let testString: String = String(describing: AvatarAPI.getAvatars.url) + avatarName
-            networkManager.loadJson(fromURLString: testString) { (result) in
-                switch result {
-                case .success(let data):
-                    self.liveAvatarStorage.parse(jsonData: data)
-                    let currentAvatar: AvatarData = self.liveAvatarStorage.currentAvatar!
-                    self.avatarPersistence?.saveAvatar(login: currentAvatar.login, id: Int64(currentAvatar.id), avatarUrl: currentAvatar.avatar_url)
-                    self.emojiImage.downloaded(from: currentAvatar.avatar_url)
-                case .failure(let error):
-                    print(error)
-                }
+        avatarService.getAvatar(searchText: avatarName, { (result: Result<Avatar, Error>) in
+            switch result {
+            case .success(let success):
+                self.emojiImage.downloaded(from: success.avatarUrl)
+            case .failure(let failure):
+                print("Failure: \(failure)")
             }
-            print("Avatar saved")
-        }
+        })
+        
         searchBar.text = ""
     }
     

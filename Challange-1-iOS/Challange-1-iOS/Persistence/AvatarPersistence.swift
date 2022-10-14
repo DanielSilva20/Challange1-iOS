@@ -3,37 +3,30 @@ import CoreData
 
 class AvatarPersistence {
     var avatarsPersistenceList: [NSManagedObject] = []
+    var appDelegate: AppDelegate
     
-    struct AvatarData: Codable {
-        let login: String
-        let id: Int
-        let avatar_url: String
+    init() {
+        appDelegate = UIApplication.shared.delegate as! AppDelegate
     }
 
-    func saveAvatar(login: String, id: Int64, avatarUrl: String) {
+    func saveAvatar(currentAvatar: Avatar) {
         
         DispatchQueue.main.async {
-            guard let appDelegate =
-              UIApplication.shared.delegate as? AppDelegate else {
-              return
-            }
             
             // 1
-            let managedContext =
-              appDelegate.persistentContainer.viewContext
+            let managedContext = self.appDelegate.persistentContainer.viewContext
             
             // 2
-            let entity =
-              NSEntityDescription.entity(forEntityName: "AvatarEntity",
+            let entity = NSEntityDescription.entity(forEntityName: "AvatarEntity",
                                          in: managedContext)!
             
             let avatar = NSManagedObject(entity: entity,
                                          insertInto: managedContext)
             
             // 3
-              avatar.setValue(login, forKeyPath: "login")
-              avatar.setValue(id, forKey: "id")
-              avatar.setValue(avatarUrl, forKey: "avatarUrl")
+            avatar.setValue(currentAvatar.login, forKeyPath: "login")
+            avatar.setValue(currentAvatar.id, forKey: "id")
+            avatar.setValue(currentAvatar.avatarUrl.absoluteString, forKey: "avatarUrl")
             
             // 4
             do {
@@ -49,11 +42,8 @@ class AvatarPersistence {
       
     }
     
-    func fetchAvatarData() {
-        guard let appDelegate =
-                UIApplication.shared.delegate as? AppDelegate else {
-            return
-        }
+    func fetchAvatarData(_ resulthandler: @escaping ([NSManagedObject]) -> Void) {
+        var array: [NSManagedObject]
         
         let managedContext =
         appDelegate.persistentContainer.viewContext
@@ -64,33 +54,27 @@ class AvatarPersistence {
         
         //3
         do {
-            avatarsPersistenceList = try managedContext.fetch(fetchRequest)
+            array = try managedContext.fetch(fetchRequest)
+            resulthandler(array)
         } catch let error as NSError {
             print("Could not fetch. \(error), \(error.userInfo)")
         }
     }
     
-    func checkIfItemExist(login: String) -> Bool {
-        guard let appDelegate =
-          UIApplication.shared.delegate as? AppDelegate else {
-          return false
-        }
+    func checkIfItemExist(login: String, _ resultHandler: @escaping (Result<[NSManagedObject],Error>) -> Void) {
+        let managedContext = appDelegate.persistentContainer.viewContext
         
-        let managedContext =
-          appDelegate.persistentContainer.viewContext
-        
-        let fetchRequest = NSFetchRequest<NSFetchRequestResult>.init(entityName: "AvatarEntity")
+        let fetchRequest = NSFetchRequest<NSManagedObject>.init(entityName: "AvatarEntity")
         fetchRequest.predicate = NSPredicate(format: "login ==[cd] %@", login)
         
         do {
             let matchAvatar = try managedContext.fetch(fetchRequest)
-            if matchAvatar.isEmpty {
-                return false
-            }
+            resultHandler(.success(matchAvatar))
         } catch {
             print(error)
+            resultHandler(.failure(error))
         }
-        return true
     }
+    
 }
 
