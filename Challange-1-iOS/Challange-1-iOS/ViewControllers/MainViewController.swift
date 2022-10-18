@@ -192,6 +192,8 @@ class MainViewController: BaseGenericViewController<BaseGenericView>, Coordinati
 
         guard let avatarName = searchBar.text else { return }
         
+        
+        
         avatarService.getAvatar(searchText: avatarName, { (result: Result<Avatar, Error>) in
             switch result {
             case .success(let success):
@@ -203,9 +205,6 @@ class MainViewController: BaseGenericViewController<BaseGenericView>, Coordinati
         
         searchBar.text = ""
     }
-    
-    
-    
 }
 
 extension MainViewController: EmojiStorageDelegate {
