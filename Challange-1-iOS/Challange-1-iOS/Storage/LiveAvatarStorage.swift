@@ -10,8 +10,6 @@ import CoreData
 
 class LiveAvatarStorage: AvatarService {
 
-//    var currentAvatar: AvatarData?
-
     private var networkManager: NetworkManager = .init()
     private var avatarPersistence: AvatarPersistence = .init()
     
@@ -62,7 +60,7 @@ class LiveAvatarStorage: AvatarService {
     }
     
     func deleteAvatar(avatarToDelete: Avatar) {
-        print("Delete \(avatarToDelete.login)")
+        avatarPersistence.delete(avatarObject: avatarToDelete)
     }
     
 }

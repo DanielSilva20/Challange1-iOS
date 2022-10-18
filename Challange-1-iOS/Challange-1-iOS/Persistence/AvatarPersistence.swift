@@ -76,5 +76,24 @@ class AvatarPersistence {
         }
     }
     
+    func delete(avatarObject: Avatar) {
+        let managedContext = appDelegate.persistentContainer.viewContext
+        
+        let fetchRequest = NSFetchRequest<NSManagedObject>.init(entityName: "AvatarEntity")
+        fetchRequest.predicate = NSPredicate(format: "login = %@", avatarObject.login)
+        
+        do {
+            let avatarToDelete = try managedContext.fetch(fetchRequest)
+            if avatarToDelete.count == 1 {
+                guard let avatar = avatarToDelete.first else { return }
+                managedContext.delete(avatar)
+                try managedContext.save()
+            }
+            
+        } catch let error as NSError {
+            print("Error deleting Avatar: \(error)")
+        }
+    }
+    
 }
 

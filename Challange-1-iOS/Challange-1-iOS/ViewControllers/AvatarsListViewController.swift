@@ -106,7 +106,10 @@ extension AvatarsListViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-
+                
+                let avatar = self.avatars[indexPath.row]
+                
+                self.avatarService?.deleteAvatar(avatarToDelete: avatar)
                 
                 self.avatars.remove(at: indexPath.row)
                 
