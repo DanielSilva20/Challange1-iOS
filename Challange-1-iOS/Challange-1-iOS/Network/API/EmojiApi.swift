@@ -15,14 +15,8 @@ enum EmojiAPI {
 extension EmojiAPI: APIProtocol {
     
     var url: URL {
-        get {
-            return URL(string: "https://api.github.com/emojis")!
-        }
-        set {
-            
-        }
+        URL(string: "https://api.github.com/emojis")!
     }
-    
 
     var method: Method {
         switch self {

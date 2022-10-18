@@ -67,16 +67,7 @@ class AvatarsListViewController: UIViewController, Coordinating {
     
     private func setUpCollectionView() {
         title = "Avatars List"
-//        view.backgroundColor = .appColor(name: .surface)
-//
-//        let layout = UICollectionViewFlowLayout()
-//        layout.scrollDirection = .vertical
-//        
-//        layout.minimumLineSpacing = 8
-//        layout.minimumInteritemSpacing = 4
-//
-//        collectionView = .init(frame: .zero, collectionViewLayout: layout)
-//
+        
         collectionView.register(GaleryCell.self, forCellWithReuseIdentifier: "cell")
 
         collectionView.delegate = self
@@ -85,7 +76,6 @@ class AvatarsListViewController: UIViewController, Coordinating {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-//        print("Avatars: \(String(describing: avatarService?.avatars.count))")
         
     }
     
@@ -114,6 +104,15 @@ extension AvatarsListViewController: UICollectionViewDataSource {
         
         return cell
     }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+
+                
+                self.avatars.remove(at: indexPath.row)
+                
+                collectionView.reloadData()
+
+        }
 }
 
 

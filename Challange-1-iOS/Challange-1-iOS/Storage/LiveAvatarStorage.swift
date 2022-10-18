@@ -14,7 +14,6 @@ class LiveAvatarStorage: AvatarService {
 
     private var networkManager: NetworkManager = .init()
     private var avatarPersistence: AvatarPersistence = .init()
-    private var avatarAPI : AvatarAPI = .init()
     
     var avatars: [Avatar] = []
 
@@ -46,8 +45,7 @@ class LiveAvatarStorage: AvatarService {
                     guard let avatar = success.first else { return }
                     resultHandler(.success(avatar.ToAvatar()))
                 } else {
-                    self.avatarAPI.url = URL(string: "https://api.github.com/users/\(searchText)")!
-                    self.networkManager.executeNetworkCall(self.avatarAPI) { (result: Result<Avatar, Error>) in
+                    self.networkManager.executeNetworkCall(AvatarAPI.getAvatars(searchText)) { (result: Result<Avatar, Error>) in
                         switch result {
                         case .success(let success):
                             self.avatarPersistence.saveAvatar(currentAvatar: success)
@@ -61,7 +59,10 @@ class LiveAvatarStorage: AvatarService {
                 print("Error: \(failure)")
             }
         }
-
+    }
+    
+    func deleteAvatar(avatarToDelete: Avatar) {
+        print("Delete \(avatarToDelete.login)")
     }
     
 }

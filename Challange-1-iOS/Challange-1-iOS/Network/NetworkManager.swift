@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 protocol APIProtocol {
-    var url: URL { get set }
+    var url: URL { get }
     var method: Method { get }
     var headers: [String: String] { get }
 }
