@@ -14,7 +14,7 @@ class AppleReposViewController: UIViewController, Coordinating {
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Apple Repos"
-        view.backgroundColor = .systemBlue
+        view.backgroundColor = .appColor(name: .surface)
     }
 
 }

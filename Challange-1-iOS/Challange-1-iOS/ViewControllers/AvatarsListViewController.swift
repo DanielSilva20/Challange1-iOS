@@ -46,7 +46,7 @@ class AvatarsListViewController: UIViewController, Coordinating, AvatarPresenter
     
     private func setUpCollectionView() {
         title = "Avatars List"
-        view.backgroundColor = .systemBlue
+//        view.backgroundColor = .appColor(name: .surface)
 
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical

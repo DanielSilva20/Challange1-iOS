@@ -1,5 +1,6 @@
 import UIKit
 import Alamofire
+import CoreData
 
 class BaseGenericView: UIView {
     required init() {
@@ -16,7 +17,7 @@ class BaseGenericView: UIView {
 }
 
 class BaseGenericViewController<View: BaseGenericView>: UIViewController {
-
+    
     var genericView: View {
         view as! View
     }
@@ -52,9 +53,10 @@ class MainViewController: BaseGenericViewController<BaseGenericView>, Coordinati
     private var emojiImage: UIImageView
     
     private var urlEmojiImage: String
+    let persistence: EmojiPersistence = EmojiPersistence()
     
-//    var emojiService: LiveEmojiStorage = .init()
-
+    //    var emojiService: LiveEmojiStorage = .init()
+    
     
     init() {
         // 0 - Create the Views
@@ -69,35 +71,36 @@ class MainViewController: BaseGenericViewController<BaseGenericView>, Coordinati
         urlEmojiImage = .init()
         searchStackView = .init(arrangedSubviews: [searchBar, searchBtn])
         verticalStackView = .init(arrangedSubviews: [emojiContainer, btnRandomEmoji, btnEmojisList, searchStackView, btnAvatarsList, btnAppleRepos])
-
+        
         super.init(nibName: nil, bundle: nil)
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-        
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         
         setUpViews()
         addViewsToSuperview()
         setUpConstraints()
         
-//        genericView.businessLogicOfMain()
+        
+        //        genericView.businessLogicOfMain()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        getRandomEmoji()
     }
     
     // 1 - SetUp the views
     private func setUpViews() {
-        view.backgroundColor = .systemBlue
-        view.tintColor = .lightGray
+        //        overrideUserInterfaceStyle = .dark
+        
+        view.backgroundColor = .appColor(name: .surface)
+        view.tintColor = .appColor(name: .secondary)
         
         verticalStackView.axis = .vertical
         searchStackView.axis = .horizontal
@@ -106,19 +109,22 @@ class MainViewController: BaseGenericViewController<BaseGenericView>, Coordinati
         btnAvatarsList.setTitle("Avatars List", for: .normal)
         btnAppleRepos.setTitle("Apple Repos", for: .normal)
         searchBtn.setTitle("Search", for: .normal)
-   
+        
         
         let buttonArray = [btnRandomEmoji, btnEmojisList, searchBtn, btnAvatarsList, btnAppleRepos]
         buttonArray.forEach {
             $0.configuration = .filled()
         }
         
-        self.navigationController?.navigationBar.tintColor = .black
+        self.navigationController?.navigationBar.tintColor = .appColor(name: .primary)
         
         btnEmojisList.addTarget(self, action: #selector(didTapEmojisLIst), for: .touchUpInside)
         btnRandomEmoji.addTarget(self, action: #selector(getRandomEmoji), for: .touchUpInside)
         btnAvatarsList.addTarget(self, action: #selector(didTapAvatarsList), for: .touchUpInside)
-        btnAppleRepos.addTarget(self, action: #selector(didTapAppleRepos), for: .touchUpInside)
+        btnAppleRepos.addTarget(self, action: #selector(printCoreData), for: .touchUpInside)
+        
+        emojiImage.showLoading()
+        getRandomEmoji()
     }
     
     // 2 - Add to superview
@@ -164,46 +170,27 @@ class MainViewController: BaseGenericViewController<BaseGenericView>, Coordinati
         coordinator?.eventOccurred(with: .buttonAppleReposTapped)
     }
     
+    @objc func printCoreData() {
+        print("Apple Repos tapped")
+        print(persistence.emojisPersistenceList.description)
+    }
+    
     @objc func getRandomEmoji() {
-//        let randomNumber = Int.random(in: 0 ... (emojiStorage?.emojis.count ?? 0))
-//
-//        guard let emoji = emojiStorage?.emojis.item(at: randomNumber) else { return }
-//
-//        let url = emoji.emojiUrl
-//        downloadImage(from: url)
-//
-        
-        
-        
-//        emojiService?.getEmojisList({ (url: URL) in
-//            self.emojiImage.downloaded(from: url)
-//        })
+
         emojiService?.getEmojisList{
+            
             (result: Result<[Emoji], Error>) in
             switch result {
             case .success(let success):
                 self.emojiImage.downloaded(from: success.randomElement()!.emojiUrl)
+                self.emojiImage.stopLoading()
             case .failure(let failure):
                 print("Error: \(failure)")
             }
         }
+        
     }
     
- 
-//    func getData(from url: URL, completion: @escaping (Data?, URLResponse?, Error?) -> ()) {
-//        URLSession.shared.dataTask(with: url, completionHandler: completion).resume()
-//    }
-//
-//    func downloadImage(from url: URL) {
-//        getData(from: url) { data, response, error in
-//            guard let data = data, error == nil else { return }
-//            // always update the UI from the main thread
-//            DispatchQueue.main.async() { [weak self] in
-//                self?.emojiImage.image = UIImage(data: data)
-//            }
-//        }
-//    }
-   
 }
 
 extension MainViewController: EmojiStorageDelegate {
