@@ -17,7 +17,6 @@ class MainCoordinator: Coordinator, EmojiPresenter, AvatarPresenter {
     var liveEmojiStorage: LiveEmojiStorage = .init()
     var liveAvatarStorage: LiveAvatarStorage = .init()
     
-    //O avatar Storage só precisa de ser chamada quando se clica no avatars list button
     init(emojiService: EmojiService, avatarService: AvatarService) {
         self.emojiService = emojiService
         
@@ -37,7 +36,7 @@ class MainCoordinator: Coordinator, EmojiPresenter, AvatarPresenter {
             vc.avatarService = liveAvatarStorage
             navigationController?.pushViewController(vc, animated: true)
         case .buttonAppleReposTapped:
-            let vc = AvatarsListViewController()
+            let vc = AppleReposViewController()
             vc.coordinator = self
             navigationController?.pushViewController(vc, animated: true)
         }

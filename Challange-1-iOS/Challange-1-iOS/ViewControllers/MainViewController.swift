@@ -191,8 +191,7 @@ class MainViewController: BaseGenericViewController<BaseGenericView>, Coordinati
     @objc func saveSearchContent() {
 
         guard let avatarName = searchBar.text else { return }
-        
-        
+
         
         avatarService.getAvatar(searchText: avatarName, { (result: Result<Avatar, Error>) in
             switch result {
