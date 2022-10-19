@@ -11,48 +11,47 @@ import UIKit
 class MainCoordinator: Coordinator, EmojiPresenter, AvatarPresenter {
     var emojiService: EmojiService?
     
-    var avatarStorage: AvatarStorage?
+    var avatarService: AvatarService?
     var navigationController: UINavigationController?
 
     var liveEmojiStorage: LiveEmojiStorage = .init()
+    var liveAvatarStorage: LiveAvatarStorage = .init()
     
     //O avatar Storage só precisa de ser chamada quando se clica no avatars list button
-    init(emojiService: EmojiService, avatarStorage: AvatarStorage) {
+    init(emojiService: EmojiService, avatarService: AvatarService) {
         self.emojiService = emojiService
         
-        self.avatarStorage = avatarStorage
-        self.avatarStorage?.delegate = self
+        self.avatarService = avatarService
     }
     
     func eventOccurred(with type: Event) {
         switch type {
         case .buttonEmojisListTapped:
-            var vc: UIViewController & Coordinating & EmojiPresenter = EmojisListViewController()
+            let vc = EmojisListViewController()
             vc.coordinator = self
             vc.emojiService = emojiService
             navigationController?.pushViewController(vc, animated: true)
         case .buttonAvatarsListTapped:
-            var vc: UIViewController & Coordinating & AvatarPresenter = AvatarsListViewController()
+            let vc = AvatarsListViewController()
             vc.coordinator = self
-            vc.avatarStorage = avatarStorage
+            vc.avatarService = liveAvatarStorage
             navigationController?.pushViewController(vc, animated: true)
         case .buttonAppleReposTapped:
-            var vc: UIViewController & Coordinating = AvatarsListViewController()
+            let vc = AvatarsListViewController()
             vc.coordinator = self
             navigationController?.pushViewController(vc, animated: true)
         }
     }
     
     func start() {
-        var vc: UIViewController & Coordinating & EmojiPresenter = MainViewController()
+        let vc = MainViewController()
         vc.coordinator = self
         vc.emojiService = emojiService
+        vc.avatarService = liveAvatarStorage
         navigationController?.setViewControllers([vc], animated: false)
     }
      
 }
-
-//É preciso fazer abstração nestas extensões?
 
 extension MainCoordinator: EmojiStorageDelegate {
     func emojiListUpdated() {

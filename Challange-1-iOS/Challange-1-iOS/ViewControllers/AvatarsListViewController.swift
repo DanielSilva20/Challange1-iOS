@@ -7,15 +7,28 @@
 
 import UIKit
 
-class AvatarsListViewController: UIViewController, Coordinating, AvatarPresenter {
-    
+class AvatarsListViewController: UIViewController, Coordinating {
+    private var collectionView: UICollectionView
     var coordinator: Coordinator?
-    var avatarStorage: AvatarStorage?
+    var avatarService: LiveAvatarStorage?
+    var avatars: [Avatar] = []
+
     
-    lazy var collectionView: UICollectionView = {
-        let v = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
-        return v
-    }()
+    init(){
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .vertical
+        
+        layout.minimumLineSpacing = 8
+        layout.minimumInteritemSpacing = 4
+
+        collectionView = .init(frame: .zero, collectionViewLayout: layout)
+        
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,6 +36,14 @@ class AvatarsListViewController: UIViewController, Coordinating, AvatarPresenter
         setUpViews()
         addViewsToSuperview()
         setUpConstraints()
+        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        avatarService?.fetchAvatarList({ (result: [Avatar]) in
+            self.avatars = result
+        })
     }
     
     private func setUpViews(){
@@ -46,16 +67,7 @@ class AvatarsListViewController: UIViewController, Coordinating, AvatarPresenter
     
     private func setUpCollectionView() {
         title = "Avatars List"
-//        view.backgroundColor = .appColor(name: .surface)
-
-        let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .vertical
         
-        layout.minimumLineSpacing = 8
-        layout.minimumInteritemSpacing = 4
-
-        collectionView = .init(frame: .zero, collectionViewLayout: layout)
-
         collectionView.register(GaleryCell.self, forCellWithReuseIdentifier: "cell")
 
         collectionView.delegate = self
@@ -64,7 +76,6 @@ class AvatarsListViewController: UIViewController, Coordinating, AvatarPresenter
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        print("Avatars: \(String(describing: avatarStorage?.avatars.count))")
         
     }
     
@@ -79,9 +90,7 @@ extension AvatarsListViewController: AvatarStorageDelegate {
 extension AvatarsListViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
-        let countAvatars = avatarStorage?.avatars.count ?? 0
-        
-        return countAvatars
+        return avatars.count
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -89,12 +98,24 @@ extension AvatarsListViewController: UICollectionViewDataSource {
             return UICollectionViewCell()
         }
 
-        let url = (avatarStorage?.avatars[indexPath.row].avatarUrl)!
+        let url = avatars[indexPath.row].avatarUrl
         
         cell.setUpCell(url: url)
         
         return cell
     }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+                
+                let avatar = self.avatars[indexPath.row]
+                
+                self.avatarService?.deleteAvatar(avatarToDelete: avatar)
+                
+                self.avatars.remove(at: indexPath.row)
+                
+                collectionView.reloadData()
+
+        }
 }
 
 

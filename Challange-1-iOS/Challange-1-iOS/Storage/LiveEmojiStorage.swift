@@ -14,22 +14,9 @@ class LiveEmojiStorage: EmojiService {
     private var networkManager: NetworkManager = .init()
     private let persistence: EmojiPersistence = .init()
     
-    //    private var liveEmojiStorage: LiveEmojiStorage?
-    //    private var emojisViewController: EmojisListViewController?
-    
     init(){
         
     }
-    
-    //    func loadEmojis() {
-    //        liveEmojiStorage?.getEmojisList({ (result: EmojisAPICAllResult) in
-    //            self.emojisViewController?.emojiStorage?.emojis = result.emojis
-    //            DispatchQueue.main.async() { [weak self] in
-    //                self?.emojisViewController?.collectionView.reloadData()
-    //            }
-    //        })
-    //    }
-    
     
     func getEmojisList(_ resultHandler: @escaping (Result<[Emoji], Error>) -> Void) {
         var fetchedEmojis : [NSManagedObject] = []

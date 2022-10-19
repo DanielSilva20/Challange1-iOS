@@ -52,19 +52,4 @@ class NetworkManager {
 
         task.resume()
     }
-
-}
-
-func downloadImageFromURL(from url: URL, _ resultHandler: @escaping (Result<UIImage,Error>) -> Void) {
-    let task = URLSession.shared.dataTask(with: url){ data, response, error in
-        if let data = data {
-            if let image = UIImage(data: data) {
-                resultHandler(Result<UIImage, Error>.success(image))
-            }
-        } else if let error = error{
-            resultHandler(Result<UIImage, Error>.failure(error))
-            
-        }
-    }
-    task.resume()
 }
