@@ -12,6 +12,11 @@ class AppleReposViewController: UIViewController, Coordinating {
     private var appleRepos: [AppleRepos] = []
     private var strong: MockedAppleReposDataSource = .init()
     
+    var appleReposService: AppleReposService?
+    
+    private var itemsPerPage:Int = 10
+    private var pageNumber: Int = 1
+    
     var coordinator: Coordinator?
     
     init() {
@@ -57,13 +62,24 @@ class AppleReposViewController: UIViewController, Coordinating {
         
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "AppleReposCell")
         
-        tableView.dataSource = strong
+        tableView.dataSource = self
         tableView.delegate = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        appleReposService?.getAppleReposList(itemsPerPage: itemsPerPage, pageNumber: pageNumber) { (result: Result<[AppleRepos], Error>) in
+            switch result {
+            case .success(let success):
+                self.appleRepos = success
+                DispatchQueue.main.async { [weak self] in
+                    self?.tableView.reloadData()
+                }
+            case .failure(let failure):
+                print("Error getting appleRepos data \(failure)")
+            }
+        }
     }
     
 }
@@ -86,6 +102,7 @@ extension AppleReposViewController: UITableViewDataSource, UITableViewDelegate {
     }
 }
 
+// MARK: - MockedDataSource
 class MockedAppleReposDataSource: NSObject, UITableViewDataSource {
     var mockedRepos: MockedAppleReposStorage = .init()
     
