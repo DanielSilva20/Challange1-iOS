@@ -10,7 +10,7 @@ import Foundation
 class MockedAppleReposStorage {
     var appleRepos: [AppleRepos] = [
         AppleRepos(id: 1, fullName: "Repos 1", isPrivate: true),
-        AppleRepos(id: 2, fullName: "Repos 2", isPrivate: true),
+        AppleRepos(id: 2, fullName: "This one is the Repos 2, it's bigger than the others repos that we have in this mocked array of Apple Repos", isPrivate: true),
         AppleRepos(id: 3, fullName: "Repos 3", isPrivate: true),
         AppleRepos(id: 4, fullName: "Repos 4", isPrivate: true),
         AppleRepos(id: 5, fullName: "Repos 5", isPrivate: true),

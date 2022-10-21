@@ -7,15 +7,12 @@
 
 import UIKit
 
-struct ConstantsAppleRepos {
-    static let rowHeight: CGFloat = 50
-}
 
 class AppleReposViewController: UIViewController, Coordinating {
     private var tableView: UITableView
     private var appleRepos: [AppleRepos] = []
-    private var mockedAppleReposDataSource: MockedAppleReposDataSource = .init()
     
+    var mockedAppleReposDataSource: MockAppleReposDataSource?
     var appleReposService: AppleReposService?
     
     private var itemsPerPage:Int = 10
@@ -68,8 +65,6 @@ class AppleReposViewController: UIViewController, Coordinating {
     private func setUpTableView() {
         title = "Apple Repos"
         
-        tableView.rowHeight = ConstantsAppleRepos.rowHeight
-        
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "AppleReposCell")
         
         tableView.dataSource = self
@@ -102,12 +97,8 @@ extension AppleReposViewController: UITableViewDataSource, UITableViewDelegate {
         let offset = scrollView.contentOffset.y
         let heightVisibleScroll = scrollView.frame.size.height
         let heightTable = scrollView.contentSize.height
-        let heightCellsTrigger = self.tableView.rowHeight * 4
 
-        print("Offset: \(offset) ---- heightVisibleScroll: \(heightVisibleScroll)")
-        print("totalLeft: \(offset + heightVisibleScroll + heightCellsTrigger)")
-        print("HeightTable: \(heightTable)")
-        if((offset + heightVisibleScroll + heightCellsTrigger) > heightTable && addedToView && !isEnd) {
+        if((offset + heightVisibleScroll) > heightTable && addedToView && !isEnd) {
             addedToView = false
             self.pageNumber += 1
             self.appleReposService?.getAppleReposList(itemsPerPage: itemsPerPage, pageNumber: pageNumber, { ( result: Result<[AppleRepos], Error>) in
@@ -142,23 +133,9 @@ extension AppleReposViewController: UITableViewDataSource, UITableViewDelegate {
         let repos = appleRepos[indexPath.row]
         
         cell.textLabel?.text = repos.fullName
+        cell.textLabel?.numberOfLines = 0;
+        cell.textLabel?.lineBreakMode = .byWordWrapping;
         return cell
     }
-}
 
-// MARK: - MockedDataSource
-class MockedAppleReposDataSource: NSObject, UITableViewDataSource {
-    var mockedRepos: MockedAppleReposStorage = .init()
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return mockedRepos.appleRepos.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "AppleReposCell", for: indexPath)
-        let repos = mockedRepos.appleRepos[indexPath.row]
-        
-        cell.textLabel?.text = repos.fullName
-        return cell
-    }
 }
