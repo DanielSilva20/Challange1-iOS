@@ -7,15 +7,23 @@
 
 import UIKit
 
+struct ConstantsAppleRepos {
+    static let rowHeight: CGFloat = 50
+}
+
 class AppleReposViewController: UIViewController, Coordinating {
     private var tableView: UITableView
     private var appleRepos: [AppleRepos] = []
-    private var strong: MockedAppleReposDataSource = .init()
+    private var mockedAppleReposDataSource: MockedAppleReposDataSource = .init()
     
     var appleReposService: AppleReposService?
     
     private var itemsPerPage:Int = 10
     private var pageNumber: Int = 1
+    
+    private var addedToView: Bool = false
+    private var isEnd: Bool = false
+    
     
     var coordinator: Coordinator?
     
@@ -39,7 +47,7 @@ class AppleReposViewController: UIViewController, Coordinating {
     }
     
     private func setUpViews() {
-        setUpCollectionView()
+        setUpTableView()
     }
     
     private func addViewsToSuperview() {
@@ -57,8 +65,10 @@ class AppleReposViewController: UIViewController, Coordinating {
         ])
     }
     
-    private func setUpCollectionView() {
+    private func setUpTableView() {
         title = "Apple Repos"
+        
+        tableView.rowHeight = ConstantsAppleRepos.rowHeight
         
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "AppleReposCell")
         
@@ -87,7 +97,41 @@ class AppleReposViewController: UIViewController, Coordinating {
 
 // MARK: - UITableViewDataSource
 extension AppleReposViewController: UITableViewDataSource, UITableViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+
+        let offset = scrollView.contentOffset.y
+        let heightVisibleScroll = scrollView.frame.size.height
+        let heightTable = scrollView.contentSize.height
+        let heightCellsTrigger = self.tableView.rowHeight * 4
+
+        print("Offset: \(offset) ---- heightVisibleScroll: \(heightVisibleScroll)")
+        print("totalLeft: \(offset + heightVisibleScroll + heightCellsTrigger)")
+        print("HeightTable: \(heightTable)")
+        if((offset + heightVisibleScroll + heightCellsTrigger) > heightTable && addedToView && !isEnd) {
+            addedToView = false
+            self.pageNumber += 1
+            self.appleReposService?.getAppleReposList(itemsPerPage: itemsPerPage, pageNumber: pageNumber, { ( result: Result<[AppleRepos], Error>) in
+                switch result {
+                case .success(let success):
+                    self.appleRepos.append(contentsOf: success)
+
+                    DispatchQueue.main.async { [weak self] in
+                        self?.tableView.reloadData()
+                    }
+
+                    if success.count < self.itemsPerPage {
+                        self.isEnd = true
+                    }
+
+                case .failure(let failure):
+                    print("[PREFETCH] Error : \(failure)")
+                }
+            })
+        }
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        addedToView = true
         return appleRepos.count
     }
     

@@ -13,12 +13,13 @@ class MockAppleReposStorage: AppleReposService {
     func getAppleReposList(itemsPerPage: Int, pageNumber: Int, _ resultHandler: @escaping (Result<[AppleRepos], Error>) -> Void) {
         
         var currentRepos: [AppleRepos] = []
-        let endIndex: Int = itemsPerPage * pageNumber - 1
-        var index: Int = endIndex - itemsPerPage
+        let endIndex: Int = itemsPerPage * pageNumber
+        let startIndex: Int = endIndex - itemsPerPage
         
-        while (index < endIndex) {
-            index += 1
-            currentRepos.append(mockedAppleRepos.appleRepos[index])
+        for i in startIndex...endIndex - 1{
+            if i < mockedAppleRepos.appleRepos.count {
+                currentRepos.append(mockedAppleRepos.appleRepos[i])
+            }
         }
         
         resultHandler(.success(currentRepos))

@@ -48,5 +48,18 @@ class MockedAppleReposStorage {
         AppleRepos(id: 37, fullName: "Repos 37", isPrivate: true),
         AppleRepos(id: 38, fullName: "Repos 38", isPrivate: true),
         AppleRepos(id: 39, fullName: "Repos 39", isPrivate: true),
+        AppleRepos(id: 40, fullName: "Repos 40", isPrivate: true),
+        AppleRepos(id: 41, fullName: "Repos 41", isPrivate: true),
+        AppleRepos(id: 42, fullName: "Repos 42", isPrivate: true),
+        AppleRepos(id: 43, fullName: "Repos 43", isPrivate: true),
+        AppleRepos(id: 44, fullName: "Repos 44", isPrivate: true),
+        AppleRepos(id: 45, fullName: "Repos 45", isPrivate: true),
+        AppleRepos(id: 46, fullName: "Repos 46", isPrivate: true),
+        AppleRepos(id: 47, fullName: "Repos 47", isPrivate: true),
+        AppleRepos(id: 48, fullName: "Repos 48", isPrivate: true),
+        AppleRepos(id: 49, fullName: "Repos 49", isPrivate: true),
+        AppleRepos(id: 50, fullName: "Repos 50", isPrivate: true),
+        AppleRepos(id: 51, fullName: "Repos 51", isPrivate: true),
+        
     ]
 }
