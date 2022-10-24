@@ -16,7 +16,7 @@ class AppleReposViewController: UIViewController, Coordinating {
     var appleReposService: AppleReposService?
     
     private var itemsPerPage:Int = 10
-    private var pageNumber: Int = 1
+    private var pageNumber: Int = 0
     
     private var addedToView: Bool = false
     private var isEnd: Bool = false
@@ -51,19 +51,26 @@ class AppleReposViewController: UIViewController, Coordinating {
         view.addSubview(tableView)
     }
     
-    private func setUpConstraints() {
+    private func setUpConstraints(){
         tableView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: view.topAnchor),
-            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            tableView.leftAnchor.constraint(equalTo: view.leftAnchor),
-            tableView.rightAnchor.constraint(equalTo: view.rightAnchor)
+            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
     }
     
     private func setUpTableView() {
         title = "Apple Repos"
+        view.backgroundColor = .appColor(name: .tableSurface)
+        
+        tableView.frame = view.bounds
+        tableView.backgroundColor = .none
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.automaticallyAdjustsScrollIndicatorInsets = false
+        tableView.contentInsetAdjustmentBehavior = .never
         
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "AppleReposCell")
         
@@ -73,20 +80,31 @@ class AppleReposViewController: UIViewController, Coordinating {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        appleReposService?.getAppleReposList(itemsPerPage: itemsPerPage, pageNumber: pageNumber) { (result: Result<[AppleRepos], Error>) in
-            switch result {
-            case .success(let success):
-                self.appleRepos = success
-                DispatchQueue.main.async { [weak self] in
-                    self?.tableView.reloadData()
-                }
-            case .failure(let failure):
-                print("Error getting appleRepos data \(failure)")
-            }
-        }
+        getCurrentRepos()
     }
     
+    
+    func getCurrentRepos() {
+            self.pageNumber += 1
+            self.appleReposService?.getAppleReposList(itemsPerPage: itemsPerPage, pageNumber: pageNumber, { ( result: Result<[AppleRepos], Error>) in
+                switch result {
+                case .success(let success):
+                    self.appleRepos.append(contentsOf: success)
+                    DispatchQueue.main.async { [weak self] in
+                        guard let self = self else {return}
+                        self.tableView.reloadData()
+                        if(self.tableView.contentSize.height < self.tableView.frame.size.height) {
+                            self.getCurrentRepos()
+                        }
+                    }
+                    if success.count < self.itemsPerPage {
+                        self.isEnd = true
+                    }
+                case .failure(let failure):
+                    print("[Error getting appleRepos data] : \(failure)")
+                }
+            })
+    }
 }
 
 
@@ -98,26 +116,9 @@ extension AppleReposViewController: UITableViewDataSource, UITableViewDelegate {
         let heightVisibleScroll = scrollView.frame.size.height
         let heightTable = scrollView.contentSize.height
 
-        if((offset + heightVisibleScroll) > heightTable && addedToView && !isEnd) {
+        if(offset > 0 && (offset + heightVisibleScroll) > (heightTable - (heightVisibleScroll*0.20)) && addedToView && !isEnd) {
             addedToView = false
-            self.pageNumber += 1
-            self.appleReposService?.getAppleReposList(itemsPerPage: itemsPerPage, pageNumber: pageNumber, { ( result: Result<[AppleRepos], Error>) in
-                switch result {
-                case .success(let success):
-                    self.appleRepos.append(contentsOf: success)
-
-                    DispatchQueue.main.async { [weak self] in
-                        self?.tableView.reloadData()
-                    }
-
-                    if success.count < self.itemsPerPage {
-                        self.isEnd = true
-                    }
-
-                case .failure(let failure):
-                    print("[PREFETCH] Error : \(failure)")
-                }
-            })
+            getCurrentRepos()
         }
     }
     

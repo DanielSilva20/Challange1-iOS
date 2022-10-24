@@ -23,7 +23,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         let navVC = UINavigationController()
         
-        let coordinator = MainCoordinator(emojiService: LiveEmojiStorage(), avatarService: LiveAvatarStorage(), appleReposService: LiveAppleReposStorage())
+        let coordinator = MainCoordinator(emojiService: LiveEmojiStorage(), avatarService: LiveAvatarStorage(), appleReposService: MockAppleReposStorage())
         coordinator.navigationController = navVC
         
         window = UIWindow(windowScene: windowScene)
