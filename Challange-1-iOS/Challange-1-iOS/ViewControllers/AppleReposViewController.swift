@@ -72,7 +72,7 @@ class AppleReposViewController: UIViewController, Coordinating {
         tableView.automaticallyAdjustsScrollIndicatorInsets = false
         tableView.contentInsetAdjustmentBehavior = .never
         
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "AppleReposCell")
+        tableView.register(AppleReposCell.self, forCellReuseIdentifier: AppleReposCell.reuseCellIdentifier)
         
         tableView.dataSource = self
         tableView.delegate = self
@@ -129,12 +129,11 @@ extension AppleReposViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: "AppleReposCell", for: indexPath)
+        let cell : AppleReposCell = tableView.dequeueReusableCell(for: indexPath)
         
         let repos = appleRepos[indexPath.row]
         
         cell.textLabel?.text = repos.fullName
-        cell.textLabel?.numberOfLines = 0;
         cell.textLabel?.lineBreakMode = .byWordWrapping;
         return cell
     }

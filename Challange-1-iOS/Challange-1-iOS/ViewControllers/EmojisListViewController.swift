@@ -70,7 +70,7 @@ class EmojisListViewController: UIViewController, Coordinating, EmojiPresenter {
     private func setUpCollectionView() {
         title = "Emojis List"
 
-        collectionView.register(GaleryCell.self, forCellWithReuseIdentifier: "cell")
+        collectionView.register(EmojiCell.self, forCellWithReuseIdentifier: EmojiCell.reuseCellIdentifier)
 
         collectionView.delegate = self
         collectionView.dataSource = self
@@ -109,9 +109,8 @@ extension EmojisListViewController: UICollectionViewDataSource {
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as? GaleryCell else {
-            return UICollectionViewCell()
-        }
+        
+        let cell : EmojiCell = collectionView.dequeueReusableCell(for: indexPath)
 
         let url = emojisList[indexPath.row].emojiUrl
         
@@ -132,9 +131,7 @@ class MockedDataSource: NSObject, UICollectionViewDataSource {
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as? GaleryCell else {
-            return UICollectionViewCell()
-        }
+        let cell : EmojiCell = collectionView.dequeueReusableCell(for: indexPath)
 
         let url = mockedEmojis.emojis[indexPath.row].emojiUrl
         

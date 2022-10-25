@@ -15,7 +15,7 @@ enum EmojiAPI {
 extension EmojiAPI: APIProtocol {
     
     var url: URL {
-        URL(string: "https://api.github.com/emojis")!
+        URL(string: "\(Constants.baseUrl)/emojis")!
     }
 
     var method: Method {

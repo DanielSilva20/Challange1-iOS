@@ -7,7 +7,7 @@
 
 import UIKit
 
-class GaleryCell: UICollectionViewCell {
+class AvatarCell: UICollectionViewCell {
     
     let imageView: UIImageView
     var dataTask: URLSessionDataTask?
@@ -25,7 +25,7 @@ class GaleryCell: UICollectionViewCell {
     
     
     func setUpCell(url: URL) {
-        downloadImage(from: url)
+        imageView.downloaded(from: url)
     }
     
     func setUpConstraints() {
@@ -43,30 +43,6 @@ class GaleryCell: UICollectionViewCell {
         dataTask?.cancel()
         
         imageView.image = nil
-    }
-    
-    func getData(from url: URL, completion: @escaping (Data?, URLResponse?, Error?) -> ()) {
-        dataTask?.cancel()
-        URLSession.shared.dataTask(with: url, completionHandler: completion).resume()
-        dataTask?.resume()
-    }
-
-    func downloadImage(from url: URL){
-        getData(from: url) { [weak self] data, response, error in
-            if error != nil {
-                DispatchQueue.main.async {
-                    self?.imageView.image = nil
-                    self?.dataTask = nil
-                }
-                return
-            }
-            DispatchQueue.main.async() { () in
-                self?.imageView.image = nil
-                self?.dataTask = nil
-                guard let data = data, error == nil else { return }
-                self?.imageView.image = UIImage(data: data)
-            }
-        }
     }
     
 }
