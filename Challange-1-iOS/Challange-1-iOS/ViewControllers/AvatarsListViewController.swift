@@ -12,7 +12,7 @@ class AvatarsListViewController: UIViewController, Coordinating {
     var coordinator: Coordinator?
     var avatarService: LiveAvatarStorage?
     var avatars: [Avatar] = []
-
+    
     
     init(){
         let layout = UICollectionViewFlowLayout()
@@ -20,7 +20,7 @@ class AvatarsListViewController: UIViewController, Coordinating {
         
         layout.minimumLineSpacing = 8
         layout.minimumInteritemSpacing = 4
-
+        
         collectionView = .init(frame: .zero, collectionViewLayout: layout)
         
         super.init(nibName: nil, bundle: nil)
@@ -68,11 +68,11 @@ class AvatarsListViewController: UIViewController, Coordinating {
     private func setUpCollectionView() {
         title = "Avatars List"
         
-        collectionView.register(GaleryCell.self, forCellWithReuseIdentifier: "cell")
-
+        collectionView.register(AvatarCell.self, forCellWithReuseIdentifier: AvatarCell.reuseCellIdentifier)
+        
         collectionView.delegate = self
         collectionView.dataSource = self
-        }
+    }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -92,12 +92,11 @@ extension AvatarsListViewController: UICollectionViewDataSource {
         
         return avatars.count
     }
-
+    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as? GaleryCell else {
-            return UICollectionViewCell()
-        }
-
+        
+        let cell : AvatarCell = collectionView.dequeueReusableCell(for: indexPath)
+        
         let url = avatars[indexPath.row].avatarUrl
         
         cell.setUpCell(url: url)
@@ -106,29 +105,29 @@ extension AvatarsListViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-                
-                let avatar = self.avatars[indexPath.row]
-                
-                self.avatarService?.deleteAvatar(avatarToDelete: avatar)
-                
-                self.avatars.remove(at: indexPath.row)
-                
-                collectionView.reloadData()
-
-        }
+        
+        let avatar = self.avatars[indexPath.row]
+        
+        self.avatarService?.deleteAvatar(avatarToDelete: avatar)
+        
+        self.avatars.remove(at: indexPath.row)
+        
+        collectionView.reloadData()
+        
+    }
 }
 
 
 extension AvatarsListViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView,
-                  layout collectionViewLayout: UICollectionViewLayout,
-                  insetForSectionAt section: Int) -> UIEdgeInsets {
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsets(top: 1.0, left: 8.0, bottom: 1.0, right: 8.0)
     }
-
+    
     func collectionView(_ collectionView: UICollectionView,
-                   layout collectionViewLayout: UICollectionViewLayout,
-                   sizeForItemAt indexPath: IndexPath) -> CGSize {
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        sizeForItemAt indexPath: IndexPath) -> CGSize {
         
         let layout = collectionViewLayout as! UICollectionViewFlowLayout
         let widthPerItem = collectionView.frame.width / 3 - layout.minimumInteritemSpacing

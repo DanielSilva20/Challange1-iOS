@@ -179,7 +179,8 @@ class MainViewController: BaseGenericViewController<BaseGenericView>, Coordinati
             (result: Result<[Emoji], Error>) in
             switch result {
             case .success(let success):
-                self.emojiImage.downloaded(from: success.randomElement()!.emojiUrl)
+                let dataTask = self.emojiImage.createDownloadDataTask(from: success.randomElement()!.emojiUrl)
+                dataTask.resume()
                 self.emojiImage.stopLoading()
             case .failure(let failure):
                 print("Error: \(failure)")
@@ -191,13 +192,13 @@ class MainViewController: BaseGenericViewController<BaseGenericView>, Coordinati
     @objc func saveSearchContent() {
 
         guard let avatarName = searchBar.text else { return }
-        
-        
+
         
         avatarService.getAvatar(searchText: avatarName, { (result: Result<Avatar, Error>) in
             switch result {
             case .success(let success):
-                self.emojiImage.downloaded(from: success.avatarUrl)
+                let dataTask = self.emojiImage.createDownloadDataTask(from: success.avatarUrl)
+                dataTask.resume()
             case .failure(let failure):
                 print("Failure: \(failure)")
             }

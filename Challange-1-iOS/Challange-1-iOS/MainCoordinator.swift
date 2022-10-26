@@ -10,18 +10,17 @@ import UIKit
 
 class MainCoordinator: Coordinator, EmojiPresenter, AvatarPresenter {
     var emojiService: EmojiService?
-    
     var avatarService: AvatarService?
+    var appleReposService: AppleReposService?
+    
     var navigationController: UINavigationController?
 
-    var liveEmojiStorage: LiveEmojiStorage = .init()
     var liveAvatarStorage: LiveAvatarStorage = .init()
     
-    //O avatar Storage só precisa de ser chamada quando se clica no avatars list button
-    init(emojiService: EmojiService, avatarService: AvatarService) {
+    init(emojiService: EmojiService, avatarService: AvatarService, appleReposService: AppleReposService) {
         self.emojiService = emojiService
-        
         self.avatarService = avatarService
+        self.appleReposService = appleReposService
     }
     
     func eventOccurred(with type: Event) {
@@ -37,8 +36,9 @@ class MainCoordinator: Coordinator, EmojiPresenter, AvatarPresenter {
             vc.avatarService = liveAvatarStorage
             navigationController?.pushViewController(vc, animated: true)
         case .buttonAppleReposTapped:
-            let vc = AvatarsListViewController()
+            let vc = AppleReposViewController()
             vc.coordinator = self
+            vc.appleReposService = appleReposService
             navigationController?.pushViewController(vc, animated: true)
         }
     }

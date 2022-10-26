@@ -1,8 +1,8 @@
 import UIKit
 
 extension UIImageView {
-    func downloaded(from url: URL, contentMode mode: ContentMode = .scaleAspectFit) {
-        URLSession.shared.dataTask(with: url) { data, response, error in
+    func createDownloadDataTask(from url: URL, contentMode mode: ContentMode = .scaleAspectFit) -> URLSessionTask{
+        let task = URLSession.shared.dataTask(with: url) { data, response, error in
             guard
                 let httpURLResponse = response as? HTTPURLResponse, httpURLResponse.statusCode == 200,
                 let mimeType = response?.mimeType, mimeType.hasPrefix("image"),
@@ -13,11 +13,8 @@ extension UIImageView {
                 self?.image = image
                 self?.contentMode = mode
             }
-        }.resume()
+        }
+        return task
     }
-    
-    func downloaded(from link: String, contentMode mode: ContentMode = .scaleAspectFit) {
-        guard let url = URL(string: link) else { return }
-        downloaded(from: url, contentMode: mode)
-    }
+
 }

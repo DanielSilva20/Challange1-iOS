@@ -12,6 +12,7 @@ enum ColorProvider: String {
     case onPrimary
     case surface
     case secondary
+    case tableSurface
 }
 
 extension UIColor {

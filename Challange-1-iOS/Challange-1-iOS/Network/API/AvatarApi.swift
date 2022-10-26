@@ -16,7 +16,7 @@ extension AvatarAPI: APIProtocol {
     var url: URL {
         switch self {
         case .getAvatars(let name):
-            return URL(string: "https://api.github.com/users/\(name)")!
+            return URL(string: "\(Constants.baseUrl)/users/\(name)")!
         }
     }
 
