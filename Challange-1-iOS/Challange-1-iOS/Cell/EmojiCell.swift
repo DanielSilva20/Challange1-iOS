@@ -6,11 +6,12 @@
 //
 
 import UIKit
+import Alamofire
 
 class EmojiCell: UICollectionViewCell {
     
     let imageView: UIImageView
-    var dataTask: URLSessionDataTask?
+    var dataTask: URLSessionTask?
     
     override init(frame: CGRect) {
         imageView = .init(frame: .zero)
@@ -25,7 +26,8 @@ class EmojiCell: UICollectionViewCell {
     
     
     func setUpCell(url: URL) {
-        imageView.downloaded(from: url)
+        dataTask = imageView.createDownloadDataTask(from: url)
+        dataTask?.resume()
     }
     
     func setUpConstraints() {
