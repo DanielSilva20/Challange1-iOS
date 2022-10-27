@@ -65,7 +65,7 @@ class LiveAvatarStorage: AvatarService {
     
 }
 
-
-protocol AvatarPresenter: AvatarStorageDelegate {
-    var avatarService: AvatarService? { get set }
-}
+//
+//protocol AvatarPresenter: AvatarStorageDelegate {
+//    var avatarService: AvatarService? { get set }
+//}

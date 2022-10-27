@@ -80,12 +80,12 @@ class AvatarsListViewController: UIViewController, Coordinating {
     }
     
 }
-
-extension AvatarsListViewController: AvatarStorageDelegate {
-    func avatarListUpdated() {
-        collectionView.reloadData()
-    }
-}
+//
+//extension AvatarsListViewController: AvatarStorageDelegate {
+//    func avatarListUpdated() {
+//        collectionView.reloadData()
+//    }
+//}
 
 extension AvatarsListViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

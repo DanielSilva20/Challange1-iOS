@@ -11,7 +11,7 @@ import Alamofire
 class EmojiCell: UICollectionViewCell {
     
     let imageView: UIImageView
-    var dataTask: URLSessionTask?
+    private var dataTask: URLSessionTask?
     
     override init(frame: CGRect) {
         imageView = .init(frame: .zero)
@@ -41,9 +41,7 @@ class EmojiCell: UICollectionViewCell {
     
     override func prepareForReuse() {
         super.prepareForReuse()
-        
         dataTask?.cancel()
-        
         imageView.image = nil
     }
     

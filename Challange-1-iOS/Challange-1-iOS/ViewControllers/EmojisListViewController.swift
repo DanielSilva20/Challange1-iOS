@@ -7,7 +7,7 @@
 
 import UIKit
 
-class EmojisListViewController: UIViewController, Coordinating, EmojiPresenter {
+class EmojisListViewController: UIViewController, Coordinating {
     private var collectionView: UICollectionView
     var emojiService: EmojiService?
     
@@ -93,11 +93,11 @@ class EmojisListViewController: UIViewController, Coordinating, EmojiPresenter {
     }
 }
 
-extension EmojisListViewController: EmojiStorageDelegate {
-    func emojiListUpdated() {
-        collectionView.reloadData()
-    }
-}
+//extension EmojisListViewController: EmojiStorageDelegate {
+//    func emojiListUpdated() {
+//        collectionView.reloadData()
+//    }
+//}
 
 
 extension EmojisListViewController: UICollectionViewDataSource {

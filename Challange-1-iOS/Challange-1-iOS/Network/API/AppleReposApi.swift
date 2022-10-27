@@ -23,7 +23,7 @@ extension AppleReposApi: APIProtocol {
                 URLQueryItem(name: "page", value: String(page))
             ]
             
-            guard let url = urlComponents?.url else { fatalError("Cannot Convert to URL")}
+            guard let url = urlComponents?.url else { fatalError("Cannot Convert to URL") }
             
             return url
         }

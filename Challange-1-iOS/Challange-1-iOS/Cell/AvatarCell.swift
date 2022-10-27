@@ -10,7 +10,7 @@ import UIKit
 class AvatarCell: UICollectionViewCell {
     
     let imageView: UIImageView
-    var dataTask: URLSessionTask?
+    private var dataTask: URLSessionTask?
     
     override init(frame: CGRect) {
         imageView = .init(frame: .zero)

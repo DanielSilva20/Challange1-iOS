@@ -37,7 +37,7 @@ extension Array {
     }
 }
 
-class MainViewController: BaseGenericViewController<BaseGenericView>, Coordinating, EmojiPresenter {
+class MainViewController: BaseGenericViewController<BaseGenericView>, Coordinating {
     var coordinator: Coordinator?
     var emojiService: EmojiService?
     
@@ -208,8 +208,8 @@ class MainViewController: BaseGenericViewController<BaseGenericView>, Coordinati
     }
 }
 
-extension MainViewController: EmojiStorageDelegate {
-    func emojiListUpdated() {
-        getRandomEmoji()
-    }
-}
+//extension MainViewController: EmojiStorageDelegate {
+//    func emojiListUpdated() {
+//        getRandomEmoji()
+//    }
+//}
