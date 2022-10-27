@@ -16,11 +16,13 @@ class MainCoordinator: Coordinator {
     var navigationController: UINavigationController?
 
     var liveAvatarStorage: LiveAvatarStorage = .init()
+    var mainPageViewModel: MainPageViewModel?
     
     init(emojiService: EmojiService, avatarService: AvatarService, appleReposService: AppleReposService) {
         self.emojiService = emojiService
         self.avatarService = avatarService
         self.appleReposService = appleReposService
+        self.mainPageViewModel = MainPageViewModel(emojiService: emojiService)
     }
     
     func eventOccurred(with type: Event) {
@@ -48,6 +50,7 @@ class MainCoordinator: Coordinator {
         vc.coordinator = self
         vc.emojiService = emojiService
         vc.avatarService = liveAvatarStorage
+        vc.viewModel = mainPageViewModel
         navigationController?.setViewControllers([vc], animated: false)
     }
      

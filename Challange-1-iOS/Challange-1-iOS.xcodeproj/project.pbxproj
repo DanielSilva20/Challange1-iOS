@@ -31,6 +31,8 @@
 		08702183290843310055B9FF /* UITableViewCell+ReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08702182290843310055B9FF /* UITableViewCell+ReusableView.swift */; };
 		088B3FD128F70B0E005D2C78 /* AvatarPersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088B3FD028F70B0E005D2C78 /* AvatarPersistence.swift */; };
 		089CA0B528E31F8000386DF0 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 089CA0B428E31F8000386DF0 /* Alamofire */; };
+		089F9410290A8C4B00C3072E /* MainPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 089F940F290A8C4B00C3072E /* MainPageViewModel.swift */; };
+		089F9412290A8CC400C3072E /* Box.swift in Sources */ = {isa = PBXBuildFile; fileRef = 089F9411290A8CC400C3072E /* Box.swift */; };
 		08A6CB5C28FFFD8500FF4B92 /* AppleRepos.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A6CB5B28FFFD8500FF4B92 /* AppleRepos.swift */; };
 		08A6CB5E2900033F00FF4B92 /* AppleReposApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A6CB5D2900033F00FF4B92 /* AppleReposApi.swift */; };
 		08A6CB602900037D00FF4B92 /* LiveAppleReposStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A6CB5F2900037D00FF4B92 /* LiveAppleReposStorage.swift */; };
@@ -84,6 +86,8 @@
 		08702182290843310055B9FF /* UITableViewCell+ReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableViewCell+ReusableView.swift"; sourceTree = "<group>"; };
 		087F8DD328F42CBE00D1C77B /* ColorProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorProvider.swift; sourceTree = "<group>"; };
 		088B3FD028F70B0E005D2C78 /* AvatarPersistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarPersistence.swift; sourceTree = "<group>"; };
+		089F940F290A8C4B00C3072E /* MainPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPageViewModel.swift; sourceTree = "<group>"; };
+		089F9411290A8CC400C3072E /* Box.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Box.swift; sourceTree = "<group>"; };
 		08A6CB5B28FFFD8500FF4B92 /* AppleRepos.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleRepos.swift; sourceTree = "<group>"; };
 		08A6CB5D2900033F00FF4B92 /* AppleReposApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleReposApi.swift; sourceTree = "<group>"; };
 		08A6CB5F2900037D00FF4B92 /* LiveAppleReposStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveAppleReposStorage.swift; sourceTree = "<group>"; };
@@ -138,6 +142,7 @@
 		081F2B9228DDC2860003AB99 /* Challange-1-iOS */ = {
 			isa = PBXGroup;
 			children = (
+				089F940E290A8C0800C3072E /* ViewModel */,
 				08B6D39728F5838F00BBCD38 /* Persistence */,
 				08BB8FC528EC870A00CE4576 /* Utilities */,
 				08490FAA28E6F6AC00DAB664 /* Network */,
@@ -177,6 +182,14 @@
 			path = "Design System";
 			sourceTree = "<group>";
 		};
+		089F940E290A8C0800C3072E /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				089F940F290A8C4B00C3072E /* MainPageViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		08B6D39728F5838F00BBCD38 /* Persistence */ = {
 			isa = PBXGroup;
 			children = (
@@ -214,6 +227,7 @@
 				0870217829083D4A0055B9FF /* Constants.swift */,
 				08702180290843080055B9FF /* UICollectionViewCell+ReusableView.swift */,
 				08702182290843310055B9FF /* UITableViewCell+ReusableView.swift */,
+				089F9411290A8CC400C3072E /* Box.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -355,6 +369,7 @@
 				08A6CB6429000FCF00FF4B92 /* AppleRepos+Mock.swift in Sources */,
 				08A6CB5E2900033F00FF4B92 /* AppleReposApi.swift in Sources */,
 				08B6D3A128F6C52400BBCD38 /* View+ActivityIndicator.swift in Sources */,
+				089F9412290A8CC400C3072E /* Box.swift in Sources */,
 				0817A4F128E1AE17007217C2 /* AvatarsListViewController.swift in Sources */,
 				0817A4F728E1B898007217C2 /* MainCoordinator.swift in Sources */,
 				08A6CB5C28FFFD8500FF4B92 /* AppleRepos.swift in Sources */,
@@ -362,6 +377,7 @@
 				081F2B9428DDC2860003AB99 /* AppDelegate.swift in Sources */,
 				0817FB4C28EEE40E00092812 /* EmojiService.swift in Sources */,
 				0817FB4A28EEE32100092812 /* MockEmojiStorage.swift in Sources */,
+				089F9410290A8C4B00C3072E /* MainPageViewModel.swift in Sources */,
 				08FB470B28E4AB51000CC6E7 /* AvatarCell.swift in Sources */,
 				08BB8FC428EC798200CE4576 /* EmojiResponse.swift in Sources */,
 				08BB8FC728EC871900CE4576 /* ImageView+Download.swift in Sources */,

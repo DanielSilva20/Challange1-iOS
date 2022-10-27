@@ -58,7 +58,7 @@ class MainViewController: BaseGenericViewController<BaseGenericView>, Coordinati
     var networkManager: NetworkManager = .init()
     var avatarService: LiveAvatarStorage = .init()
     
-    //    var emojiService: LiveEmojiStorage = .init()
+    var viewModel: MainPageViewModel?
     
     
     init() {
@@ -84,12 +84,19 @@ class MainViewController: BaseGenericViewController<BaseGenericView>, Coordinati
     
     override func viewDidLoad() {
         super.viewDidLoad()
+//        emojiImage.showLoading()
+        
+        viewModel?.emojiImageUrl.bind(listener: { url in
+            guard let url = url else { return }
+            self.emojiImage.stopLoading()
+            let dataTask = self.emojiImage.createDownloadDataTask(from: url)
+            dataTask.resume()
+        })
         
         setUpViews()
         addViewsToSuperview()
         setUpConstraints()
 
-        //        genericView.businessLogicOfMain()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -98,7 +105,6 @@ class MainViewController: BaseGenericViewController<BaseGenericView>, Coordinati
     
     // 1 - SetUp the views
     private func setUpViews() {
-        //        overrideUserInterfaceStyle = .dark
         
         view.backgroundColor = .appColor(name: .surface)
         view.tintColor = .appColor(name: .secondary)
@@ -125,7 +131,7 @@ class MainViewController: BaseGenericViewController<BaseGenericView>, Coordinati
         btnAppleRepos.addTarget(self, action: #selector(didTapAppleRepos), for: .touchUpInside)
         btnSearch.addTarget(self, action: #selector(saveSearchContent), for: .touchUpInside)
         
-        emojiImage.showLoading()
+
         getRandomEmoji()
     }
     
@@ -174,18 +180,7 @@ class MainViewController: BaseGenericViewController<BaseGenericView>, Coordinati
     
     @objc func getRandomEmoji() {
         
-        emojiService?.getEmojisList{
-            
-            (result: Result<[Emoji], Error>) in
-            switch result {
-            case .success(let success):
-                let dataTask = self.emojiImage.createDownloadDataTask(from: success.randomElement()!.emojiUrl)
-                dataTask.resume()
-                self.emojiImage.stopLoading()
-            case .failure(let failure):
-                print("Error: \(failure)")
-            }
-        }
+        viewModel?.getRandom()
         
     }
     
