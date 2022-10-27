@@ -18,7 +18,6 @@ struct EmojisAPICAllResult: Decodable {
             persistence.saveEmoji(name: key, url: value)
             return Emoji(name: key, emojiUrl: URL(string: value)!)
         }
-       
+
     }
 }
-

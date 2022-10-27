@@ -10,11 +10,9 @@ struct Emoji: Codable, CustomStringConvertible {
 }
 
 var EmojiMock: [Emoji] = [Emoji(name: "1", imageUrl: URL(string: "https://github.githubassets.com/images/icons/emoji/unicode/1f18e.png?v8")!),
-                   Emoji(name: "2", imageUrl: URL(string:"https://github.githubassets.com/images/icons/emoji/unicode/1f18e.png?v8")!),
-                   Emoji(name: "3", imageUrl: URL(string:"https://github.githubassets.com/images/icons/emoji/unicode/1f18e.png?v8")!),
-                   Emoji(name: "4", imageUrl: URL(string:"https://github.githubassets.com/images/icons/emoji/unicode/1f18e.png?v8")!)]
-
-
+                   Emoji(name: "2", imageUrl: URL(string: "https://github.githubassets.com/images/icons/emoji/unicode/1f18e.png?v8")!),
+                   Emoji(name: "3", imageUrl: URL(string: "https://github.githubassets.com/images/icons/emoji/unicode/1f18e.png?v8")!),
+                   Emoji(name: "4", imageUrl: URL(string: "https://github.githubassets.com/images/icons/emoji/unicode/1f18e.png?v8")!)]
 
 struct EmojisAPICAllResult: Decodable {
     let emojis: [Emoji]
@@ -48,14 +46,12 @@ extension EmojiService: APIService {
     }
 }
 
-
 func getRandomEmoji(_ call: APIService) {
-    
+
 }
 
-
 func getListEmoji() {
-    
+
 }
 
 getRandomEmoji(EmojiService.getEmojisMocked) {

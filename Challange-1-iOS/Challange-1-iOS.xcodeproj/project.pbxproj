@@ -35,6 +35,7 @@
 		089F9412290A8CC400C3072E /* Box.swift in Sources */ = {isa = PBXBuildFile; fileRef = 089F9411290A8CC400C3072E /* Box.swift */; };
 		089F9416290AD0D900C3072E /* EmojiViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 089F9415290AD0D900C3072E /* EmojiViewModel.swift */; };
 		089F9418290AD20500C3072E /* MockEmojisDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 089F9417290AD20500C3072E /* MockEmojisDataSource.swift */; };
+		089F941A290AE14300C3072E /* AvatarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 089F9419290AE14300C3072E /* AvatarViewModel.swift */; };
 		08A6CB5C28FFFD8500FF4B92 /* AppleRepos.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A6CB5B28FFFD8500FF4B92 /* AppleRepos.swift */; };
 		08A6CB5E2900033F00FF4B92 /* AppleReposApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A6CB5D2900033F00FF4B92 /* AppleReposApi.swift */; };
 		08A6CB602900037D00FF4B92 /* LiveAppleReposStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A6CB5F2900037D00FF4B92 /* LiveAppleReposStorage.swift */; };
@@ -92,6 +93,7 @@
 		089F9411290A8CC400C3072E /* Box.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Box.swift; sourceTree = "<group>"; };
 		089F9415290AD0D900C3072E /* EmojiViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiViewModel.swift; sourceTree = "<group>"; };
 		089F9417290AD20500C3072E /* MockEmojisDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockEmojisDataSource.swift; sourceTree = "<group>"; };
+		089F9419290AE14300C3072E /* AvatarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarViewModel.swift; sourceTree = "<group>"; };
 		08A6CB5B28FFFD8500FF4B92 /* AppleRepos.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleRepos.swift; sourceTree = "<group>"; };
 		08A6CB5D2900033F00FF4B92 /* AppleReposApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleReposApi.swift; sourceTree = "<group>"; };
 		08A6CB5F2900037D00FF4B92 /* LiveAppleReposStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveAppleReposStorage.swift; sourceTree = "<group>"; };
@@ -191,6 +193,7 @@
 			children = (
 				089F940F290A8C4B00C3072E /* MainPageViewModel.swift */,
 				089F9415290AD0D900C3072E /* EmojiViewModel.swift */,
+				089F9419290AE14300C3072E /* AvatarViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -296,6 +299,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 081F2BBA28DDC2870003AB99 /* Build configuration list for PBXNativeTarget "Challange-1-iOS" */;
 			buildPhases = (
+				089F941B290AE79C00C3072E /* SwiftLint */,
 				081F2B8C28DDC2860003AB99 /* Sources */,
 				081F2B8D28DDC2860003AB99 /* Frameworks */,
 				081F2B8E28DDC2860003AB99 /* Resources */,
@@ -361,6 +365,27 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		089F941B290AE79C00C3072E /* SwiftLint */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = SwiftLint;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftlint >/dev/null; then\n    swiftlint\nelse\n    echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		081F2B8C28DDC2860003AB99 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -377,6 +402,7 @@
 				08B6D3A128F6C52400BBCD38 /* View+ActivityIndicator.swift in Sources */,
 				089F9412290A8CC400C3072E /* Box.swift in Sources */,
 				0817A4F128E1AE17007217C2 /* AvatarsListViewController.swift in Sources */,
+				089F941A290AE14300C3072E /* AvatarViewModel.swift in Sources */,
 				0817A4F728E1B898007217C2 /* MainCoordinator.swift in Sources */,
 				08A6CB5C28FFFD8500FF4B92 /* AppleRepos.swift in Sources */,
 				08FB470128E48246000CC6E7 /* Emoji.swift in Sources */,

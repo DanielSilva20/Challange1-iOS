@@ -5,10 +5,8 @@
 //  Created by Daniel Silva on 10/6/22.
 //
 
-
 import UIKit
 
-protocol EmojiService {    
+protocol EmojiService {
     func getEmojisList(_ resultHandler: @escaping (Result<[Emoji], Error>) -> Void)
 }
-

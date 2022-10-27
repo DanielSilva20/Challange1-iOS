@@ -10,7 +10,7 @@ import Foundation
 struct Emoji: Codable, CustomStringConvertible {
     var name: String
     var emojiUrl: URL
-    
+
     var description: String {
         "\(name): \(emojiUrl)"
     }

@@ -10,10 +10,9 @@ import Foundation
 class MockedAppleReposStorage {
     var appleRepos: [AppleRepos] = [
         AppleRepos(id: 1, fullName: "Repos 1", isPrivate: true),
-        AppleRepos(id: 2, fullName: "This one is the Repos 2, it's bigger than the others repos that we have in this mocked array of Apple Repos", isPrivate: true),
+        AppleRepos(id: 2, fullName: "This one is the Repos 2, it's bigger", isPrivate: true),
         AppleRepos(id: 3, fullName: "Repos 3", isPrivate: true),
         AppleRepos(id: 4, fullName: "Repos 4", isPrivate: true),
-//        AppleRepos(id: 5, fullName: "This one is the Repos 5, it's bigger than the others repos that we have in this mocked array of Apple Repos, This one is the Repos 5, it's bigger than the others repos that we have in this mocked array of Apple Repos, This one is the Repos 5, it's bigger than the others repos that we have in this mocked array of Apple Repos, This one is the Repos 5, it's bigger than the others repos that we have in this mocked array of Apple Repos, This one is the Repos 5, it's bigger than the others repos that we have in this mocked array of Apple Repos, This one is the Repos 5, it's bigger than the others repos that we have in this mocked array of Apple Repos,", isPrivate: true),
         AppleRepos(id: 5, fullName: "Repos 5", isPrivate: true),
         AppleRepos(id: 6, fullName: "Repos 6", isPrivate: true),
         AppleRepos(id: 7, fullName: "Repos 7", isPrivate: true),
@@ -60,7 +59,7 @@ class MockedAppleReposStorage {
         AppleRepos(id: 48, fullName: "Repos 48", isPrivate: true),
         AppleRepos(id: 49, fullName: "Repos 49", isPrivate: true),
         AppleRepos(id: 50, fullName: "Repos 50", isPrivate: true),
-        AppleRepos(id: 51, fullName: "Repos 51", isPrivate: true),
-        
+        AppleRepos(id: 51, fullName: "Repos 51", isPrivate: true)
+
     ]
 }

@@ -12,21 +12,23 @@ class MainCoordinator: Coordinator {
     var emojiService: EmojiService?
     var avatarService: AvatarService?
     var appleReposService: AppleReposService?
-    
+
     var navigationController: UINavigationController?
 
     var liveAvatarStorage: LiveAvatarStorage = .init()
     var mainPageViewModel: MainPageViewModel?
     var emojiViewModel: EmojiViewModel?
-    
+    var avatarViewModel: AvatarViewModel?
+
     init(emojiService: EmojiService, avatarService: AvatarService, appleReposService: AppleReposService) {
         self.emojiService = emojiService
         self.avatarService = avatarService
         self.appleReposService = appleReposService
         self.mainPageViewModel = MainPageViewModel(emojiService: emojiService, avatarService: avatarService)
         self.emojiViewModel = EmojiViewModel(emojiService: emojiService)
+        self.avatarViewModel = AvatarViewModel(avatarService: avatarService)
     }
-    
+
     func eventOccurred(with type: Event) {
         switch type {
         case .buttonEmojisListTapped:
@@ -39,6 +41,7 @@ class MainCoordinator: Coordinator {
             let vc = AvatarsListViewController()
             vc.coordinator = self
             vc.avatarService = liveAvatarStorage
+            vc.viewModel = avatarViewModel
             navigationController?.pushViewController(vc, animated: true)
         case .buttonAppleReposTapped:
             let vc = AppleReposViewController()
@@ -47,7 +50,7 @@ class MainCoordinator: Coordinator {
             navigationController?.pushViewController(vc, animated: true)
         }
     }
-    
+
     func start() {
         let vc = MainViewController()
         vc.coordinator = self
@@ -56,21 +59,21 @@ class MainCoordinator: Coordinator {
         vc.viewModel = mainPageViewModel
         navigationController?.setViewControllers([vc], animated: false)
     }
-     
+
 }
 
-//extension MainCoordinator: EmojiStorageDelegate {
+// extension MainCoordinator: EmojiStorageDelegate {
 //    func emojiListUpdated() {
 //        navigationController?.viewControllers.forEach {
 //            ($0 as? EmojiPresenter)?.emojiListUpdated()
 //        }
 //    }
-//}
+// }
 //
-//extension MainCoordinator: AvatarStorageDelegate {
+// extension MainCoordinator: AvatarStorageDelegate {
 //    func avatarListUpdated() {
 //        navigationController?.viewControllers.forEach {
 //            ($0 as? AvatarPresenter)?.avatarListUpdated()
 //        }
 //    }
-//}
+// }

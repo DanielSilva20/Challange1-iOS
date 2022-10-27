@@ -17,9 +17,9 @@ enum Event {
 
 protocol Coordinator {
     var navigationController: UINavigationController? { get set }
-    
+
     func eventOccurred(with type: Event)
-    
+
     func start()
 }
 
@@ -27,10 +27,10 @@ protocol Coordinating {
     var coordinator: Coordinator? { get set }
 }
 
-//protocol EmojiStorageDelegate: AnyObject {
+// protocol EmojiStorageDelegate: AnyObject {
 //    func emojiListUpdated()
-//}
+// }
 //
-//protocol AvatarStorageDelegate: AnyObject {
+// protocol AvatarStorageDelegate: AnyObject {
 //    func avatarListUpdated()
-//}
+// }

@@ -11,25 +11,24 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
 
-
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
-        
+
         NetworkManager.initialize()
-        
+
         guard let windowScene = (scene as? UIWindowScene) else { return }
 
         let navVC = UINavigationController()
-        
+
         let coordinator = MainCoordinator(emojiService: LiveEmojiStorage(), avatarService: LiveAvatarStorage(), appleReposService: MockAppleReposStorage())
         coordinator.navigationController = navVC
-        
+
         window = UIWindow(windowScene: windowScene)
         window?.rootViewController = navVC
         window?.makeKeyAndVisible()
-        
+
         coordinator.start()
     }
 
@@ -61,6 +60,4 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // to restore the scene back to its current state.
     }
 
-
 }
-

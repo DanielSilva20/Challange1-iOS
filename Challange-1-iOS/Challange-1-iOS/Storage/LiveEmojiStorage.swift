@@ -10,21 +10,19 @@ import CoreData
 
 class LiveEmojiStorage: EmojiService {
     var emojis: [Emoji] = []
-    
+
     private var networkManager: NetworkManager = .init()
     private let persistence: EmojiPersistence = .init()
-    
-    init(){
-        
-    }
-    
+
     func getEmojisList(_ resultHandler: @escaping (Result<[Emoji], Error>) -> Void) {
-        var fetchedEmojis : [NSManagedObject] = []
+        var fetchedEmojis: [NSManagedObject] = []
         fetchedEmojis = persistence.loadData()
-        
+
         if !fetchedEmojis.isEmpty {
-            let emojis = fetchedEmojis.map({ item in
-                return Emoji(name: item.value(forKey: "name") as! String, emojiUrl: URL(string: item.value(forKey: "url") as! String)!)
+            let emojis = fetchedEmojis.compactMap({ item -> Emoji? in
+                guard let nameItem = item.value(forKey: "name") as? String else { return nil }
+                guard let urlItem = item.value(forKey: "url") as? URL else { return nil }
+                return Emoji(name: nameItem, emojiUrl: urlItem)
             })
             print(emojis.count)
             resultHandler(.success(emojis))
@@ -40,12 +38,10 @@ class LiveEmojiStorage: EmojiService {
             }
         }
     }
-    
+
 }
-//
-//protocol EmojiPresenter: EmojiStorageDelegate {
-//    var emojiService: EmojiService? { get set }
-//}
-
-
-
+/*
+protocol EmojiPresenter: EmojiStorageDelegate {
+    var emojiService: EmojiService? { get set }
+}
+*/

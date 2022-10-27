@@ -9,19 +9,19 @@ import Foundation
 
 class MockAppleReposStorage: AppleReposService {
     var mockedAppleRepos: MockedAppleReposStorage = .init()
-    
+
     func getAppleReposList(itemsPerPage: Int, pageNumber: Int, _ resultHandler: @escaping (Result<[AppleRepos], Error>) -> Void) {
-        
+
         var currentRepos: [AppleRepos] = []
         let endIndex: Int = itemsPerPage * pageNumber
         let startIndex: Int = endIndex - itemsPerPage
-        
-        for i in startIndex...endIndex - 1{
-            if i < mockedAppleRepos.appleRepos.count {
-                currentRepos.append(mockedAppleRepos.appleRepos[i])
+
+        for index in startIndex...endIndex - 1 {
+            if index < mockedAppleRepos.appleRepos.count {
+                currentRepos.append(mockedAppleRepos.appleRepos[index])
             }
         }
-        
+
         resultHandler(.success(currentRepos))
     }
 }
