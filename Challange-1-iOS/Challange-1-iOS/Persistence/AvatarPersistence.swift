@@ -39,7 +39,6 @@ class AvatarPersistence {
             }
         }
       
-      
     }
     
     func fetchAvatarData(_ resulthandler: @escaping ([NSManagedObject]) -> Void) {

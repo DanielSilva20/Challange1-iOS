@@ -17,12 +17,14 @@ class MainCoordinator: Coordinator {
 
     var liveAvatarStorage: LiveAvatarStorage = .init()
     var mainPageViewModel: MainPageViewModel?
+    var emojiViewModel: EmojiViewModel?
     
     init(emojiService: EmojiService, avatarService: AvatarService, appleReposService: AppleReposService) {
         self.emojiService = emojiService
         self.avatarService = avatarService
         self.appleReposService = appleReposService
         self.mainPageViewModel = MainPageViewModel(emojiService: emojiService, avatarService: avatarService)
+        self.emojiViewModel = EmojiViewModel(emojiService: emojiService)
     }
     
     func eventOccurred(with type: Event) {
@@ -30,7 +32,8 @@ class MainCoordinator: Coordinator {
         case .buttonEmojisListTapped:
             let vc = EmojisListViewController()
             vc.coordinator = self
-            vc.emojiService = emojiService
+//            vc.emojiService = emojiService
+            vc.viewModel = emojiViewModel
             navigationController?.pushViewController(vc, animated: true)
         case .buttonAvatarsListTapped:
             let vc = AvatarsListViewController()

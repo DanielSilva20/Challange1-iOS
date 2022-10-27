@@ -19,10 +19,6 @@ class LiveAvatarStorage: AvatarService {
     init(){
         
     }
-
-    func getAvatar(_ resultHandler: @escaping (Result<[Avatar], Error>) -> Void) {
-
-    }
     
     func fetchAvatarList(_ resultHandler: @escaping ([Avatar]) -> Void){
         avatarPersistence.fetchAvatarData() { (result: [NSManagedObject]) in

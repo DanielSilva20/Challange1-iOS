@@ -2,42 +2,44 @@ import UIKit
 import Alamofire
 import CoreData
 
-class BaseGenericView: UIView {
-    required init() {
-        super.init(frame: .zero)
-        setupView()
-    }
-    
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
-        fatalError()
-    }
-    
-    func setupView() {}
-}
+//class BaseGenericView: UIView {
+//    required init() {
+//        super.init(frame: .zero)
+//        setupView()
+//    }
+//
+//    required init?(coder: NSCoder) {
+//        super.init(coder: coder)
+//        fatalError()
+//    }
+//
+//    func setupView() {}
+//}
+//
+//class BaseGenericViewController<View: BaseGenericView>: UIViewController {
+//
+//    var genericView: View {
+//        view as! View
+//    }
+//
+//    override func loadView() {
+//        view = View()
+//    }
+//}
+//
+//class MainView: BaseGenericView {
+//    func businessLogicOfMain() {}
+//}
+//
+//extension Array {
+//    func item(at: Int) -> Element? {
+//        count > at ? self[at] : nil
+//    }
+//}
 
-class BaseGenericViewController<View: BaseGenericView>: UIViewController {
-    
-    var genericView: View {
-        view as! View
-    }
-    
-    override func loadView() {
-        view = View()
-    }
-}
 
-class MainView: BaseGenericView {
-    func businessLogicOfMain() {}
-}
-
-extension Array {
-    func item(at: Int) -> Element? {
-        count > at ? self[at] : nil
-    }
-}
-
-class MainViewController: BaseGenericViewController<BaseGenericView>, Coordinating {
+//class MainViewController: BaseGenericViewController<BaseGenericView>, Coordinating {
+class MainViewController: UIViewController, Coordinating {
     var coordinator: Coordinator?
     var emojiService: EmojiService?
     
