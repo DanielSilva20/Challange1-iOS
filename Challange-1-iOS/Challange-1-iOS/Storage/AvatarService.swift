@@ -3,6 +3,6 @@
 import UIKit
 
 protocol AvatarService {
-    func getAvatar(_ resultHandler: @escaping (Result<[Avatar], Error>) -> Void)
+    func getAvatar(searchText: String, _ resultHandler: @escaping (Result<Avatar, Error>) -> Void)
 }
 

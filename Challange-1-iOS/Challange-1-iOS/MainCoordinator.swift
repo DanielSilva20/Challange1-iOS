@@ -22,7 +22,7 @@ class MainCoordinator: Coordinator {
         self.emojiService = emojiService
         self.avatarService = avatarService
         self.appleReposService = appleReposService
-        self.mainPageViewModel = MainPageViewModel(emojiService: emojiService)
+        self.mainPageViewModel = MainPageViewModel(emojiService: emojiService, avatarService: avatarService)
     }
     
     func eventOccurred(with type: Event) {

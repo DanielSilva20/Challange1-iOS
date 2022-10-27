@@ -179,26 +179,11 @@ class MainViewController: BaseGenericViewController<BaseGenericView>, Coordinati
     }
     
     @objc func getRandomEmoji() {
-        
         viewModel?.getRandom()
-        
     }
     
     @objc func saveSearchContent() {
-
-        guard let avatarName = searchBar.text else { return }
-
-        
-        avatarService.getAvatar(searchText: avatarName, { (result: Result<Avatar, Error>) in
-            switch result {
-            case .success(let success):
-                let dataTask = self.emojiImage.createDownloadDataTask(from: success.avatarUrl)
-                dataTask.resume()
-            case .failure(let failure):
-                print("Failure: \(failure)")
-            }
-        })
-        
+        viewModel?.searchQuery.value = searchBar.text
         searchBar.text = ""
     }
 }
