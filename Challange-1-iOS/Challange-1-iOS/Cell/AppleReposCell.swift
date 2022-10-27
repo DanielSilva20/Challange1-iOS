@@ -15,6 +15,7 @@ class AppleReposCell: UITableViewCell{
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
         self.textLabel?.numberOfLines = 0
+        self.textLabel?.lineBreakMode = .byWordWrapping;
     }
     
     required init?(coder: NSCoder) {

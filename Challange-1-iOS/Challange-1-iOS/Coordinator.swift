@@ -27,10 +27,10 @@ protocol Coordinating {
     var coordinator: Coordinator? { get set }
 }
 
-protocol EmojiStorageDelegate: AnyObject {
-    func emojiListUpdated()
-}
-
-protocol AvatarStorageDelegate: AnyObject {
-    func avatarListUpdated()
-}
+//protocol EmojiStorageDelegate: AnyObject {
+//    func emojiListUpdated()
+//}
+//
+//protocol AvatarStorageDelegate: AnyObject {
+//    func avatarListUpdated()
+//}

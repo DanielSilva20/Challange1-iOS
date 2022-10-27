@@ -134,7 +134,7 @@ extension AppleReposViewController: UITableViewDataSource, UITableViewDelegate {
         let repos = appleRepos[indexPath.row]
         
         cell.textLabel?.text = repos.fullName
-        cell.textLabel?.lineBreakMode = .byWordWrapping;
+
         return cell
     }
 

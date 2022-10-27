@@ -42,10 +42,10 @@ class LiveEmojiStorage: EmojiService {
     }
     
 }
-
-protocol EmojiPresenter: EmojiStorageDelegate {
-    var emojiService: EmojiService? { get set }
-}
+//
+//protocol EmojiPresenter: EmojiStorageDelegate {
+//    var emojiService: EmojiService? { get set }
+//}
 
 
 
