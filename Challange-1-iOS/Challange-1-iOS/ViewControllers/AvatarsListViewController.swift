@@ -96,7 +96,8 @@ extension AvatarsListViewController: UICollectionViewDataSource {
         return avatars.count
     }
 
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    func collectionView(_ collectionView: UICollectionView,
+                        cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 
         let cell: AvatarCell = collectionView.dequeueReusableCell(for: indexPath)
 

@@ -103,7 +103,8 @@ extension EmojisListViewController: UICollectionViewDataSource {
         return countEmojis
     }
 
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    func collectionView(_ collectionView: UICollectionView,
+                        cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 
         let cell: EmojiCell = collectionView.dequeueReusableCell(for: indexPath)
 

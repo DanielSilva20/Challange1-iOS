@@ -73,7 +73,12 @@ class MainViewController: UIViewController, Coordinating {
         emojiContainer = .init(frame: .zero)
         urlEmojiImage = .init()
         searchStackView = .init(arrangedSubviews: [searchBar, btnSearch])
-        verticalStackView = .init(arrangedSubviews: [emojiContainer, btnRandomEmoji, btnEmojisList, searchStackView, btnAvatarsList, btnAppleRepos])
+        verticalStackView = .init(arrangedSubviews: [emojiContainer,
+                                                     btnRandomEmoji,
+                                                     btnEmojisList,
+                                                     searchStackView,
+                                                     btnAvatarsList,
+                                                     btnAppleRepos])
 
         super.init(nibName: nil, bundle: nil)
     }

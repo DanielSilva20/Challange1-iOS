@@ -15,7 +15,7 @@ extension AppleReposApi: APIProtocol {
 
     var url: URL {
         switch self {
-            case .getAppleRepos(let perPage, let page):
+        case .getAppleRepos(let perPage, let page):
             var urlComponents = URLComponents(string: "\(Constants.baseUrl)/users/apple/repos")
 
             urlComponents?.queryItems = [

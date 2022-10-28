@@ -21,7 +21,8 @@ class LiveEmojiStorage: EmojiService {
         if !fetchedEmojis.isEmpty {
             let emojis = fetchedEmojis.compactMap({ item -> Emoji? in
                 guard let nameItem = item.value(forKey: "name") as? String else { return nil }
-                guard let urlItem = item.value(forKey: "url") as? URL else { return nil }
+                guard let urlAsString = item.value(forKey: "url") as? String else { return nil }
+                guard let urlItem = URL(string: urlAsString) else { return nil }
                 return Emoji(name: nameItem, emojiUrl: urlItem)
             })
             print(emojis.count)

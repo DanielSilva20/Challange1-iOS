@@ -32,32 +32,32 @@ class MainCoordinator: Coordinator {
     func eventOccurred(with type: Event) {
         switch type {
         case .buttonEmojisListTapped:
-            let vc = EmojisListViewController()
-            vc.coordinator = self
+            let viewController = EmojisListViewController()
+            viewController.coordinator = self
 //            vc.emojiService = emojiService
-            vc.viewModel = emojiViewModel
-            navigationController?.pushViewController(vc, animated: true)
+            viewController.viewModel = emojiViewModel
+            navigationController?.pushViewController(viewController, animated: true)
         case .buttonAvatarsListTapped:
-            let vc = AvatarsListViewController()
-            vc.coordinator = self
-            vc.avatarService = liveAvatarStorage
-            vc.viewModel = avatarViewModel
-            navigationController?.pushViewController(vc, animated: true)
+            let viewController = AvatarsListViewController()
+            viewController.coordinator = self
+            viewController.avatarService = liveAvatarStorage
+            viewController.viewModel = avatarViewModel
+            navigationController?.pushViewController(viewController, animated: true)
         case .buttonAppleReposTapped:
-            let vc = AppleReposViewController()
-            vc.coordinator = self
-            vc.appleReposService = appleReposService
-            navigationController?.pushViewController(vc, animated: true)
+            let viewController = AppleReposViewController()
+            viewController.coordinator = self
+            viewController.appleReposService = appleReposService
+            navigationController?.pushViewController(viewController, animated: true)
         }
     }
 
     func start() {
-        let vc = MainViewController()
-        vc.coordinator = self
-        vc.emojiService = emojiService
-        vc.avatarService = liveAvatarStorage
-        vc.viewModel = mainPageViewModel
-        navigationController?.setViewControllers([vc], animated: false)
+        let viewController = MainViewController()
+        viewController.coordinator = self
+        viewController.emojiService = emojiService
+        viewController.avatarService = liveAvatarStorage
+        viewController.viewModel = mainPageViewModel
+        navigationController?.setViewControllers([viewController], animated: false)
     }
 
 }

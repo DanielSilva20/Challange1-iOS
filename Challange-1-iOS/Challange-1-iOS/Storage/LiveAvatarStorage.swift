@@ -35,7 +35,8 @@ class LiveAvatarStorage: AvatarService {
                     guard let tempAvatar = avatar.toAvatar() else { return }
                     resultHandler(.success(tempAvatar))
                 } else {
-                    self.networkManager.executeNetworkCall(AvatarAPI.getAvatars(searchText)) { (result: Result<Avatar, Error>) in
+                    self.networkManager.executeNetworkCall(AvatarAPI.getAvatars(searchText)) { (result: Result<Avatar,
+                                                                                                Error>) in
                         switch result {
                         case .success(let success):
                             self.avatarPersistence.saveAvatar(currentAvatar: success)

@@ -81,25 +81,26 @@ class AppleReposViewController: UIViewController, Coordinating {
     }
 
     func getCurrentRepos() {
-            self.pageNumber += 1
-            self.appleReposService?.getAppleReposList(itemsPerPage: itemsPerPage, pageNumber: pageNumber, { ( result: Result<[AppleRepos], Error>) in
-                switch result {
-                case .success(let success):
-                    self.appleRepos.append(contentsOf: success)
-                    DispatchQueue.main.async { [weak self] in
-                        guard let self = self else {return}
-                        self.tableView.reloadData()
-                        if self.tableView.contentSize.height < self.tableView.frame.size.height {
-                            self.getCurrentRepos()
-                        }
+        self.pageNumber += 1
+        self.appleReposService?.getAppleReposList(itemsPerPage: itemsPerPage,
+                                                  pageNumber: pageNumber, { ( result: Result<[AppleRepos], Error>) in
+            switch result {
+            case .success(let success):
+                self.appleRepos.append(contentsOf: success)
+                DispatchQueue.main.async { [weak self] in
+                    guard let self = self else {return}
+                    self.tableView.reloadData()
+                    if self.tableView.contentSize.height < self.tableView.frame.size.height {
+                        self.getCurrentRepos()
                     }
-                    if success.count < self.itemsPerPage {
-                        self.isEnd = true
-                    }
-                case .failure(let failure):
-                    print("[Error getting appleRepos data] : \(failure)")
                 }
-            })
+                if success.count < self.itemsPerPage {
+                    self.isEnd = true
+                }
+            case .failure(let failure):
+                print("[Error getting appleRepos data] : \(failure)")
+            }
+        })
     }
 }
 
@@ -111,7 +112,10 @@ extension AppleReposViewController: UITableViewDataSource, UITableViewDelegate {
         let heightVisibleScroll = scrollView.frame.size.height
         let heightTable = scrollView.contentSize.height
 
-        if offset > 0 && (offset + heightVisibleScroll) > (heightTable - (heightVisibleScroll*0.20)) && addedToView && !isEnd {
+        if offset > 0
+            && (offset + heightVisibleScroll) > (heightTable - (heightVisibleScroll*0.20))
+            && addedToView
+            && !isEnd {
             addedToView = false
             getCurrentRepos()
         }
