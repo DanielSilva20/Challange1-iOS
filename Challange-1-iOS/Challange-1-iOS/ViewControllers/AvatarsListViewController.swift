@@ -10,7 +10,7 @@ import UIKit
 class AvatarsListViewController: UIViewController, Coordinating {
     private var collectionView: UICollectionView
     var coordinator: Coordinator?
-    var avatarService: LiveAvatarStorage?
+    //    var avatarService: LiveAvatarStorage?
     var avatars: [Avatar] = []
     var viewModel: AvatarViewModel?
 
@@ -41,9 +41,14 @@ class AvatarsListViewController: UIViewController, Coordinating {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.viewModel?.avatarList.bind(listener: { avatarList in
-            guard let avatarList = avatarList else { return }
+        self.viewModel?.avatarList.bind(listener: { [weak self] avatarList in
+            guard
+                let self = self,
+                let avatarList = avatarList else { return }
             self.avatars = avatarList
+            DispatchQueue.main.async {
+                self.collectionView.reloadData()
+            }
         })
 
         viewModel?.getAvatars()
@@ -98,7 +103,6 @@ extension AvatarsListViewController: UICollectionViewDataSource {
 
     func collectionView(_ collectionView: UICollectionView,
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-
         let cell: AvatarCell = collectionView.dequeueReusableCell(for: indexPath)
 
         let url = avatars[indexPath.row].avatarUrl
@@ -109,15 +113,15 @@ extension AvatarsListViewController: UICollectionViewDataSource {
     }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-
         let avatar = self.avatars[indexPath.row]
+        let message: String = "Are you sure that you really want to delete \(avatar.login)?"
+        let alert = UIAlertController(title: "Deleting \(avatar.login)...", message: message, preferredStyle: .alert)
 
-        self.avatarService?.deleteAvatar(avatarToDelete: avatar)
-
-        self.avatars.remove(at: indexPath.row)
-
-        collectionView.reloadData()
-
+        alert.addAction(UIAlertAction(title: "Cancel", style: .default))
+        alert.addAction(UIAlertAction(title: "Delete", style: .destructive, handler: { (_: UIAlertAction) in
+            self.viewModel?.deleteAvatar(avatar: avatar, at: indexPath.row)
+        }))
+        self.present(alert, animated: true, completion: nil)
     }
 }
 

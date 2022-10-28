@@ -9,20 +9,13 @@ import Foundation
 import UIKit
 
 class MainCoordinator: Coordinator {
-    var emojiService: EmojiService?
-    var avatarService: AvatarService?
     var appleReposService: AppleReposService?
-
     var navigationController: UINavigationController?
-
-    var liveAvatarStorage: LiveAvatarStorage = .init()
     var mainPageViewModel: MainPageViewModel?
     var emojiViewModel: EmojiViewModel?
     var avatarViewModel: AvatarViewModel?
 
     init(emojiService: EmojiService, avatarService: AvatarService, appleReposService: AppleReposService) {
-        self.emojiService = emojiService
-        self.avatarService = avatarService
         self.appleReposService = appleReposService
         self.mainPageViewModel = MainPageViewModel(emojiService: emojiService, avatarService: avatarService)
         self.emojiViewModel = EmojiViewModel(emojiService: emojiService)
@@ -34,13 +27,11 @@ class MainCoordinator: Coordinator {
         case .buttonEmojisListTapped:
             let viewController = EmojisListViewController()
             viewController.coordinator = self
-//            vc.emojiService = emojiService
             viewController.viewModel = emojiViewModel
             navigationController?.pushViewController(viewController, animated: true)
         case .buttonAvatarsListTapped:
             let viewController = AvatarsListViewController()
             viewController.coordinator = self
-            viewController.avatarService = liveAvatarStorage
             viewController.viewModel = avatarViewModel
             navigationController?.pushViewController(viewController, animated: true)
         case .buttonAppleReposTapped:
@@ -54,8 +45,6 @@ class MainCoordinator: Coordinator {
     func start() {
         let viewController = MainViewController()
         viewController.coordinator = self
-        viewController.emojiService = emojiService
-        viewController.avatarService = liveAvatarStorage
         viewController.viewModel = mainPageViewModel
         navigationController?.setViewControllers([viewController], animated: false)
     }

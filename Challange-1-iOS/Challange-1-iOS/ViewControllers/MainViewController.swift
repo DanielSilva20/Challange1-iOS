@@ -40,7 +40,6 @@ import CoreData
 // class MainViewController: BaseGenericViewController<BaseGenericView>, Coordinating {
 class MainViewController: UIViewController, Coordinating {
     var coordinator: Coordinator?
-    var emojiService: EmojiService?
 
     private var verticalStackView: UIStackView
     private var searchStackView: UIStackView
@@ -54,10 +53,7 @@ class MainViewController: UIViewController, Coordinating {
     private var emojiImage: UIImageView
 
     private var urlEmojiImage: String
-    var avatarPersistence: AvatarPersistence?
-
     var networkManager: NetworkManager = .init()
-    var avatarService: LiveAvatarStorage = .init()
 
     var viewModel: MainPageViewModel?
 

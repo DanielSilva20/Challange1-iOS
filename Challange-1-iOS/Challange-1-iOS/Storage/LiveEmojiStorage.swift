@@ -32,14 +32,12 @@ class LiveEmojiStorage: EmojiService {
                 switch result {
                 case .success(let success):
                     resultHandler(.success(success.emojis))
-                    //                print("Success: \(success)")
                 case .failure(let failure):
                     print("Error: \(failure)")
                 }
             }
         }
     }
-
 }
 /*
 protocol EmojiPresenter: EmojiStorageDelegate {
