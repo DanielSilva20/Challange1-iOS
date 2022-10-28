@@ -10,7 +10,6 @@ import Foundation
 class AppleReposViewModel {
     private var itemsPerPage: Int = 10
     private var pageNumber: Int = 0
-//    private var isEnd: Bool = false
 
     var appleReposService: AppleReposService?
 
@@ -27,15 +26,7 @@ class AppleReposViewModel {
                                                   pageNumber: pageNumber, { ( result: Result<[AppleRepos], Error>) in
             switch result {
             case .success(let success):
-//                self.appleReposList.append(contentsOf: success)
-                self.appleReposList.value = success
-                DispatchQueue.main.async { [weak self] in
-                    guard let self = self else {return}
-//                    self.tableView.reloadData()
-//                    if self.tableView.contentSize.height < self.tableView.frame.size.height {
-//                        self.getCurrentRepos()
-//                    }
-                }
+                self.appleReposList.value?.append(contentsOf: success)
                 if success.count < self.itemsPerPage {
                     self.isEnd.value = true
                 }

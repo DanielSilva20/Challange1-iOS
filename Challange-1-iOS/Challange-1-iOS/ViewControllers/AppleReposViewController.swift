@@ -12,7 +12,6 @@ class AppleReposViewController: UIViewController, Coordinating {
     private var appleRepos: [AppleRepos] = []
 
     var mockedAppleReposDataSource: MockAppleReposDataSource?
-//    var appleReposService: AppleReposService?
 
     private var addedToView: Bool = false
     private var isEnd: Bool = false
@@ -76,42 +75,24 @@ class AppleReposViewController: UIViewController, Coordinating {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         viewModel?.appleReposList.bind(listener: { [weak self] newRepos in
-            guard let newRepos = newRepos else { return }
-            self?.appleRepos = newRepos
+            guard
+                let self = self,
+                let newRepos = newRepos else { return }
+            self.appleRepos = newRepos
 
-            DispatchQueue.main.async {
-                self?.tableView.reloadData()
+            DispatchQueue.main.async { [weak self] in
+                guard let self = self else { return }
+                self.tableView.reloadData()
+                self.addedToView = true
+                if self.tableView.contentSize.height < self.tableView.frame.size.height {
+                    self.viewModel?.getRepos()
+                }
             }
         })
-        viewModel?.isEnd.bind(listener: { [weak self] boolEnd in
+        viewModel?.isEnd.bind(listener: { [weak self] ended in
             guard let self = self else { return }
-            self.isEnd = boolEnd
+            self.isEnd = ended
         })
-        viewModel?.getRepos()
-//        getCurrentRepos()
-    }
-
-    func getCurrentRepos() {
-//        self.pageNumber += 1
-//        self.appleReposService?.getAppleReposList(itemsPerPage: itemsPerPage,
-//                                                  pageNumber: pageNumber, { ( result: Result<[AppleRepos], Error>) in
-//            switch result {
-//            case .success(let success):
-//                self.appleRepos.append(contentsOf: success)
-//                DispatchQueue.main.async { [weak self] in
-//                    guard let self = self else {return}
-//                    self.tableView.reloadData()
-//                    if self.tableView.contentSize.height < self.tableView.frame.size.height {
-//                        self.getCurrentRepos()
-//                    }
-//                }
-//                if success.count < self.itemsPerPage {
-//                    self.isEnd = true
-//                }
-//            case .failure(let failure):
-//                print("[Error getting appleRepos data] : \(failure)")
-//            }
-//        })
     }
 }
 
@@ -128,12 +109,14 @@ extension AppleReposViewController: UITableViewDataSource, UITableViewDelegate {
             && addedToView
             && !isEnd {
             addedToView = false
-            getCurrentRepos()
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
+            viewModel?.getRepos()
         }
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        addedToView = true
         return appleRepos.count
     }
 
