@@ -9,7 +9,7 @@ class AvatarPersistence {
 
         DispatchQueue.main.async {
 
-            guard var appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
+            guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
             // 1
             let managedContext = appDelegate.persistentContainer.viewContext
 

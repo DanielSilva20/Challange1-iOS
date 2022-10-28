@@ -12,15 +12,13 @@ class AppleReposViewController: UIViewController, Coordinating {
     private var appleRepos: [AppleRepos] = []
 
     var mockedAppleReposDataSource: MockAppleReposDataSource?
-    var appleReposService: AppleReposService?
-
-    private var itemsPerPage: Int = 10
-    private var pageNumber: Int = 0
+//    var appleReposService: AppleReposService?
 
     private var addedToView: Bool = false
     private var isEnd: Bool = false
 
     var coordinator: Coordinator?
+    var viewModel: AppleReposViewModel?
 
     init() {
         tableView = .init(frame: .zero)
@@ -77,30 +75,43 @@ class AppleReposViewController: UIViewController, Coordinating {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        getCurrentRepos()
+        viewModel?.appleReposList.bind(listener: { [weak self] newRepos in
+            guard let newRepos = newRepos else { return }
+            self?.appleRepos = newRepos
+
+            DispatchQueue.main.async {
+                self?.tableView.reloadData()
+            }
+        })
+        viewModel?.isEnd.bind(listener: { [weak self] boolEnd in
+            guard let self = self else { return }
+            self.isEnd = boolEnd
+        })
+        viewModel?.getRepos()
+//        getCurrentRepos()
     }
 
     func getCurrentRepos() {
-        self.pageNumber += 1
-        self.appleReposService?.getAppleReposList(itemsPerPage: itemsPerPage,
-                                                  pageNumber: pageNumber, { ( result: Result<[AppleRepos], Error>) in
-            switch result {
-            case .success(let success):
-                self.appleRepos.append(contentsOf: success)
-                DispatchQueue.main.async { [weak self] in
-                    guard let self = self else {return}
-                    self.tableView.reloadData()
-                    if self.tableView.contentSize.height < self.tableView.frame.size.height {
-                        self.getCurrentRepos()
-                    }
-                }
-                if success.count < self.itemsPerPage {
-                    self.isEnd = true
-                }
-            case .failure(let failure):
-                print("[Error getting appleRepos data] : \(failure)")
-            }
-        })
+//        self.pageNumber += 1
+//        self.appleReposService?.getAppleReposList(itemsPerPage: itemsPerPage,
+//                                                  pageNumber: pageNumber, { ( result: Result<[AppleRepos], Error>) in
+//            switch result {
+//            case .success(let success):
+//                self.appleRepos.append(contentsOf: success)
+//                DispatchQueue.main.async { [weak self] in
+//                    guard let self = self else {return}
+//                    self.tableView.reloadData()
+//                    if self.tableView.contentSize.height < self.tableView.frame.size.height {
+//                        self.getCurrentRepos()
+//                    }
+//                }
+//                if success.count < self.itemsPerPage {
+//                    self.isEnd = true
+//                }
+//            case .failure(let failure):
+//                print("[Error getting appleRepos data] : \(failure)")
+//            }
+//        })
     }
 }
 

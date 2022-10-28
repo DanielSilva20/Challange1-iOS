@@ -59,6 +59,7 @@
 		08FB470328E48B03000CC6E7 /* Emoji+Mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08FB470228E48B03000CC6E7 /* Emoji+Mock.swift */; };
 		08FB470628E491D4000CC6E7 /* LiveEmojiStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08FB470528E491D4000CC6E7 /* LiveEmojiStorage.swift */; };
 		08FB470B28E4AB51000CC6E7 /* AvatarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08FB470A28E4AB51000CC6E7 /* AvatarCell.swift */; };
+		08FDDEA6290C1DAE00986A42 /* AppleReposViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08FDDEA5290C1DAE00986A42 /* AppleReposViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -115,6 +116,7 @@
 		08FB470228E48B03000CC6E7 /* Emoji+Mock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Emoji+Mock.swift"; sourceTree = "<group>"; };
 		08FB470528E491D4000CC6E7 /* LiveEmojiStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveEmojiStorage.swift; sourceTree = "<group>"; };
 		08FB470A28E4AB51000CC6E7 /* AvatarCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarCell.swift; sourceTree = "<group>"; };
+		08FDDEA5290C1DAE00986A42 /* AppleReposViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleReposViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -194,6 +196,7 @@
 				089F940F290A8C4B00C3072E /* MainPageViewModel.swift */,
 				089F9415290AD0D900C3072E /* EmojiViewModel.swift */,
 				089F9419290AE14300C3072E /* AvatarViewModel.swift */,
+				08FDDEA5290C1DAE00986A42 /* AppleReposViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -423,6 +426,7 @@
 				08DF7D4D28EB039400B900BC /* AvatarApi.swift in Sources */,
 				0870217B2908404F0055B9FF /* EmojiCell.swift in Sources */,
 				086398E728F0833C0031B62A /* Spacing.swift in Sources */,
+				08FDDEA6290C1DAE00986A42 /* AppleReposViewModel.swift in Sources */,
 				08A6CB66290140DE00FF4B92 /* AppleReposService.swift in Sources */,
 				08B6D39F28F5B7B600BBCD38 /* Database.xcdatamodeld in Sources */,
 				08B6D33628F5611600BBCD38 /* MainViewController.swift in Sources */,
