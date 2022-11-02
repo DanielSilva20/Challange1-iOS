@@ -13,7 +13,7 @@ class AppleReposViewModel {
 
     var appleReposService: AppleReposService?
 
-    var appleReposList: Box<[AppleRepos]?> = Box(nil)
+    var appleReposList: Box<[AppleRepos]?> = Box([])
     var isEnd: Box<Bool> = Box(false)
 
     init(appleReposService: AppleReposService) {

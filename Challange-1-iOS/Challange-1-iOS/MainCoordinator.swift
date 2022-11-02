@@ -9,15 +9,15 @@ import Foundation
 import UIKit
 
 class MainCoordinator: Coordinator {
-    var appleReposService: AppleReposService?
     var navigationController: UINavigationController?
     var mainPageViewModel: MainPageViewModel?
     var emojiViewModel: EmojiViewModel?
     var avatarViewModel: AvatarViewModel?
     var appleReposViewModel: AppleReposViewModel?
 
+    var application: Application = .init()
+
     init(emojiService: EmojiService, avatarService: AvatarService, appleReposService: AppleReposService) {
-        self.appleReposService = appleReposService
         self.mainPageViewModel = MainPageViewModel(emojiService: emojiService, avatarService: avatarService)
         self.emojiViewModel = EmojiViewModel(emojiService: emojiService)
         self.avatarViewModel = AvatarViewModel(avatarService: avatarService)

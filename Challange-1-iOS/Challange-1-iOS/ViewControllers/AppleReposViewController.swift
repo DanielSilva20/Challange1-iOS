@@ -82,11 +82,11 @@ class AppleReposViewController: UIViewController, Coordinating {
 
             DispatchQueue.main.async { [weak self] in
                 guard let self = self else { return }
-                self.tableView.reloadData()
                 self.addedToView = true
                 if self.tableView.contentSize.height < self.tableView.frame.size.height {
                     self.viewModel?.getRepos()
                 }
+                self.tableView.reloadData()
             }
         })
         viewModel?.isEnd.bind(listener: { [weak self] ended in
@@ -109,9 +109,6 @@ extension AppleReposViewController: UITableViewDataSource, UITableViewDelegate {
             && addedToView
             && !isEnd {
             addedToView = false
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
-            }
             viewModel?.getRepos()
         }
     }

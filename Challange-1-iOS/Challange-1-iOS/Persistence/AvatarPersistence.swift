@@ -3,15 +3,17 @@ import CoreData
 
 class AvatarPersistence {
     var avatarsPersistenceList: [NSManagedObject] = []
-    var appDelegate: AppDelegate?
+    var application: Application?
 
     func saveAvatar(currentAvatar: Avatar) {
 
         DispatchQueue.main.async {
+            guard let application = self.application else {
+                return
+            }
 
-            guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
             // 1
-            let managedContext = appDelegate.persistentContainer.viewContext
+            let managedContext = application.persistentContainer.viewContext
 
             // 2
             let entity = NSEntityDescription.entity(forEntityName: "AvatarEntity",
@@ -40,9 +42,11 @@ class AvatarPersistence {
     func fetchAvatarData(_ resulthandler: @escaping ([NSManagedObject]) -> Void) {
         var array: [NSManagedObject]
 
-        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
+        guard let application = application else {
+            return
+        }
 
-        let managedContext = appDelegate.persistentContainer.viewContext
+        let managedContext = application.persistentContainer.viewContext
 
         // 2
         let fetchRequest =
@@ -58,8 +62,10 @@ class AvatarPersistence {
     }
 
     func checkIfItemExist(login: String, _ resultHandler: @escaping (Result<[NSManagedObject], Error>) -> Void) {
-        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
-        let managedContext = appDelegate.persistentContainer.viewContext
+        guard let application = application else {
+            return
+        }
+        let managedContext = application.persistentContainer.viewContext
 
         let fetchRequest = NSFetchRequest<NSManagedObject>.init(entityName: "AvatarEntity")
         fetchRequest.predicate = NSPredicate(format: "login ==[cd] %@", login)
@@ -74,8 +80,11 @@ class AvatarPersistence {
     }
 
     func delete(avatarObject: Avatar) {
-        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
-        let managedContext = appDelegate.persistentContainer.viewContext
+        guard let application = application else {
+            return
+        }
+
+        let managedContext = application.persistentContainer.viewContext
 
         let fetchRequest = NSFetchRequest<NSManagedObject>.init(entityName: "AvatarEntity")
         fetchRequest.predicate = NSPredicate(format: "login = %@", avatarObject.login)

@@ -10,18 +10,18 @@ import CoreData
 
 class EmojiPersistence {
     var emojisPersistenceList: [NSManagedObject] = []
+    var application: Application?
 
     func saveEmoji(name: String, url: String) {
 
         DispatchQueue.main.async {
-            guard let appDelegate =
-              UIApplication.shared.delegate as? AppDelegate else {
-              return
+
+            guard let application = self.application else {
+                return
             }
 
             // 1
-            let managedContext =
-              appDelegate.persistentContainer.viewContext
+            let managedContext = application.persistentContainer.viewContext
 
             // 2
             let entity =
@@ -49,13 +49,11 @@ class EmojiPersistence {
     func loadData() -> [NSManagedObject] {
         var array: [NSManagedObject] = []
         // 1
-        guard let appDelegate =
-          UIApplication.shared.delegate as? AppDelegate else {
-            return array
+        guard let application = application else {
+            return []
         }
 
-        let managedContext =
-          appDelegate.persistentContainer.viewContext
+        let managedContext = application.persistentContainer.viewContext
 
         // 2
         let fetchRequest =

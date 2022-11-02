@@ -49,6 +49,7 @@
 		08B6D3A128F6C52400BBCD38 /* View+ActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08B6D3A028F6C52400BBCD38 /* View+ActivityIndicator.swift */; };
 		08BB8FC428EC798200CE4576 /* EmojiResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08BB8FC328EC798200CE4576 /* EmojiResponse.swift */; };
 		08BB8FC728EC871900CE4576 /* ImageView+Download.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08BB8FC628EC871900CE4576 /* ImageView+Download.swift */; };
+		08D00F0D290FD96C00109D63 /* Application.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D00F0C290FD96C00109D63 /* Application.swift */; };
 		08DF7D4D28EB039400B900BC /* AvatarApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08DF7D4C28EB039400B900BC /* AvatarApi.swift */; };
 		08DF7D4F28EB044800B900BC /* Avatar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08DF7D4E28EB044800B900BC /* Avatar.swift */; };
 		08DF7D5128EB045500B900BC /* Avatar+Mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08DF7D5028EB045500B900BC /* Avatar+Mock.swift */; };
@@ -106,6 +107,7 @@
 		08B6D3A028F6C52400BBCD38 /* View+ActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+ActivityIndicator.swift"; sourceTree = "<group>"; };
 		08BB8FC328EC798200CE4576 /* EmojiResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiResponse.swift; sourceTree = "<group>"; };
 		08BB8FC628EC871900CE4576 /* ImageView+Download.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ImageView+Download.swift"; sourceTree = "<group>"; };
+		08D00F0C290FD96C00109D63 /* Application.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Application.swift; sourceTree = "<group>"; };
 		08DF7D4C28EB039400B900BC /* AvatarApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarApi.swift; sourceTree = "<group>"; };
 		08DF7D4E28EB044800B900BC /* Avatar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Avatar.swift; sourceTree = "<group>"; };
 		08DF7D5028EB045500B900BC /* Avatar+Mock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Avatar+Mock.swift"; sourceTree = "<group>"; };
@@ -157,15 +159,16 @@
 				08FB470928E4AB43000CC6E7 /* Cell */,
 				08FB470428E491B7000CC6E7 /* Storage */,
 				08FB46FF28E4823D000CC6E7 /* Model */,
-				081F2B9328DDC2860003AB99 /* AppDelegate.swift */,
-				081F2B9528DDC2860003AB99 /* SceneDelegate.swift */,
 				08DEF20D28E0D6A100B98548 /* ViewControllers */,
 				086398E828F0877D0031B62A /* Design System */,
 				081F2B9C28DDC2870003AB99 /* Assets.xcassets */,
 				081F2B9E28DDC2870003AB99 /* LaunchScreen.storyboard */,
 				081F2BA128DDC2870003AB99 /* Info.plist */,
+				081F2B9328DDC2860003AB99 /* AppDelegate.swift */,
+				081F2B9528DDC2860003AB99 /* SceneDelegate.swift */,
 				0817A4F428E1B774007217C2 /* Coordinator.swift */,
 				0817A4F628E1B898007217C2 /* MainCoordinator.swift */,
+				08D00F0C290FD96C00109D63 /* Application.swift */,
 			);
 			path = "Challange-1-iOS";
 			sourceTree = "<group>";
@@ -404,6 +407,7 @@
 				08A6CB5E2900033F00FF4B92 /* AppleReposApi.swift in Sources */,
 				08B6D3A128F6C52400BBCD38 /* View+ActivityIndicator.swift in Sources */,
 				089F9412290A8CC400C3072E /* Box.swift in Sources */,
+				08D00F0D290FD96C00109D63 /* Application.swift in Sources */,
 				0817A4F128E1AE17007217C2 /* AvatarsListViewController.swift in Sources */,
 				089F941A290AE14300C3072E /* AvatarViewModel.swift in Sources */,
 				0817A4F728E1B898007217C2 /* MainCoordinator.swift in Sources */,
