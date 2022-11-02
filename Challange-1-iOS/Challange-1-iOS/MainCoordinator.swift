@@ -15,7 +15,6 @@ class MainCoordinator: Coordinator {
     var avatarViewModel: AvatarViewModel?
     var appleReposViewModel: AppleReposViewModel?
 
-    var application: Application = .init()
 
     init(emojiService: EmojiService, avatarService: AvatarService, appleReposService: AppleReposService) {
         self.mainPageViewModel = MainPageViewModel(emojiService: emojiService, avatarService: avatarService)
@@ -49,7 +48,6 @@ class MainCoordinator: Coordinator {
         let viewController = MainViewController()
         viewController.coordinator = self
         viewController.viewModel = mainPageViewModel
-        viewController.application = application
         navigationController?.setViewControllers([viewController], animated: false)
     }
 

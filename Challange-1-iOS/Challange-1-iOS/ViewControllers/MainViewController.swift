@@ -56,7 +56,6 @@ class MainViewController: UIViewController, Coordinating {
     var networkManager: NetworkManager = .init()
 
     var viewModel: MainPageViewModel?
-    var application: Application?
 
     init() {
         // 0 - Create the Views
@@ -86,13 +85,19 @@ class MainViewController: UIViewController, Coordinating {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-//        emojiImage.showLoading()
+        emojiImage.showLoading()
 
         viewModel?.emojiImageUrl.bind(listener: { url in
             guard let url = url else { return }
-            self.emojiImage.stopLoading()
             let dataTask = self.emojiImage.createDownloadDataTask(from: url)
             dataTask.resume()
+            self.emojiImage.stopLoading()
+            print("Disable")
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                print("Enable")
+                self.btnEmojisList.isEnabled = true
+            }
+
         })
 
         setUpViews()
@@ -126,11 +131,13 @@ class MainViewController: UIViewController, Coordinating {
 
         self.navigationController?.navigationBar.tintColor = .appColor(name: .primary)
 
-        btnEmojisList.addTarget(self, action: #selector(didTapEmojisLIst), for: .touchUpInside)
+        btnEmojisList.addTarget(self, action: #selector(didTapEmojisLIst(_:)), for: .touchUpInside)
         btnRandomEmoji.addTarget(self, action: #selector(getRandomEmoji), for: .touchUpInside)
         btnAvatarsList.addTarget(self, action: #selector(didTapAvatarsList), for: .touchUpInside)
         btnAppleRepos.addTarget(self, action: #selector(didTapAppleRepos), for: .touchUpInside)
         btnSearch.addTarget(self, action: #selector(saveSearchContent), for: .touchUpInside)
+
+        btnEmojisList.isEnabled = false
 
         getRandomEmoji()
     }
@@ -161,6 +168,8 @@ class MainViewController: UIViewController, Coordinating {
             emojiImage.widthAnchor.constraint(equalTo: emojiImage.heightAnchor, multiplier: 1)
 
         ])
+
+        btnEmojisList.sizeToFit()
 
         verticalStackView.spacing = 20
         searchStackView.spacing = 20
