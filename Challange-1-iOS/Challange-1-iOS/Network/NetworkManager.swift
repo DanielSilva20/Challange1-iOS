@@ -41,12 +41,12 @@ class NetworkManager {
         let task = URLSession.shared.dataTask(with: request) { data, _, error in
             if let data = data {
                 if let result = try? decoder.decode(ResultType.self, from: data) {
-                    resultHandler(Result<ResultType, Error>.success(result))
+                    resultHandler(.success(result))
                 } else {
-                    resultHandler(Result<ResultType, Error>.failure(APIError.unknownError))
+                    resultHandler(.failure(APIError.unknownError))
                 }
             } else if let error = error {
-                resultHandler(Result<ResultType, Error>.failure(error))
+                resultHandler(.failure(error))
             }
         }
 

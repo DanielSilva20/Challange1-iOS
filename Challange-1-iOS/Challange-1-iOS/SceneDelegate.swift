@@ -6,19 +6,24 @@
 //
 
 import UIKit
+import CoreData
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
+    var persistentContainer: NSPersistentContainer = {
+        let container = NSPersistentContainer(name: "Database")
+        container.loadPersistentStores(completionHandler: { (_, error) in
+            if let error = error as NSError? {
+                fatalError("Unresolved error \(error), \(error.userInfo)")
+            }
+        })
+        return container
+    }()
 
     func scene(_ scene: UIScene,
                willConnectTo session: UISceneSession,
                options connectionOptions: UIScene.ConnectionOptions) {
-        // Use this method to optionally configure and attach the UIWindow `window`
-        // to the provided UIWindowScene `scene`.
-        // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
-        // This delegate does not imply the connecting scene or session are new
-        // (see `application:configurationForConnectingSceneSession` instead).
 
         NetworkManager.initialize()
 
@@ -26,8 +31,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         let navVC = UINavigationController()
 
-        let coordinator = MainCoordinator(emojiService: LiveEmojiStorage(),
-                                          avatarService: LiveAvatarStorage(),
+        let coordinator = MainCoordinator(emojiService: LiveEmojiStorage(persistentContainer: persistentContainer),
+                                          avatarService: LiveAvatarStorage(persistentContainer: persistentContainer),
                                           appleReposService: MockAppleReposStorage())
         coordinator.navigationController = navVC
 

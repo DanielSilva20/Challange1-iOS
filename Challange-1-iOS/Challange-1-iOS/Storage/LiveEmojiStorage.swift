@@ -12,25 +12,32 @@ class LiveEmojiStorage: EmojiService {
     var emojis: [Emoji] = []
 
     private var networkManager: NetworkManager = .init()
-    private let persistence: EmojiPersistence = .init()
+    private var persistentContainer: NSPersistentContainer
+    private var persistence: EmojiPersistence {
+        return .init(persistentContainer: persistentContainer)
+    }
+    init(persistentContainer: NSPersistentContainer) {
+        self.persistentContainer = persistentContainer
+    }
 
     func getEmojisList(_ resultHandler: @escaping (Result<[Emoji], Error>) -> Void) {
-        var fetchedEmojis: [NSManagedObject] = []
+        var fetchedEmojis: [Emoji] = []
         fetchedEmojis = persistence.loadData()
 
         if !fetchedEmojis.isEmpty {
-            let emojis = fetchedEmojis.compactMap({ item -> Emoji? in
-                guard let nameItem = item.value(forKey: "name") as? String else { return nil }
-                guard let urlAsString = item.value(forKey: "url") as? String else { return nil }
-                guard let urlItem = URL(string: urlAsString) else { return nil }
-                return Emoji(name: nameItem, emojiUrl: urlItem)
-            })
-            print(emojis.count)
-            resultHandler(.success(emojis))
+            resultHandler(.success(fetchedEmojis))
         } else {
-            networkManager.executeNetworkCall(EmojiAPI.getEmojis) { (result: Result<EmojisAPICAllResult, Error>) in
+            networkManager.executeNetworkCall(
+                EmojiAPI.getEmojis) { [weak self] (result: Result<EmojisAPICAllResult, Error>) in
+                guard let self = self else { return }
                 switch result {
                 case .success(let success):
+                    success.emojis.forEach { emoji in
+                        DispatchQueue.main.async { [weak self] in
+                            guard let self = self else { return }
+                            self.persistence.saveEmoji(name: emoji.name, url: emoji.emojiUrl.absoluteString)
+                        }
+                    }
                     resultHandler(.success(success.emojis))
                 case .failure(let failure):
                     print("Error: \(failure)")

@@ -56,6 +56,7 @@ class MainViewController: UIViewController, Coordinating {
     var networkManager: NetworkManager = .init()
 
     var viewModel: MainPageViewModel?
+    var application: Application?
 
     init() {
         // 0 - Create the Views

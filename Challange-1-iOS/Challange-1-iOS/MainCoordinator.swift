@@ -49,6 +49,7 @@ class MainCoordinator: Coordinator {
         let viewController = MainViewController()
         viewController.coordinator = self
         viewController.viewModel = mainPageViewModel
+        viewController.application = application
         navigationController?.setViewControllers([viewController], animated: false)
     }
 

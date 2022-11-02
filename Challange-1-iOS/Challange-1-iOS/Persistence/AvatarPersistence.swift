@@ -3,17 +3,18 @@ import CoreData
 
 class AvatarPersistence {
     var avatarsPersistenceList: [NSManagedObject] = []
-    var application: Application?
+    private let persistentContainer: NSPersistentContainer
+
+    init(persistentContainer: NSPersistentContainer) {
+        self.persistentContainer = persistentContainer
+    }
 
     func saveAvatar(currentAvatar: Avatar) {
 
         DispatchQueue.main.async {
-            guard let application = self.application else {
-                return
-            }
 
             // 1
-            let managedContext = application.persistentContainer.viewContext
+            let managedContext = self.persistentContainer.viewContext
 
             // 2
             let entity = NSEntityDescription.entity(forEntityName: "AvatarEntity",
@@ -39,40 +40,41 @@ class AvatarPersistence {
 
     }
 
-    func fetchAvatarData(_ resulthandler: @escaping ([NSManagedObject]) -> Void) {
+    func fetchAvatarData(_ resulthandler: @escaping ([Avatar]) -> Void) {
         var array: [NSManagedObject]
+        var avatarArray: [Avatar]
 
-        guard let application = application else {
-            return
-        }
-
-        let managedContext = application.persistentContainer.viewContext
+        let managedContext = persistentContainer.viewContext
 
         // 2
-        let fetchRequest =
-        NSFetchRequest<NSManagedObject>(entityName: "AvatarEntity")
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "AvatarEntity")
 
         // 3
         do {
             array = try managedContext.fetch(fetchRequest)
-            resulthandler(array)
+            avatarArray = array.compactMap({ item -> Avatar? in
+                item.toAvatar()
+            })
+            resulthandler(avatarArray)
         } catch let error as NSError {
             print("Could not fetch. \(error), \(error.userInfo)")
         }
     }
 
-    func checkIfItemExist(login: String, _ resultHandler: @escaping (Result<[NSManagedObject], Error>) -> Void) {
-        guard let application = application else {
-            return
-        }
-        let managedContext = application.persistentContainer.viewContext
+    func checkIfItemExist(login: String, _ resultHandler: @escaping (Result<[Avatar], Error>) -> Void) {
+        var avatar: [Avatar]
+
+        let managedContext = persistentContainer.viewContext
 
         let fetchRequest = NSFetchRequest<NSManagedObject>.init(entityName: "AvatarEntity")
         fetchRequest.predicate = NSPredicate(format: "login ==[cd] %@", login)
 
         do {
             let matchAvatar = try managedContext.fetch(fetchRequest)
-            resultHandler(.success(matchAvatar))
+            avatar = matchAvatar.compactMap({ item -> Avatar? in
+                return item.toAvatar()
+            })
+            resultHandler(.success(avatar))
         } catch {
             print(error)
             resultHandler(.failure(error))
@@ -80,11 +82,8 @@ class AvatarPersistence {
     }
 
     func delete(avatarObject: Avatar) {
-        guard let application = application else {
-            return
-        }
 
-        let managedContext = application.persistentContainer.viewContext
+        let managedContext = persistentContainer.viewContext
 
         let fetchRequest = NSFetchRequest<NSManagedObject>.init(entityName: "AvatarEntity")
         fetchRequest.predicate = NSPredicate(format: "login = %@", avatarObject.login)
