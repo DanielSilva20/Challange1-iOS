@@ -10,7 +10,6 @@ import UIKit
 class AvatarsListViewController: UIViewController, Coordinating {
     private var collectionView: UICollectionView
     var coordinator: Coordinator?
-    //    var avatarService: LiveAvatarStorage?
     var avatars: [Avatar] = []
     var viewModel: AvatarViewModel?
 

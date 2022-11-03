@@ -92,11 +92,11 @@ class MainViewController: UIViewController, Coordinating {
             let dataTask = self.emojiImage.createDownloadDataTask(from: url)
             dataTask.resume()
             self.emojiImage.stopLoading()
-            print("Disable")
-            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                print("Enable")
-                self.btnEmojisList.isEnabled = true
-            }
+//            print("Disable")
+//            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+//                print("Enable")
+//                self.btnEmojisList.isEnabled = true
+//            }
 
         })
 
@@ -137,7 +137,7 @@ class MainViewController: UIViewController, Coordinating {
         btnAppleRepos.addTarget(self, action: #selector(didTapAppleRepos), for: .touchUpInside)
         btnSearch.addTarget(self, action: #selector(saveSearchContent), for: .touchUpInside)
 
-        btnEmojisList.isEnabled = false
+//        btnEmojisList.isEnabled = false
 
         getRandomEmoji()
     }

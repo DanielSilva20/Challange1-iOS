@@ -9,14 +9,8 @@ import UIKit
 
 class EmojisListViewController: UIViewController, Coordinating {
     private var collectionView: UICollectionView
-//    var emojiService: EmojiService?
-
     var coordinator: Coordinator?
-//
-//    var liveEmojiStorage: LiveEmojiStorage = .init()
-
     var emojisList: [Emoji] = []
-
     var viewModel: EmojiViewModel?
 
     //    lazy var collectionView: UICollectionView = {

@@ -1,5 +1,5 @@
 //
-//  MockAppleReposStorage.swift
+//  MockAppleReposService.swift
 //  Challange-1-iOS
 //
 //  Created by Daniel Silva on 10/20/22.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-class MockAppleReposStorage: AppleReposService {
+class MockAppleReposService: AppleReposService {
     var mockedAppleRepos: MockedAppleReposStorage = .init()
 
     func getAppleReposList(itemsPerPage: Int,

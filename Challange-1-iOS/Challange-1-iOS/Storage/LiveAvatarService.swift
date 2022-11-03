@@ -1,5 +1,5 @@
 //
-//  LiveAvatarStorage.swift
+//  LiveAvatarService.swift
 //  Challange-1-iOS
 //
 //  Created by Daniel Silva on 03/10/2022.
@@ -8,7 +8,7 @@
 import Foundation
 import CoreData
 
-class LiveAvatarStorage: AvatarService {
+class LiveAvatarService: AvatarService {
 
     private var networkManager: NetworkManager = .init()
     private var persistence: AvatarPersistence {

@@ -1,6 +1,6 @@
 import UIKit
 
-class MockEmojiStorage: EmojiService {
+class MockEmojiService: EmojiService {
 
     private var mockedEmojis: MockedEmojisStorage = .init()
 

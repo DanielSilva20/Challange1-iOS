@@ -1,5 +1,5 @@
 //
-//  LiveEmojiStorage.swift
+//  LiveEmojiService.swift
 //  Challange-1-iOS
 //
 //  Created by Daniel Silva on 9/28/22.
@@ -8,7 +8,7 @@
 import Foundation
 import CoreData
 
-class LiveEmojiStorage: EmojiService {
+class LiveEmojiService: EmojiService {
     var emojis: [Emoji] = []
 
     private var networkManager: NetworkManager = .init()

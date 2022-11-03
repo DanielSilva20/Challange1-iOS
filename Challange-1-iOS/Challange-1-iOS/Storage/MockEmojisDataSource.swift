@@ -8,7 +8,7 @@
 import UIKit
 
 class MockedDataSource: NSObject, UICollectionViewDataSource {
-    var mockedEmojis: MockEmojiStorage = .init()
+    var mockedEmojis: MockEmojiService = .init()
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
 
