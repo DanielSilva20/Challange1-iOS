@@ -22,7 +22,7 @@ class LiveEmojiService: EmojiService {
 
     func getEmojisList(_ resultHandler: @escaping (Result<[Emoji], Error>) -> Void) {
         var fetchedEmojis: [Emoji] = []
-        fetchedEmojis = persistence.loadData()
+        fetchedEmojis = persistence.fetchEmojisData()
 
         if !fetchedEmojis.isEmpty {
             resultHandler(.success(fetchedEmojis))

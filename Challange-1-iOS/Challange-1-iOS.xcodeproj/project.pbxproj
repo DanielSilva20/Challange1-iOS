@@ -18,6 +18,12 @@
 		081F2B9628DDC2860003AB99 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 081F2B9528DDC2860003AB99 /* SceneDelegate.swift */; };
 		081F2B9D28DDC2870003AB99 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 081F2B9C28DDC2870003AB99 /* Assets.xcassets */; };
 		081F2BA028DDC2870003AB99 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 081F2B9E28DDC2870003AB99 /* LaunchScreen.storyboard */; };
+		0822F00729151E7F00A5291D /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 0822F00629151E7F00A5291D /* RxCocoa */; };
+		0822F00929151E7F00A5291D /* RxRelay in Frameworks */ = {isa = PBXBuildFile; productRef = 0822F00829151E7F00A5291D /* RxRelay */; };
+		0822F00B29151E7F00A5291D /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 0822F00A29151E7F00A5291D /* RxSwift */; };
+		0822F0112915213400A5291D /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0822F0102915213400A5291D /* MainView.swift */; };
+		0822F01529152E3500A5291D /* BaseGenericView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0822F01429152E3500A5291D /* BaseGenericView.swift */; };
+		0822F01729152E4100A5291D /* BaseGenericViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0822F01629152E4100A5291D /* BaseGenericViewController.swift */; };
 		0826D3872902A8D100439C98 /* MockAppleReposDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0826D3862902A8D100439C98 /* MockAppleReposDataSource.swift */; };
 		08490FAC28E723B800DAB664 /* EmojiApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08490FAB28E723B800DAB664 /* EmojiApi.swift */; };
 		08490FAE28E726DF00DAB664 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08490FAD28E726DF00DAB664 /* NetworkManager.swift */; };
@@ -79,6 +85,9 @@
 		081F2B9C28DDC2870003AB99 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		081F2B9F28DDC2870003AB99 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		081F2BA128DDC2870003AB99 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0822F0102915213400A5291D /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		0822F01429152E3500A5291D /* BaseGenericView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseGenericView.swift; sourceTree = "<group>"; };
+		0822F01629152E4100A5291D /* BaseGenericViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseGenericViewController.swift; sourceTree = "<group>"; };
 		0826D3862902A8D100439C98 /* MockAppleReposDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockAppleReposDataSource.swift; sourceTree = "<group>"; };
 		08490FAB28E723B800DAB664 /* EmojiApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiApi.swift; sourceTree = "<group>"; };
 		08490FAD28E726DF00DAB664 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
@@ -128,6 +137,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0822F00929151E7F00A5291D /* RxRelay in Frameworks */,
+				0822F00729151E7F00A5291D /* RxCocoa in Frameworks */,
+				0822F00B29151E7F00A5291D /* RxSwift in Frameworks */,
 				089CA0B528E31F8000386DF0 /* Alamofire in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -158,10 +170,9 @@
 				08B6D39728F5838F00BBCD38 /* Persistence */,
 				08BB8FC528EC870A00CE4576 /* Utilities */,
 				08490FAA28E6F6AC00DAB664 /* Network */,
-				08FB470928E4AB43000CC6E7 /* Cell */,
 				08FB470428E491B7000CC6E7 /* Storage */,
 				08FB46FF28E4823D000CC6E7 /* Model */,
-				08DEF20D28E0D6A100B98548 /* ViewControllers */,
+				0822F00D291520FD00A5291D /* Presentation */,
 				086398E828F0877D0031B62A /* Design System */,
 				081F2B9C28DDC2870003AB99 /* Assets.xcassets */,
 				081F2B9E28DDC2870003AB99 /* LaunchScreen.storyboard */,
@@ -173,6 +184,43 @@
 				08D00F0C290FD96C00109D63 /* Application.swift */,
 			);
 			path = "Challange-1-iOS";
+			sourceTree = "<group>";
+		};
+		0822F00C291520E000A5291D /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		0822F00D291520FD00A5291D /* Presentation */ = {
+			isa = PBXGroup;
+			children = (
+				0822F01329152E2C00A5291D /* Base */,
+				0822F01229152E1000A5291D /* MainScreen */,
+				08FB470928E4AB43000CC6E7 /* Cell */,
+				08DEF20D28E0D6A100B98548 /* ViewControllers */,
+				0822F00C291520E000A5291D /* Views */,
+			);
+			path = Presentation;
+			sourceTree = "<group>";
+		};
+		0822F01229152E1000A5291D /* MainScreen */ = {
+			isa = PBXGroup;
+			children = (
+				0822F0102915213400A5291D /* MainView.swift */,
+				081F2B9728DDC2860003AB99 /* MainViewController.swift */,
+			);
+			path = MainScreen;
+			sourceTree = "<group>";
+		};
+		0822F01329152E2C00A5291D /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				0822F01429152E3500A5291D /* BaseGenericView.swift */,
+				0822F01629152E4100A5291D /* BaseGenericViewController.swift */,
+			);
+			path = Base;
 			sourceTree = "<group>";
 		};
 		08490FAA28E6F6AC00DAB664 /* Network */ = {
@@ -252,7 +300,6 @@
 		08DEF20D28E0D6A100B98548 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				081F2B9728DDC2860003AB99 /* MainViewController.swift */,
 				0817A4EC28E1A1D6007217C2 /* EmojisListViewController.swift */,
 				0817A4F028E1AE17007217C2 /* AvatarsListViewController.swift */,
 				0817A4F228E1AE2F007217C2 /* AppleReposViewController.swift */,
@@ -320,6 +367,9 @@
 			name = "Challange-1-iOS";
 			packageProductDependencies = (
 				089CA0B428E31F8000386DF0 /* Alamofire */,
+				0822F00629151E7F00A5291D /* RxCocoa */,
+				0822F00829151E7F00A5291D /* RxRelay */,
+				0822F00A29151E7F00A5291D /* RxSwift */,
 			);
 			productName = "Challange-1-iOS";
 			productReference = 081F2B9028DDC2860003AB99 /* Challange-1-iOS.app */;
@@ -351,6 +401,7 @@
 			mainGroup = 081F2B8728DDC2860003AB99;
 			packageReferences = (
 				089CA0B328E31F8000386DF0 /* XCRemoteSwiftPackageReference "Alamofire" */,
+				0822F00529151E7F00A5291D /* XCRemoteSwiftPackageReference "RxSwift" */,
 			);
 			productRefGroup = 081F2B9128DDC2860003AB99 /* Products */;
 			projectDirPath = "";
@@ -401,6 +452,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				08A6CB682901410C00FF4B92 /* MockAppleReposService.swift in Sources */,
+				0822F0112915213400A5291D /* MainView.swift in Sources */,
 				0870217929083D4A0055B9FF /* Constants.swift in Sources */,
 				08E8256028F9A3A800F1009E /* NSManagedObject+Avatar.swift in Sources */,
 				08B6D33728F561EE00BBCD38 /* ColorProvider.swift in Sources */,
@@ -434,6 +486,7 @@
 				0870217B2908404F0055B9FF /* EmojiCell.swift in Sources */,
 				086398E728F0833C0031B62A /* Spacing.swift in Sources */,
 				08FDDEA6290C1DAE00986A42 /* AppleReposViewModel.swift in Sources */,
+				0822F01529152E3500A5291D /* BaseGenericView.swift in Sources */,
 				08A6CB66290140DE00FF4B92 /* AppleReposService.swift in Sources */,
 				08B6D39F28F5B7B600BBCD38 /* Database.xcdatamodeld in Sources */,
 				08B6D33628F5611600BBCD38 /* MainViewController.swift in Sources */,
@@ -443,6 +496,7 @@
 				08490FAC28E723B800DAB664 /* EmojiApi.swift in Sources */,
 				0817A4ED28E1A1D6007217C2 /* EmojisListViewController.swift in Sources */,
 				08950FE129127CAA008A0B4A /* NSManagedObject+Emoji.swift in Sources */,
+				0822F01729152E4100A5291D /* BaseGenericViewController.swift in Sources */,
 				0870217D290841B90055B9FF /* AppleReposCell.swift in Sources */,
 				08E8255E28F848A800F1009E /* AvatarService.swift in Sources */,
 				0870217F290842560055B9FF /* ReusableCell.swift in Sources */,
@@ -662,6 +716,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		0822F00529151E7F00A5291D /* XCRemoteSwiftPackageReference "RxSwift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ReactiveX/RxSwift";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 6.0.0;
+			};
+		};
 		089CA0B328E31F8000386DF0 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Alamofire/Alamofire";
@@ -673,6 +735,21 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		0822F00629151E7F00A5291D /* RxCocoa */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0822F00529151E7F00A5291D /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxCocoa;
+		};
+		0822F00829151E7F00A5291D /* RxRelay */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0822F00529151E7F00A5291D /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxRelay;
+		};
+		0822F00A29151E7F00A5291D /* RxSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0822F00529151E7F00A5291D /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxSwift;
+		};
 		089CA0B428E31F8000386DF0 /* Alamofire */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 089CA0B328E31F8000386DF0 /* XCRemoteSwiftPackageReference "Alamofire" */;

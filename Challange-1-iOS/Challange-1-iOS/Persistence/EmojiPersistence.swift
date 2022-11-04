@@ -39,7 +39,7 @@ class EmojiPersistence {
             }
     }
 
-    func loadData() -> [Emoji] {
+    func fetchEmojisData() -> [Emoji] {
         var array: [NSManagedObject] = []
         var emojisArray: [Emoji] = []
 
