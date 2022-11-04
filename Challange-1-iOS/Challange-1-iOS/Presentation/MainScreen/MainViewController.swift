@@ -19,12 +19,28 @@ class MainViewController: BaseGenericViewController<MainView>, Coordinating {
         super.viewDidLoad()
         genericView.emojiImage.showLoading()
 
-        viewModel?.emojiImageUrl.bind(listener: { url in
+        viewModel?.rxEmojiImage
+            .do(onNext: { [weak self] image in
+                self?.genericView.emojiImage.stopLoading()
+                // Arranjar forma de mudar o state das views (com cases)
+                // self?.genericView
+            })
+            .subscribe(genericView.emojiImage.rx.image)
+            .disposed(by: disposeBag)
+
+        /*viewModel?.emojiImageUrl.bind(listener: { url in
             guard let url = url else { return }
             let dataTask = self.genericView.emojiImage.createDownloadDataTask(from: url)
             dataTask.resume()
+
+             self?.genericView.emojiImage.stopLoading()
+        })*/
+
+        /*viewModel?.emojiImageUrl.bind(listener: { url in
+            guard let url = url else { return }
+            self.genericView.emojiImage.downloadImage(from: url).disposed(by: self.disposeBag)
             self.genericView.emojiImage.stopLoading()
-        })
+        })*/
 
         getRandomEmoji()
 
