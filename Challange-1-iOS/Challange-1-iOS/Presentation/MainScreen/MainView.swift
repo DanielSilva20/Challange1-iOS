@@ -13,20 +13,20 @@ class MainView: BaseGenericView {
     private var verticalStackView: UIStackView
     private var searchStackView: UIStackView
     private var emojiContainer: UIView
-    private var btnRandomEmoji: UIButton
-    private var btnEmojisList: UIButton
-    private var btnAvatarsList: UIButton
-    private var btnAppleRepos: UIButton
-    private var btnSearch: UIButton
+    var btnRandomEmoji: UIButton
+    var btnEmojisList: UIButton
+    var btnAvatarsList: UIButton
+    var btnAppleRepos: UIButton
+    var btnSearch: UIButton
     var searchBar: UISearchBar
     var emojiImage: UIImageView
-    private var urlEmojiImage: String
 
-    var rxRandomEmojiTap: Observable<Void> { btnRandomEmoji.rx.tap.asObservable() }
-    var rxEmojiListTap: Observable<Void> { btnEmojisList.rx.tap.asObservable() }
-    var rxAvatarListTap: Observable<Void> { btnAvatarsList.rx.tap.asObservable() }
-    var rxAppleReposTap: Observable<Void> { btnAppleRepos.rx.tap.asObservable() }
-    var rxSearchTap: Observable<Void> { btnSearch.rx.tap.asObservable() }
+//  Code for RxSwift
+//  var rxRandomEmojiTap: Observable<Void> { btnRandomEmoji.rx.tap.asObservable() }
+//  var rxEmojiListTap: Observable<Void> { btnEmojisList.rx.tap.asObservable() }
+//  var rxAvatarListTap: Observable<Void> { btnAvatarsList.rx.tap.asObservable() }
+//  var rxAppleReposTap: Observable<Void> { btnAppleRepos.rx.tap.asObservable() }
+//  var rxSearchTap: Observable<Void> { btnSearch.rx.tap.asObservable() }
 
     required init() {
         btnRandomEmoji = .init(type: .system)
@@ -37,7 +37,6 @@ class MainView: BaseGenericView {
         searchBar = .init(frame: .zero)
         emojiImage = .init(frame: .zero)
         emojiContainer = .init(frame: .zero)
-        urlEmojiImage = .init()
         searchStackView = .init(arrangedSubviews: [searchBar, btnSearch])
         verticalStackView = .init(arrangedSubviews: [emojiContainer,
                                                      btnRandomEmoji,
@@ -100,13 +99,10 @@ class MainView: BaseGenericView {
 
             emojiImage.topAnchor.constraint(equalTo: emojiContainer.topAnchor),
             emojiImage.bottomAnchor.constraint(equalTo: emojiContainer.bottomAnchor, constant: -40),
-            emojiImage.leadingAnchor.constraint(equalTo: emojiContainer.leadingAnchor, constant: 100),
-            emojiImage.trailingAnchor.constraint(equalTo: emojiContainer.trailingAnchor, constant: -100),
-            emojiImage.widthAnchor.constraint(equalTo: emojiImage.heightAnchor, multiplier: 1)
-
+            emojiImage.leadingAnchor.constraint(equalTo: emojiContainer.leadingAnchor),
+            emojiImage.trailingAnchor.constraint(equalTo: emojiContainer.trailingAnchor),
+            emojiImage.heightAnchor.constraint(equalTo: emojiImage.widthAnchor, multiplier: 0.5)
         ])
-
-        btnEmojisList.sizeToFit()
 
         verticalStackView.spacing = 20
         searchStackView.spacing = 20

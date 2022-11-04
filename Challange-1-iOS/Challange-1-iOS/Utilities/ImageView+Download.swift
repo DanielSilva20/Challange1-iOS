@@ -16,5 +16,4 @@ extension UIImageView {
         }
         return task
     }
-
 }

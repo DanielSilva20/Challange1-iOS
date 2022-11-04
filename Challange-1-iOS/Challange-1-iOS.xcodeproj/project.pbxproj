@@ -24,6 +24,7 @@
 		0822F0112915213400A5291D /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0822F0102915213400A5291D /* MainView.swift */; };
 		0822F01529152E3500A5291D /* BaseGenericView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0822F01429152E3500A5291D /* BaseGenericView.swift */; };
 		0822F01729152E4100A5291D /* BaseGenericViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0822F01629152E4100A5291D /* BaseGenericViewController.swift */; };
+		0822F01B2915634400A5291D /* EmojisListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0822F01A2915634400A5291D /* EmojisListView.swift */; };
 		0826D3872902A8D100439C98 /* MockAppleReposDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0826D3862902A8D100439C98 /* MockAppleReposDataSource.swift */; };
 		08490FAC28E723B800DAB664 /* EmojiApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08490FAB28E723B800DAB664 /* EmojiApi.swift */; };
 		08490FAE28E726DF00DAB664 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08490FAD28E726DF00DAB664 /* NetworkManager.swift */; };
@@ -88,6 +89,7 @@
 		0822F0102915213400A5291D /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		0822F01429152E3500A5291D /* BaseGenericView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseGenericView.swift; sourceTree = "<group>"; };
 		0822F01629152E4100A5291D /* BaseGenericViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseGenericViewController.swift; sourceTree = "<group>"; };
+		0822F01A2915634400A5291D /* EmojisListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojisListView.swift; sourceTree = "<group>"; };
 		0826D3862902A8D100439C98 /* MockAppleReposDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockAppleReposDataSource.swift; sourceTree = "<group>"; };
 		08490FAB28E723B800DAB664 /* EmojiApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiApi.swift; sourceTree = "<group>"; };
 		08490FAD28E726DF00DAB664 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
@@ -186,21 +188,15 @@
 			path = "Challange-1-iOS";
 			sourceTree = "<group>";
 		};
-		0822F00C291520E000A5291D /* Views */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Views;
-			sourceTree = "<group>";
-		};
 		0822F00D291520FD00A5291D /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
 				0822F01329152E2C00A5291D /* Base */,
 				0822F01229152E1000A5291D /* MainScreen */,
-				08FB470928E4AB43000CC6E7 /* Cell */,
+				0822F0182915626900A5291D /* EmojisList */,
+				0822F0192915627700A5291D /* AvatarsList */,
 				08DEF20D28E0D6A100B98548 /* ViewControllers */,
-				0822F00C291520E000A5291D /* Views */,
+				08FB470928E4AB43000CC6E7 /* ReusableCell */,
 			);
 			path = Presentation;
 			sourceTree = "<group>";
@@ -208,8 +204,8 @@
 		0822F01229152E1000A5291D /* MainScreen */ = {
 			isa = PBXGroup;
 			children = (
-				0822F0102915213400A5291D /* MainView.swift */,
 				081F2B9728DDC2860003AB99 /* MainViewController.swift */,
+				0822F0102915213400A5291D /* MainView.swift */,
 			);
 			path = MainScreen;
 			sourceTree = "<group>";
@@ -217,10 +213,27 @@
 		0822F01329152E2C00A5291D /* Base */ = {
 			isa = PBXGroup;
 			children = (
-				0822F01429152E3500A5291D /* BaseGenericView.swift */,
 				0822F01629152E4100A5291D /* BaseGenericViewController.swift */,
+				0822F01429152E3500A5291D /* BaseGenericView.swift */,
 			);
 			path = Base;
+			sourceTree = "<group>";
+		};
+		0822F0182915626900A5291D /* EmojisList */ = {
+			isa = PBXGroup;
+			children = (
+				0817A4EC28E1A1D6007217C2 /* EmojisListViewController.swift */,
+				0822F01A2915634400A5291D /* EmojisListView.swift */,
+			);
+			path = EmojisList;
+			sourceTree = "<group>";
+		};
+		0822F0192915627700A5291D /* AvatarsList */ = {
+			isa = PBXGroup;
+			children = (
+				0817A4F028E1AE17007217C2 /* AvatarsListViewController.swift */,
+			);
+			path = AvatarsList;
 			sourceTree = "<group>";
 		};
 		08490FAA28E6F6AC00DAB664 /* Network */ = {
@@ -300,8 +313,6 @@
 		08DEF20D28E0D6A100B98548 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				0817A4EC28E1A1D6007217C2 /* EmojisListViewController.swift */,
-				0817A4F028E1AE17007217C2 /* AvatarsListViewController.swift */,
 				0817A4F228E1AE2F007217C2 /* AppleReposViewController.swift */,
 			);
 			path = ViewControllers;
@@ -337,7 +348,7 @@
 			path = Storage;
 			sourceTree = "<group>";
 		};
-		08FB470928E4AB43000CC6E7 /* Cell */ = {
+		08FB470928E4AB43000CC6E7 /* ReusableCell */ = {
 			isa = PBXGroup;
 			children = (
 				0870217A2908404F0055B9FF /* EmojiCell.swift */,
@@ -345,7 +356,7 @@
 				0870217C290841B90055B9FF /* AppleReposCell.swift */,
 				0870217E290842560055B9FF /* ReusableCell.swift */,
 			);
-			path = Cell;
+			path = ReusableCell;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -475,6 +486,7 @@
 				089F9410290A8C4B00C3072E /* MainPageViewModel.swift in Sources */,
 				08FB470B28E4AB51000CC6E7 /* AvatarCell.swift in Sources */,
 				08BB8FC428EC798200CE4576 /* EmojiResponse.swift in Sources */,
+				0822F01B2915634400A5291D /* EmojisListView.swift in Sources */,
 				08BB8FC728EC871900CE4576 /* ImageView+Download.swift in Sources */,
 				08702183290843310055B9FF /* UITableViewCell+ReusableView.swift in Sources */,
 				08DF7D4F28EB044800B900BC /* Avatar.swift in Sources */,
