@@ -7,11 +7,8 @@
 
 import UIKit
 
-class AppleReposViewController: UIViewController, Coordinating {
-    private var tableView: UITableView
+class AppleReposViewController: BaseGenericViewController<AppleReposView>, Coordinating {
     private var appleRepos: [AppleRepos] = []
-
-    var mockedAppleReposDataSource: MockAppleReposDataSource?
 
     private var addedToView: Bool = false
     private var isEnd: Bool = false
@@ -19,57 +16,12 @@ class AppleReposViewController: UIViewController, Coordinating {
     var coordinator: Coordinator?
     var viewModel: AppleReposViewModel?
 
-    init() {
-        tableView = .init(frame: .zero)
-
-        super.init(nibName: nil, bundle: nil)
-    }
-
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        setUpViews()
-        addViewsToSuperview()
-        setUpConstraints()
-    }
-
-    private func setUpViews() {
-        setUpTableView()
-    }
-
-    private func addViewsToSuperview() {
-        view.addSubview(tableView)
-    }
-
-    private func setUpConstraints() {
-        tableView.translatesAutoresizingMaskIntoConstraints = false
-
-        NSLayoutConstraint.activate([
-            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
-        ])
-    }
-
-    private func setUpTableView() {
         title = "Apple Repos"
-        view.backgroundColor = .appColor(name: .tableSurface)
-
-        tableView.frame = view.bounds
-        tableView.backgroundColor = .none
-        tableView.rowHeight = UITableView.automaticDimension
-        tableView.automaticallyAdjustsScrollIndicatorInsets = false
-        tableView.contentInsetAdjustmentBehavior = .never
-
-        tableView.register(AppleReposCell.self, forCellReuseIdentifier: AppleReposCell.reuseCellIdentifier)
-
-        tableView.dataSource = self
-        tableView.delegate = self
+        genericView.tableView.dataSource = self
+        genericView.tableView.delegate = self
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -83,10 +35,10 @@ class AppleReposViewController: UIViewController, Coordinating {
             DispatchQueue.main.async { [weak self] in
                 guard let self = self else { return }
                 self.addedToView = true
-                if self.tableView.contentSize.height < self.tableView.frame.size.height {
+                if self.genericView.tableView.contentSize.height < self.genericView.tableView.frame.size.height {
                     self.viewModel?.getRepos()
                 }
-                self.tableView.reloadData()
+                self.genericView.tableView.reloadData()
             }
         })
         viewModel?.isEnd.bind(listener: { [weak self] ended in

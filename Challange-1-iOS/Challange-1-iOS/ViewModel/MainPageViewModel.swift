@@ -36,7 +36,6 @@ public class MainPageViewModel {
         //let url1 = URL(string: "https://github.githubassets.com/images/icons/emoji/unicode/1f7e6.png?v8")!
         //let url2 = URL(string: "https://github.githubassets.com/images/icons/emoji/unicode/1f1ec-1f1f5.png?v8")!
 
-
         rxEmojiImageUrl
             .debug("rxEmojiImageUrl")
             .flatMap({ [weak self] url -> Observable<UIImage?> in

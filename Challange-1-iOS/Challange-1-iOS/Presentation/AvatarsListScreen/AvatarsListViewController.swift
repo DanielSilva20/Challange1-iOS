@@ -12,15 +12,6 @@ class AvatarsListViewController: BaseGenericViewController<AvatarsListView>, Coo
     var avatars: [Avatar] = []
     var viewModel: AvatarViewModel?
 
-    init() {
-
-        super.init(nibName: nil, bundle: nil)
-    }
-
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Avatars List"
@@ -65,25 +56,6 @@ extension AvatarsListViewController: UICollectionViewDataSource, UICollectionVie
 
         return cell
     }
-
-}
-
-extension AvatarsListViewController: UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView,
-                        layout collectionViewLayout: UICollectionViewLayout,
-                        insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets(top: 1.0, left: 8.0, bottom: 1.0, right: 8.0)
-    }
-
-    func collectionView(_ collectionView: UICollectionView,
-                        layout collectionViewLayout: UICollectionViewLayout,
-                        sizeForItemAt indexPath: IndexPath) -> CGSize {
-
-        guard let layout = collectionViewLayout as? UICollectionViewFlowLayout else { return .zero }
-        let widthPerItem = collectionView.frame.width / 3 - layout.minimumInteritemSpacing
-        return CGSize(width: widthPerItem - 8, height: widthPerItem)
-    }
-
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let avatar = self.avatars[indexPath.row]
         let message: String = "Are you sure that you really want to delete \(avatar.login)?"
