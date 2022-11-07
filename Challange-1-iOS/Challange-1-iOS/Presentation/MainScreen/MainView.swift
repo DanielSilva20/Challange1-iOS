@@ -21,12 +21,12 @@ class MainView: BaseGenericView {
     var searchBar: UISearchBar
     var emojiImage: UIImageView
 
-//  Code for RxSwift
-//  var rxRandomEmojiTap: Observable<Void> { btnRandomEmoji.rx.tap.asObservable() }
-//  var rxEmojiListTap: Observable<Void> { btnEmojisList.rx.tap.asObservable() }
-//  var rxAvatarListTap: Observable<Void> { btnAvatarsList.rx.tap.asObservable() }
-//  var rxAppleReposTap: Observable<Void> { btnAppleRepos.rx.tap.asObservable() }
-//  var rxSearchTap: Observable<Void> { btnSearch.rx.tap.asObservable() }
+    //  Code for RxSwift
+    var rxRandomEmojiTap: Observable<Void> { btnRandomEmoji.rx.tap.asObservable() }
+    var rxEmojiListTap: Observable<Void> { btnEmojisList.rx.tap.asObservable() }
+    var rxAvatarListTap: Observable<Void> { btnAvatarsList.rx.tap.asObservable() }
+    var rxAppleReposTap: Observable<Void> { btnAppleRepos.rx.tap.asObservable() }
+    var rxSearchTap: Observable<Void> { btnSearch.rx.tap.asObservable() }
     var rxSearchQuery: Observable<String?> { searchBar.rx.text.asObservable() }
 
     required init() {
@@ -46,14 +46,13 @@ class MainView: BaseGenericView {
                                                      btnAvatarsList,
                                                      btnAppleRepos])
         super.init()
-        createSubviews()
     }
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
-    func createSubviews() {
+    override func createViews() {
         setUpViews()
         addViewsToSuperview()
         setUpConstraints()
@@ -107,5 +106,7 @@ class MainView: BaseGenericView {
 
         verticalStackView.spacing = 20
         searchStackView.spacing = 20
+
+        emojiImage.contentMode = .scaleAspectFit
     }
 }

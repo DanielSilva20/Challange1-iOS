@@ -19,14 +19,13 @@ class AvatarsListView: BaseGenericView {
 
         collectionView = .init(frame: .zero, collectionViewLayout: layout)
         super.init()
-        createSubviews()
     }
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
-    func createSubviews() {
+    override func createViews() {
         setUpViews()
         addViewsToSuperview()
         setUpConstraints()
@@ -35,7 +34,7 @@ class AvatarsListView: BaseGenericView {
     private func setUpViews() {
         collectionView.register(AvatarCell.self, forCellWithReuseIdentifier: AvatarCell.reuseCellIdentifier)
 
-        collectionView.delegate = self
+//        collectionView.delegate = self
     }
 
     private func addViewsToSuperview() {
@@ -53,7 +52,7 @@ class AvatarsListView: BaseGenericView {
         ])
     }
 }
-
+/*
 extension AvatarsListView: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
@@ -69,4 +68,17 @@ extension AvatarsListView: UICollectionViewDelegateFlowLayout {
         let widthPerItem = collectionView.frame.width / 3 - layout.minimumInteritemSpacing
         return CGSize(width: widthPerItem - 8, height: widthPerItem)
     }
+
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let avatar = self.avatars[indexPath.row]
+        let message: String = "Are you sure that you really want to delete \(avatar.login)?"
+        let alert = UIAlertController(title: "Deleting \(avatar.login)...", message: message, preferredStyle: .alert)
+
+        alert.addAction(UIAlertAction(title: "Cancel", style: .default))
+        alert.addAction(UIAlertAction(title: "Delete", style: .destructive, handler: { (_: UIAlertAction) in
+            self.viewModel?.deleteAvatar(avatar: avatar, at: indexPath.row)
+        }))
+        self.present(alert, animated: true, completion: nil)
+    }
 }
+*/

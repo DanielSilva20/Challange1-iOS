@@ -174,7 +174,7 @@
 				08B6D39728F5838F00BBCD38 /* Persistence */,
 				08BB8FC528EC870A00CE4576 /* Utilities */,
 				08490FAA28E6F6AC00DAB664 /* Network */,
-				08FB470428E491B7000CC6E7 /* Storage */,
+				08FB470428E491B7000CC6E7 /* Service */,
 				08FB46FF28E4823D000CC6E7 /* Model */,
 				0822F00D291520FD00A5291D /* Presentation */,
 				086398E828F0877D0031B62A /* Design System */,
@@ -195,8 +195,8 @@
 			children = (
 				0822F01329152E2C00A5291D /* Base */,
 				0822F01229152E1000A5291D /* MainScreen */,
-				0822F0182915626900A5291D /* EmojisList */,
-				0822F0192915627700A5291D /* AvatarsList */,
+				0822F0182915626900A5291D /* EmojisListScreen */,
+				0822F0192915627700A5291D /* AvatarsListScreen */,
 				08DEF20D28E0D6A100B98548 /* ViewControllers */,
 				08FB470928E4AB43000CC6E7 /* ReusableCell */,
 			);
@@ -221,22 +221,23 @@
 			path = Base;
 			sourceTree = "<group>";
 		};
-		0822F0182915626900A5291D /* EmojisList */ = {
+		0822F0182915626900A5291D /* EmojisListScreen */ = {
 			isa = PBXGroup;
 			children = (
 				0817A4EC28E1A1D6007217C2 /* EmojisListViewController.swift */,
 				0822F01A2915634400A5291D /* EmojisListView.swift */,
+				089F9417290AD20500C3072E /* MockEmojisDataSource.swift */,
 			);
-			path = EmojisList;
+			path = EmojisListScreen;
 			sourceTree = "<group>";
 		};
-		0822F0192915627700A5291D /* AvatarsList */ = {
+		0822F0192915627700A5291D /* AvatarsListScreen */ = {
 			isa = PBXGroup;
 			children = (
 				0817A4F028E1AE17007217C2 /* AvatarsListViewController.swift */,
 				0822F01C2915730600A5291D /* AvatarsListView.swift */,
 			);
-			path = AvatarsList;
+			path = AvatarsListScreen;
 			sourceTree = "<group>";
 		};
 		08490FAA28E6F6AC00DAB664 /* Network */ = {
@@ -334,7 +335,7 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
-		08FB470428E491B7000CC6E7 /* Storage */ = {
+		08FB470428E491B7000CC6E7 /* Service */ = {
 			isa = PBXGroup;
 			children = (
 				0817FB4B28EEE40E00092812 /* EmojiService.swift */,
@@ -346,9 +347,8 @@
 				08A6CB5F2900037D00FF4B92 /* LiveAppleReposService.swift */,
 				08A6CB672901410C00FF4B92 /* MockAppleReposService.swift */,
 				0826D3862902A8D100439C98 /* MockAppleReposDataSource.swift */,
-				089F9417290AD20500C3072E /* MockEmojisDataSource.swift */,
 			);
-			path = Storage;
+			path = Service;
 			sourceTree = "<group>";
 		};
 		08FB470928E4AB43000CC6E7 /* ReusableCell */ = {

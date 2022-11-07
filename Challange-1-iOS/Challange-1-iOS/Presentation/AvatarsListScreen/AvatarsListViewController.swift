@@ -8,13 +8,11 @@
 import UIKit
 
 class AvatarsListViewController: BaseGenericViewController<AvatarsListView>, Coordinating {
-//    private var collectionView: UICollectionView
     var coordinator: Coordinator?
     var avatars: [Avatar] = []
     var viewModel: AvatarViewModel?
 
     init() {
-
 
         super.init(nibName: nil, bundle: nil)
     }
@@ -26,9 +24,8 @@ class AvatarsListViewController: BaseGenericViewController<AvatarsListView>, Coo
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Avatars List"
-//        setUpViews()
-//        addViewsToSuperview()
-//        setUpConstraints()
+        genericView.collectionView.dataSource = self
+        genericView.collectionView.delegate = self
 
     }
 
@@ -47,48 +44,12 @@ class AvatarsListViewController: BaseGenericViewController<AvatarsListView>, Coo
         viewModel?.getAvatars()
     }
 
-//    private func setUpViews() {
-//        setUpCollectionView()
-//    }
-//
-//    private func addViewsToSuperview() {
-//        view.addSubview(collectionView)
-//    }
-//
-//    private func setUpConstraints() {
-//        collectionView.translatesAutoresizingMaskIntoConstraints = false
-//
-//        NSLayoutConstraint.activate([
-//            collectionView.topAnchor.constraint(equalTo: view.topAnchor),
-//            collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-//            collectionView.leftAnchor.constraint(equalTo: view.leftAnchor),
-//            collectionView.rightAnchor.constraint(equalTo: view.rightAnchor)
-//        ])
-//    }
-//
-//    private func setUpCollectionView() {
-//        title = "Avatars List"
-//
-//        collectionView.register(AvatarCell.self, forCellWithReuseIdentifier: AvatarCell.reuseCellIdentifier)
-//
-//        collectionView.delegate = self
-//        collectionView.dataSource = self
-//    }
-
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-
     }
-
 }
-//
-// extension AvatarsListViewController: AvatarStorageDelegate {
-//    func avatarListUpdated() {
-//        collectionView.reloadData()
-//    }
-// }
 
-extension AvatarsListViewController: UICollectionViewDataSource {
+extension AvatarsListViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
 
         return avatars.count
@@ -105,6 +66,24 @@ extension AvatarsListViewController: UICollectionViewDataSource {
         return cell
     }
 
+}
+
+extension AvatarsListViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsets(top: 1.0, left: 8.0, bottom: 1.0, right: 8.0)
+    }
+
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        sizeForItemAt indexPath: IndexPath) -> CGSize {
+
+        guard let layout = collectionViewLayout as? UICollectionViewFlowLayout else { return .zero }
+        let widthPerItem = collectionView.frame.width / 3 - layout.minimumInteritemSpacing
+        return CGSize(width: widthPerItem - 8, height: widthPerItem)
+    }
+
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let avatar = self.avatars[indexPath.row]
         let message: String = "Are you sure that you really want to delete \(avatar.login)?"
@@ -117,4 +96,3 @@ extension AvatarsListViewController: UICollectionViewDataSource {
         self.present(alert, animated: true, completion: nil)
     }
 }
-

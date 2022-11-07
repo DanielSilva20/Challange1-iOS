@@ -16,7 +16,7 @@ class BaseGenericView: UIView {
 
     required init() {
         super.init(frame: .zero)
-        setupView()
+        createViews()
     }
 
     required init?(coder: NSCoder) {
@@ -24,5 +24,5 @@ class BaseGenericView: UIView {
         fatalError()
     }
 
-    func setupView() {}
+    func createViews() {}
 }
