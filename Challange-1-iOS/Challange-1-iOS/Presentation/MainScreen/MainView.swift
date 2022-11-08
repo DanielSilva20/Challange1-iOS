@@ -21,14 +21,6 @@ class MainView: BaseGenericView {
     var searchBar: UISearchBar
     var emojiImage: UIImageView
 
-    //  Code for RxSwift
-    var rxRandomEmojiTap: Observable<Void> { btnRandomEmoji.rx.tap.asObservable() }
-    var rxEmojiListTap: Observable<Void> { btnEmojisList.rx.tap.asObservable() }
-    var rxAvatarListTap: Observable<Void> { btnAvatarsList.rx.tap.asObservable() }
-    var rxAppleReposTap: Observable<Void> { btnAppleRepos.rx.tap.asObservable() }
-    var rxSearchTap: Observable<Void> { btnSearch.rx.tap.asObservable() }
-    var rxSearchQuery: Observable<String?> { searchBar.rx.text.asObservable() }
-
     required init() {
         btnRandomEmoji = .init(type: .system)
         btnEmojisList = .init(type: .system)

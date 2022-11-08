@@ -19,84 +19,47 @@ class MainViewController: BaseGenericViewController<MainView>, Coordinating {
         super.viewDidLoad()
         genericView.emojiImage.showLoading()
 
-        viewModel?.rxEmojiImage
-            .do(onNext: { [weak self] image in
-                self?.genericView.emojiImage.stopLoading()
-                // Arranjar forma de mudar o state das views (com cases)
-                // self?.genericView
-            })
-            .subscribe(genericView.emojiImage.rx.image)
-            .disposed(by: disposeBag)
-
-        /*viewModel?.emojiImageUrl.bind(listener: { url in
+        viewModel?.emojiImageUrl.bind(listener: { url in
             guard let url = url else { return }
             let dataTask = self.genericView.emojiImage.createDownloadDataTask(from: url)
             dataTask.resume()
 
-             self?.genericView.emojiImage.stopLoading()
-        })*/
-
-        /*viewModel?.emojiImageUrl.bind(listener: { url in
-            guard let url = url else { return }
-            self.genericView.emojiImage.downloadImage(from: url).disposed(by: self.disposeBag)
-            self.genericView.emojiImage.stopLoading()
-        })*/
+             self.genericView.emojiImage.stopLoading()
+        })
 
         getRandomEmoji()
 
         self.navigationController?.navigationBar.tintColor = .appColor(name: .primary)
 
-//        genericView.btnEmojisList.addTarget(self, action: #selector(didTapEmojisLIst), for: .touchUpInside)
-//        genericView.btnRandomEmoji.addTarget(self, action: #selector(getRandomEmoji), for: .touchUpInside)
-//        genericView.btnAvatarsList.addTarget(self, action: #selector(didTapAvatarsList), for: .touchUpInside)
-//        genericView.btnAppleRepos.addTarget(self, action: #selector(didTapAppleRepos), for: .touchUpInside)
-//        genericView.btnSearch.addTarget(self, action: #selector(saveSearchContent), for: .touchUpInside)
+        genericView.btnEmojisList.addTarget(self, action: #selector(didTapEmojisLIst), for: .touchUpInside)
+        genericView.btnRandomEmoji.addTarget(self, action: #selector(getRandomEmoji), for: .touchUpInside)
+        genericView.btnAvatarsList.addTarget(self, action: #selector(didTapAvatarsList), for: .touchUpInside)
+        genericView.btnAppleRepos.addTarget(self, action: #selector(didTapAppleRepos), for: .touchUpInside)
+        genericView.btnSearch.addTarget(self, action: #selector(saveSearchContent), for: .touchUpInside)
 
-        // Code for RxSwift
-                genericView.rxRandomEmojiTap
-                    .subscribe(onNext: { [weak self] _ in
-                        self?.getRandomEmoji()
-                    })
-                    .disposed(by: disposeBag)
-                genericView.rxEmojiListTap
-                    .subscribe(onNext: { [weak self] _ in
-                        self?.didTapEmojisLIst()
-                    })
-                genericView.rxAvatarListTap
-                    .subscribe(onNext: { [weak self] _ in
-                        self?.didTapAvatarsList()
-                    })
-                genericView.rxAppleReposTap
-                    .subscribe(onNext: { [weak self] _ in
-                        self?.didTapAppleRepos()
-                    })
-                genericView.rxSearchTap
-                    .subscribe(onNext: { [weak self] _ in
-                        self?.saveSearchContent()
-                    })
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
     }
 
-    func didTapEmojisLIst() {
+    @objc func didTapEmojisLIst(_ sender: UIButton) {
         coordinator?.eventOccurred(with: .buttonEmojisListTapped)
     }
 
-    func didTapAvatarsList() {
+    @objc func didTapAvatarsList(_ sender: UIButton) {
         coordinator?.eventOccurred(with: .buttonAvatarsListTapped)
     }
 
-    func didTapAppleRepos() {
+    @objc func didTapAppleRepos(_ sender: UIButton) {
         coordinator?.eventOccurred(with: .buttonAppleReposTapped)
     }
 
-    func getRandomEmoji() {
+    @objc func getRandomEmoji() {
         viewModel?.getRandom()
     }
 
-    func saveSearchContent() {
+    @objc func saveSearchContent() {
         viewModel?.searchQuery.value = genericView.searchBar.text
         genericView.searchBar.text = ""
     }

@@ -16,15 +16,6 @@ public class MainPageViewModel {
     let emojiImageUrl: Box<URL?> = Box(nil)
     var searchQuery: Box<String?> = Box(nil)
 
-    let backgroundScheduler = SerialDispatchQueueScheduler(internalSerialQueueName: "MainPageViewModel.backgroundScheduler")
-
-    private var rxEmojiImageUrl: BehaviorSubject<URL?> = BehaviorSubject(value: nil)
-    private var _rxEmojiImage: BehaviorSubject<UIImage?> = BehaviorSubject(value: nil)
-    var rxEmojiImage: Observable<UIImage?> { _rxEmojiImage.asObservable() }
-
-    let disposeBag = DisposeBag()
-    var ongoingRequests: [String: Observable<UIImage?>] = [:]
-
     init(emojiService: EmojiService, avatarService: AvatarService) {
         self.emojiService = emojiService
         self.avatarService = avatarService
@@ -33,58 +24,6 @@ public class MainPageViewModel {
             self?.searchAvatar()
         }
 
-        //let url1 = URL(string: "https://github.githubassets.com/images/icons/emoji/unicode/1f7e6.png?v8")!
-        //let url2 = URL(string: "https://github.githubassets.com/images/icons/emoji/unicode/1f1ec-1f1f5.png?v8")!
-
-        rxEmojiImageUrl
-            .debug("rxEmojiImageUrl")
-            .flatMap({ [weak self] url -> Observable<UIImage?> in
-                guard let self = self else { return Observable.never() }
-                var observable = self.ongoingRequests[url?.absoluteString ?? ""]
-
-                if observable == nil {
-                    self.ongoingRequests[url?.absoluteString ?? ""] = self.dataOfUrl(url).share(replay: 1, scope: .forever)
-                }
-
-                guard let observable = self.ongoingRequests[url?.absoluteString ?? ""] else { return Observable.never() }
-
-                return observable
-            })
-            .debug("rxEmojiImage")
-            .subscribe(_rxEmojiImage)
-            .disposed(by: disposeBag)
-
-        print("end init")
-    }
-
-    func dataOfUrl(_ url: URL?) -> Observable<UIImage?> {
-        Observable<URL?>.never().startWith(url)
-            .observe(on: backgroundScheduler)
-            .flatMapLatest { url throws -> Observable<Data> in
-                guard let url = url else { return Observable.just(Data()) }
-                guard let data = try? Data(contentsOf: url) else { return Observable.just(Data()) }
-                return Observable.just(data)
-            }
-            .map {
-                UIImage(data: $0) ?? UIImage()
-            }
-            .observe(on: MainScheduler.instance)
-            .debug("dataOfUrl")
-    }
-
-    func downloadUrl(_ url: URL?) -> Observable<UIImage?> {
-        Observable<URL?>.never().startWith(url)
-            .observe(on: backgroundScheduler)
-            .flatMapLatest { url throws -> Observable<Data> in
-                guard let url = url else { return Observable.just(Data()) }
-                guard let data = try? Data(contentsOf: url) else { return Observable.just(Data()) }
-                return Observable.just(data)
-            }
-            .map {
-                UIImage(data: $0) ?? UIImage()
-            }
-            .observe(on: MainScheduler.instance)
-            .debug("dataOfUrl")
     }
 
     func getRandom() {
@@ -93,7 +32,6 @@ public class MainPageViewModel {
             case .success(let success):
                 guard let url = success.randomElement()?.emojiUrl else { return }
                 self.emojiImageUrl.value = url
-                self.rxEmojiImageUrl.onNext(url)
             case .failure(let failure):
                 print("Error: \(failure)")
             }
@@ -108,7 +46,6 @@ public class MainPageViewModel {
             case .success(let success):
                 let avatarUrl = success.avatarUrl
                 self.emojiImageUrl.value = avatarUrl
-                self.rxEmojiImageUrl.onNext(avatarUrl)
             case .failure(let failure):
                 print("Failure: \(failure)")
                 self.emojiImageUrl.value = nil
