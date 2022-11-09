@@ -13,7 +13,7 @@ import RxSwift
 class EmojiViewModel {
     var emojiService: EmojiService?
 
-    let emojisList: Box<[Emoji]?> = Box(nil)
+//    let emojisList: Box<[Emoji]?> = Box(nil)
 //    let rxEmojiList: Observable<[Emoji]?>
 
     let backgroundScheduler = ConcurrentDispatchQueueScheduler(qos: .background)
@@ -21,8 +21,12 @@ class EmojiViewModel {
     let disposeBag = DisposeBag()
     var ongoingRequests: [String: Observable<UIImage>] = [:]
 
+    private var _rxEmojiList: PublishSubject<[Emoji]?> = PublishSubject()
+    var rxEmojiList: Observable<[Emoji]?> { _rxEmojiList.asObservable() }
+
     init(emojiService: EmojiService) {
         self.emojiService = emojiService
+        _rxEmojiList.disposed(by: disposeBag)
     }
 
     func imageAtUrl(url: URL) -> Observable<UIImage> {
@@ -59,7 +63,7 @@ class EmojiViewModel {
             switch result {
             case .success(var success):
                 success.sort()
-                self.emojisList.value = success
+                self._rxEmojiList.onNext(success)
             case .failure(let failure):
                 print("Error: \(failure)")
             }
