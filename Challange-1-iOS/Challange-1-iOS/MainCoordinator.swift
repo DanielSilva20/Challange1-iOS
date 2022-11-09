@@ -15,7 +15,6 @@ class MainCoordinator: Coordinator {
     var avatarViewModel: AvatarViewModel?
     var appleReposViewModel: AppleReposViewModel?
 
-
     init(emojiService: EmojiService, avatarService: AvatarService, appleReposService: AppleReposService) {
         self.mainPageViewModel = MainPageViewModel(emojiService: emojiService, avatarService: avatarService)
         self.emojiViewModel = EmojiViewModel(emojiService: emojiService)

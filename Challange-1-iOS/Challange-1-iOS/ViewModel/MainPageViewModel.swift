@@ -9,11 +9,10 @@ import Foundation
 import UIKit
 import RxSwift
 
-public class MainPageViewModel {
+class MainPageViewModel {
     var emojiService: EmojiService?
     var avatarService: AvatarService?
 
-    let emojiImageUrl: Box<URL?> = Box(nil)
     var searchQuery: Box<String?> = Box(nil)
 
     let backgroundScheduler = SerialDispatchQueueScheduler(internalSerialQueueName: "MainPageViewModel.backgroundScheduler")
@@ -37,8 +36,10 @@ public class MainPageViewModel {
             .debug("rxEmojiImageUrl")
             .flatMap({ [weak self] url -> Observable<UIImage?> in
                 guard let self = self else { return Observable.never() }
-                var observable = self.ongoingRequests[url?.absoluteString ?? ""]
 
+                let observable = self.ongoingRequests[url?.absoluteString ?? ""]
+
+                // Verifica se o url já foi guardado no ongoingRequests
                 if observable == nil {
                     self.ongoingRequests[url?.absoluteString ?? ""] = self.dataOfUrl(url).share(replay: 1, scope: .forever)
                 }
@@ -63,22 +64,7 @@ public class MainPageViewModel {
                 return Observable.just(data)
             }
             .map {
-                UIImage(data: $0) ?? UIImage()
-            }
-            .observe(on: MainScheduler.instance)
-            .debug("dataOfUrl")
-    }
-
-    func downloadUrl(_ url: URL?) -> Observable<UIImage?> {
-        Observable<URL?>.never().startWith(url)
-            .observe(on: backgroundScheduler)
-            .flatMapLatest { url throws -> Observable<Data> in
-                guard let url = url else { return Observable.just(Data()) }
-                guard let data = try? Data(contentsOf: url) else { return Observable.just(Data()) }
-                return Observable.just(data)
-            }
-            .map {
-                UIImage(data: $0) ?? UIImage()
+                UIImage(data: $0) ?? nil
             }
             .observe(on: MainScheduler.instance)
             .debug("dataOfUrl")
@@ -89,7 +75,7 @@ public class MainPageViewModel {
             switch result {
             case .success(let success):
                 guard let url = success.randomElement()?.emojiUrl else { return }
-                self.emojiImageUrl.value = url
+//                self.emojiImageUrl.value = url
                 self.rxEmojiImageUrl.onNext(url)
             case .failure(let failure):
                 print("Error: \(failure)")
@@ -104,11 +90,11 @@ public class MainPageViewModel {
             switch result {
             case .success(let success):
                 let avatarUrl = success.avatarUrl
-                self.emojiImageUrl.value = avatarUrl
+//                self.emojiImageUrl.value = avatarUrl
                 self.rxEmojiImageUrl.onNext(avatarUrl)
             case .failure(let failure):
                 print("Failure: \(failure)")
-                self.emojiImageUrl.value = nil
+//                self.emojiImageUrl.value = nil
             }
         })
     }

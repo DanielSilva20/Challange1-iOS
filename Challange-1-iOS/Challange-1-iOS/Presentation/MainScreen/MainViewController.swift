@@ -20,7 +20,8 @@ class MainViewController: BaseGenericViewController<MainView>, Coordinating {
         genericView.emojiImage.showLoading()
 
         viewModel?.rxEmojiImage
-            .do(onNext: { [weak self] _ in
+            .do(onNext: { [weak self] image in
+                guard image != nil else { return }
                 self?.genericView.emojiImage.stopLoading()
             })
             .subscribe(genericView.emojiImage.rx.image)

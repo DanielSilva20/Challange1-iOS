@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import RxSwift
 
 class EmojisListViewController: BaseGenericViewController<EmojisListView>, Coordinating {
     var coordinator: Coordinator?
@@ -24,7 +25,10 @@ class EmojisListViewController: BaseGenericViewController<EmojisListView>, Coord
             guard let emojiArray = emojiArray else { return }
             self?.emojisList = emojiArray
             DispatchQueue.main.async { [weak self] in
-                self?.genericView.collectionView.reloadData()
+                self?.genericView.collectionView.performBatchUpdates({
+                    self?.genericView.collectionView.reloadData()
+                })
+//                self?.genericView.collectionView.reloadData()
             }
         })
         viewModel?.getEmojis()
@@ -46,7 +50,16 @@ extension EmojisListViewController: UICollectionViewDataSource {
 
         let url = emojisList[indexPath.row].emojiUrl
 
-        cell.setUpCell(url: url)
+        guard let viewModel = viewModel else { return UICollectionViewCell() }
+        viewModel.imageAtUrl(url: url)
+            .asOptional()
+            .subscribe(cell.imageView.rx.image)
+            .disposed(by: cell.reusableDisposeBag)
+//        viewModel.rxEmojiImage
+//            .subscribe(cell.imageView.rx.image)
+//            .disposed(by: disposeBag)
+//        cell.setUpCell(viewModel: viewModel)
+//        cell.setUpCell(url: url)
 
         return cell
     }
