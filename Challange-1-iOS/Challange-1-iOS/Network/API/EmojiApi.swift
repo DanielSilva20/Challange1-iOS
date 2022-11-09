@@ -13,7 +13,7 @@ enum EmojiAPI {
 }
 
 extension EmojiAPI: APIProtocol {
-    
+
     var url: URL {
         URL(string: "\(Constants.baseUrl)/emojis")!
     }
@@ -31,4 +31,3 @@ extension EmojiAPI: APIProtocol {
         ["Content-Type": "application/json"]
     }
 }
-

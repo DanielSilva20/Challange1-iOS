@@ -9,67 +9,55 @@ import UIKit
 import CoreData
 
 class EmojiPersistence {
-    var emojisPersistenceList: [NSManagedObject] = []
+    private let persistentContainer: NSPersistentContainer
+
+    init(persistentContainer: NSPersistentContainer) {
+        self.persistentContainer = persistentContainer
+    }
 
     func saveEmoji(name: String, url: String) {
-        
-        DispatchQueue.main.async {
-            guard let appDelegate =
-              UIApplication.shared.delegate as? AppDelegate else {
-              return
-            }
-            
+
             // 1
-            let managedContext =
-              appDelegate.persistentContainer.viewContext
-            
+            let managedContext = self.persistentContainer.viewContext
+
             // 2
-            let entity =
-              NSEntityDescription.entity(forEntityName: "EmojiEntity",
-                                         in: managedContext)!
-            
+            let entity = NSEntityDescription.entity(forEntityName: "EmojiEntity",
+                                                    in: managedContext)!
+
             let emoji = NSManagedObject(entity: entity,
-                                         insertInto: managedContext)
-            
+                                        insertInto: managedContext)
+
             // 3
-              emoji.setValue(name, forKeyPath: "name")
-              emoji.setValue(url, forKey: "url")
-            
+            emoji.setValue(name, forKeyPath: "name")
+            emoji.setValue(url, forKeyPath: "url")
+
             // 4
             do {
-              try managedContext.save()
-                self.emojisPersistenceList.append(emoji)
+                try managedContext.save()
             } catch let error as NSError {
-              print("Could not save. \(error), \(error.userInfo)")
+                print("Could not save. \(error), \(error.userInfo)")
             }
-        }
-      
-      
     }
-    
-    func loadData() -> [NSManagedObject] {
+
+    func fetchEmojisData() -> [Emoji] {
         var array: [NSManagedObject] = []
-        //1
-        guard let appDelegate =
-          UIApplication.shared.delegate as? AppDelegate else {
-            return array
-        }
-        
-        let managedContext =
-          appDelegate.persistentContainer.viewContext
-        
-        //2
-        let fetchRequest =
-          NSFetchRequest<NSManagedObject>(entityName: "EmojiEntity")
-        
-        //3
+        var emojisArray: [Emoji] = []
+
+        let managedContext = persistentContainer.viewContext
+
+        // 2
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "EmojiEntity")
+
+        // 3
         do {
             array = try managedContext.fetch(fetchRequest)
+            emojisArray = array.compactMap({ item -> Emoji? in
+                item.toEmoji()
+            })
         } catch let error as NSError {
-          print("Could not fetch. \(error), \(error.userInfo)")
+            print("Could not fetch. \(error), \(error.userInfo)")
         }
-        
-        return array
+
+        return emojisArray
     }
 }
-

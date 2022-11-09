@@ -9,62 +9,62 @@ import Foundation
 import UIKit
 
 class MainCoordinator: Coordinator {
-    var emojiService: EmojiService?
-    var avatarService: AvatarService?
-    var appleReposService: AppleReposService?
-    
     var navigationController: UINavigationController?
+    var mainPageViewModel: MainPageViewModel?
+    var emojiViewModel: EmojiViewModel?
+    var avatarViewModel: AvatarViewModel?
+    var appleReposViewModel: AppleReposViewModel?
 
-    var liveAvatarStorage: LiveAvatarStorage = .init()
-    
+
     init(emojiService: EmojiService, avatarService: AvatarService, appleReposService: AppleReposService) {
-        self.emojiService = emojiService
-        self.avatarService = avatarService
-        self.appleReposService = appleReposService
+        self.mainPageViewModel = MainPageViewModel(emojiService: emojiService, avatarService: avatarService)
+        self.emojiViewModel = EmojiViewModel(emojiService: emojiService)
+        self.avatarViewModel = AvatarViewModel(avatarService: avatarService)
+        self.appleReposViewModel = AppleReposViewModel(appleReposService: appleReposService)
     }
-    
+
     func eventOccurred(with type: Event) {
         switch type {
         case .buttonEmojisListTapped:
-            let vc = EmojisListViewController()
-            vc.coordinator = self
-            vc.emojiService = emojiService
-            navigationController?.pushViewController(vc, animated: true)
+            let viewController = EmojisListViewController()
+            viewController.coordinator = self
+            viewController.viewModel = emojiViewModel
+            navigationController?.pushViewController(viewController, animated: true)
         case .buttonAvatarsListTapped:
-            let vc = AvatarsListViewController()
-            vc.coordinator = self
-            vc.avatarService = liveAvatarStorage
-            navigationController?.pushViewController(vc, animated: true)
+            let viewController = AvatarsListViewController()
+            viewController.coordinator = self
+            viewController.viewModel = avatarViewModel
+            navigationController?.pushViewController(viewController, animated: true)
         case .buttonAppleReposTapped:
-            let vc = AppleReposViewController()
-            vc.coordinator = self
-            vc.appleReposService = appleReposService
-            navigationController?.pushViewController(vc, animated: true)
+            let viewController = AppleReposViewController()
+            viewController.coordinator = self
+            viewController.viewModel = appleReposViewModel
+//            viewController.appleReposService = appleReposService
+            navigationController?.pushViewController(viewController, animated: true)
         }
     }
-    
+
     func start() {
-        let vc = MainViewController()
-        vc.coordinator = self
-        vc.emojiService = emojiService
-        vc.avatarService = liveAvatarStorage
-        navigationController?.setViewControllers([vc], animated: false)
+        let viewController = MainViewController()
+        viewController.coordinator = self
+        viewController.viewModel = mainPageViewModel
+        navigationController?.setViewControllers([viewController], animated: false)
     }
-     
+
 }
 
-//extension MainCoordinator: EmojiStorageDelegate {
+// extension MainCoordinator: EmojiStorageDelegate {
 //    func emojiListUpdated() {
 //        navigationController?.viewControllers.forEach {
 //            ($0 as? EmojiPresenter)?.emojiListUpdated()
 //        }
 //    }
-//}
+// }
 //
-//extension MainCoordinator: AvatarStorageDelegate {
+// extension MainCoordinator: AvatarStorageDelegate {
 //    func avatarListUpdated() {
 //        navigationController?.viewControllers.forEach {
 //            ($0 as? AvatarPresenter)?.avatarListUpdated()
 //        }
 //    }
-//}
+// }

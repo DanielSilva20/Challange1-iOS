@@ -9,4 +9,5 @@ import Foundation
 
 enum Constants {
     static let baseUrl: String = "https://api.github.com"
+    static let baseUrlEmoji: String = "https://github.githubassets.com/images/icons/emoji/unicode"
 }

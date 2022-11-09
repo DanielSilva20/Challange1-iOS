@@ -1,12 +1,11 @@
-
 import UIKit
 
-class MockEmojiStorage: EmojiService {
-    
+class MockEmojiService: EmojiService {
+
     private var mockedEmojis: MockedEmojisStorage = .init()
-    
+
     var emojis: [Emoji] = []
-    
+
     func getEmojisList(_ resultHandler: @escaping (Result<[Emoji], Error>) -> Void) {
         emojis = mockedEmojis.emojis
         resultHandler(.success(emojis))

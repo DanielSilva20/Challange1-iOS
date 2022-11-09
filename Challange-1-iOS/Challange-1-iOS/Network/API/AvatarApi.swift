@@ -12,7 +12,7 @@ enum AvatarAPI {
 }
 
 extension AvatarAPI: APIProtocol {
-    
+
     var url: URL {
         switch self {
         case .getAvatars(let name):
