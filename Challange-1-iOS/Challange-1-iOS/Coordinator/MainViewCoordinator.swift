@@ -49,10 +49,10 @@ extension MainViewCoordinator: MainViewControllerDelegate {
     }
 
     func navigateToAvatarList() {
-//        let avatarListCoordinator = AvatarListCoordinator(navigationController: navigationController)
-//        avatarListCoordinator.delegate = self
-//        childCoordinators.append(avatarListCoordinator)
-//        avatarListCoordinator.start()
+        let avatarListCoordinator = AvatarListCoordinator(navigationController: navigationController)
+        avatarListCoordinator.delegate = self
+        childCoordinators.append(avatarListCoordinator)
+        avatarListCoordinator.start()
     }
 
     func navigateToAppleRepos() {
@@ -64,9 +64,7 @@ extension MainViewCoordinator: MainViewControllerDelegate {
 }
 
 extension MainViewCoordinator: BackToMainViewControllerDelegate {
-
     func navigateBackToMainPage() {
-        navigationController.popToRootViewController(animated: true)
         childCoordinators.removeLast()
     }
 }
@@ -74,3 +72,10 @@ extension MainViewCoordinator: BackToMainViewControllerDelegate {
 protocol BackToMainViewControllerDelegate: AnyObject {
     func navigateBackToMainPage()
 }
+
+public protocol MainViewControllerDelegate: AnyObject {
+    func navigateToEmojiList()
+    func navigateToAvatarList()
+    func navigateToAppleRepos()
+}
+

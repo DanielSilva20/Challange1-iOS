@@ -12,7 +12,7 @@ public protocol AvatarListViewControllerDelegate: AnyObject {
 }
 
 class AvatarsListViewController: BaseGenericViewController<AvatarsListView> {
-    public weak var delegate: EmojiListViewControllerDelegate?
+    public weak var delegate: AvatarListViewControllerDelegate?
     var avatars: [Avatar] = []
     var viewModel: AvatarViewModel?
 

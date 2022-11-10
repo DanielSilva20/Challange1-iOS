@@ -2,12 +2,6 @@ import UIKit
 import Alamofire
 import CoreData
 
-public protocol MainViewControllerDelegate: AnyObject {
-    func navigateToEmojiList()
-    func navigateToAvatarList()
-    func navigateToAppleRepos()
-}
-
 class MainViewController: BaseGenericViewController<MainView> {
     public weak var delegate: MainViewControllerDelegate?
     var networkManager: NetworkManager = .init()
