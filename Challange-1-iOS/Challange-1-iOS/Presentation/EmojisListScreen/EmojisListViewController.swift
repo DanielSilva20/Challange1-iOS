@@ -13,7 +13,6 @@ public protocol EmojiListViewControllerDelegate: AnyObject {
 
 class EmojisListViewController: BaseGenericViewController<EmojisListView> {
     public weak var delegate: EmojiListViewControllerDelegate?
-    var coordinator: Coordinator?
     var emojisList: [Emoji] = []
     var viewModel: EmojiViewModel?
 
@@ -21,6 +20,12 @@ class EmojisListViewController: BaseGenericViewController<EmojisListView> {
         super.viewDidLoad()
         title = "Emojis List"
         genericView.collectionView.dataSource = self
+
+//        genericView.btnBack = UIBarButtonItem(title: "Back",
+//                                              style: .plain,
+//                                              target: self,
+//                                              action: #selector(navigateBackToMainPage))
+//        self.navigationItem.leftBarButtonItem = genericView.btnBack
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -34,6 +39,14 @@ class EmojisListViewController: BaseGenericViewController<EmojisListView> {
         })
         viewModel?.getEmojis()
     }
+
+    override func viewDidDisappear(_ animated: Bool) {
+        self.delegate?.navigateToMainPage()
+    }
+
+//    @objc func navigateBackToMainPage() {
+//        self.delegate?.navigateToMainPage()
+//    }
 }
 
 extension EmojisListViewController: UICollectionViewDataSource {

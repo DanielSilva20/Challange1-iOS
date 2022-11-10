@@ -8,10 +8,6 @@
 import UIKit
 import CoreData
 
-protocol BackToMainViewControllerDelegate: AnyObject {
-    func navigateBackToMainPage(newOrderCoordinator: EmojiListCoordinator)
-}
-
 class EmojiListCoordinator: Coordinator {
     var childCoordinators: [Coordinator] = []
     unowned let navigationController: UINavigationController
@@ -44,6 +40,6 @@ class EmojiListCoordinator: Coordinator {
 
 extension EmojiListCoordinator: EmojiListViewControllerDelegate {
     func navigateToMainPage() {
-        self.delegate?.navigateBackToMainPage(newOrderCoordinator: self)
+        self.delegate?.navigateBackToMainPage()
     }
 }

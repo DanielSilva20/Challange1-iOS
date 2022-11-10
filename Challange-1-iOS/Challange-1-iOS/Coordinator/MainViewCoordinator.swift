@@ -65,8 +65,12 @@ extension MainViewCoordinator: MainViewControllerDelegate {
 
 extension MainViewCoordinator: BackToMainViewControllerDelegate {
 
-    func navigateBackToMainPage(newOrderCoordinator: EmojiListCoordinator) {
-//        navigationController.popToRootViewController(animated: true)
+    func navigateBackToMainPage() {
+        navigationController.popToRootViewController(animated: true)
         childCoordinators.removeLast()
     }
+}
+
+protocol BackToMainViewControllerDelegate: AnyObject {
+    func navigateBackToMainPage()
 }
