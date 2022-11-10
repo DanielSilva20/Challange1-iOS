@@ -7,7 +7,12 @@
 
 import UIKit
 
-class EmojisListViewController: BaseGenericViewController<EmojisListView>, Coordinating {
+public protocol EmojiListViewControllerDelegate: AnyObject {
+    func navigateToMainPage()
+}
+
+class EmojisListViewController: BaseGenericViewController<EmojisListView> {
+    public weak var delegate: EmojiListViewControllerDelegate?
     var coordinator: Coordinator?
     var emojisList: [Emoji] = []
     var viewModel: EmojiViewModel?

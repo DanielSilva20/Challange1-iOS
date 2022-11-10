@@ -7,8 +7,12 @@
 
 import UIKit
 
-class AvatarsListViewController: BaseGenericViewController<AvatarsListView>, Coordinating {
-    var coordinator: Coordinator?
+public protocol AvatarListViewControllerDelegate: AnyObject {
+    func navigateToMainPage()
+}
+
+class AvatarsListViewController: BaseGenericViewController<AvatarsListView> {
+    public weak var delegate: EmojiListViewControllerDelegate?
     var avatars: [Avatar] = []
     var viewModel: AvatarViewModel?
 

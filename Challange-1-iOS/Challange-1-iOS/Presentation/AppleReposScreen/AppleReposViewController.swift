@@ -7,15 +7,18 @@
 
 import UIKit
 
-class AppleReposViewController: BaseGenericViewController<AppleReposView>, Coordinating {
+public protocol AppleReposViewControllerDelegate: AnyObject {
+    func navigateToMainPage()
+}
+
+class AppleReposViewController: BaseGenericViewController<AppleReposView> {
+    public weak var delegate: AppleReposViewControllerDelegate?
     private var appleRepos: [AppleRepos] = []
 
     private var addedToView: Bool = false
     private var isEnd: Bool = false
 
-    var coordinator: Coordinator?
     var viewModel: AppleReposViewModel?
-
 
     override func viewDidLoad() {
         super.viewDidLoad()
