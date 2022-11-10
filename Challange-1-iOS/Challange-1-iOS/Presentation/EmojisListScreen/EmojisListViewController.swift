@@ -21,11 +21,6 @@ class EmojisListViewController: BaseGenericViewController<EmojisListView> {
         title = "Emojis List"
         genericView.collectionView.dataSource = self
 
-//        genericView.btnBack = UIBarButtonItem(title: "Back",
-//                                              style: .plain,
-//                                              target: self,
-//                                              action: #selector(navigateBackToMainPage))
-//        self.navigationItem.leftBarButtonItem = genericView.btnBack
     }
 
     override func viewWillAppear(_ animated: Bool) {

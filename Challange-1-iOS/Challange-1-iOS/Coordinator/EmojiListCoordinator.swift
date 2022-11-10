@@ -13,27 +13,19 @@ class EmojiListCoordinator: Coordinator {
     unowned let navigationController: UINavigationController
     weak var delegate: BackToMainViewControllerDelegate?
 
-    var emojiViewModel: EmojiViewModel?
+    var emojiService: EmojiService?
 
-    required init(navigationController: UINavigationController) {
+    init(navigationController: UINavigationController, emojiService: EmojiService) {
+        self.emojiService = emojiService
         self.navigationController = navigationController
     }
 
-    var persistentContainer: NSPersistentContainer = {
-        let container = NSPersistentContainer(name: "Database")
-        container.loadPersistentStores(completionHandler: { (_, error) in
-            if let error = error as NSError? {
-                fatalError("Unresolved error \(error), \(error.userInfo)")
-            }
-        })
-        return container
-    }()
-
     func start() {
         let emojiListViewController: EmojisListViewController = EmojisListViewController()
-        let emojiService: EmojiService = LiveEmojiService(persistentContainer: persistentContainer)
         emojiListViewController.delegate = self
-        emojiListViewController.viewModel = EmojiViewModel(emojiService: emojiService)
+        let viewModel = EmojiViewModel()
+        viewModel.emojiService = emojiService
+        emojiListViewController.viewModel = viewModel
         self.navigationController.pushViewController(emojiListViewController, animated: true)
     }
 }

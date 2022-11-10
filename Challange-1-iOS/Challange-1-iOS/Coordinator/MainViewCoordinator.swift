@@ -13,27 +13,18 @@ final class MainViewCoordinator: Coordinator {
     var childCoordinators: [Coordinator] = []
     unowned let navigationController: UINavigationController
 
-    var mainPageViewModel: MainPageViewModel?
+    var application: Application
 
-    required init(navigationController: UINavigationController) {
+    required init(navigationController: UINavigationController, application: Application) {
         self.navigationController = navigationController
+        self.application = application
     }
-
-    var persistentContainer: NSPersistentContainer = {
-        let container = NSPersistentContainer(name: "Database")
-        container.loadPersistentStores(completionHandler: { (_, error) in
-            if let error = error as NSError? {
-                fatalError("Unresolved error \(error), \(error.userInfo)")
-            }
-        })
-        return container
-    }()
 
     func start() {
         let mainViewController: MainViewController = MainViewController()
-        let emojiService: EmojiService = LiveEmojiService(persistentContainer: persistentContainer)
-        let avatarService: AvatarService = LiveAvatarService(persistentContainer: persistentContainer)
-        let viewModel: MainPageViewModel = MainPageViewModel(emojiService: emojiService, avatarService: avatarService)
+        let viewModel: MainPageViewModel = MainPageViewModel(application: application)
+        viewModel.application.emojiService = application.emojiService
+        viewModel.application.avatarService = application.avatarService
         mainViewController.viewModel = viewModel
         mainViewController.delegate = self
         self.navigationController.viewControllers = [mainViewController]
@@ -42,14 +33,16 @@ final class MainViewCoordinator: Coordinator {
 
 extension MainViewCoordinator: MainViewControllerDelegate {
     func navigateToEmojiList() {
-        let emojiListCoordinator = EmojiListCoordinator(navigationController: navigationController)
+        let emojiListCoordinator = EmojiListCoordinator(navigationController: navigationController,
+                                                        emojiService: application.emojiService)
         emojiListCoordinator.delegate = self
         childCoordinators.append(emojiListCoordinator)
         emojiListCoordinator.start()
     }
 
     func navigateToAvatarList() {
-        let avatarListCoordinator = AvatarListCoordinator(navigationController: navigationController)
+        let avatarListCoordinator = AvatarListCoordinator(navigationController: navigationController,
+                                                          avatarService: application.avatarService)
         avatarListCoordinator.delegate = self
         childCoordinators.append(avatarListCoordinator)
         avatarListCoordinator.start()
@@ -78,4 +71,3 @@ public protocol MainViewControllerDelegate: AnyObject {
     func navigateToAvatarList()
     func navigateToAppleRepos()
 }
-

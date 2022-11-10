@@ -13,27 +13,19 @@ class AvatarListCoordinator: Coordinator {
     unowned let navigationController: UINavigationController
     weak var delegate: BackToMainViewControllerDelegate?
 
-    var avatarViewModel: AvatarViewModel?
+    var avatarService: AvatarService?
 
-    required init(navigationController: UINavigationController) {
+    required init(navigationController: UINavigationController, avatarService: AvatarService) {
         self.navigationController = navigationController
+        self.avatarService = avatarService
     }
-
-    var persistentContainer: NSPersistentContainer = {
-        let container = NSPersistentContainer(name: "Database")
-        container.loadPersistentStores(completionHandler: { (_, error) in
-            if let error = error as NSError? {
-                fatalError("Unresolved error \(error), \(error.userInfo)")
-            }
-        })
-        return container
-    }()
 
     func start() {
         let avatarListViewController: AvatarsListViewController = AvatarsListViewController()
-        let avatarService: AvatarService = LiveAvatarService(persistentContainer: persistentContainer)
         avatarListViewController.delegate = self
-        avatarListViewController.viewModel = AvatarViewModel(avatarService: avatarService)
+        let viewModel = AvatarViewModel()
+        viewModel.avatarService = avatarService
+        avatarListViewController.viewModel = viewModel
         self.navigationController.pushViewController(avatarListViewController, animated: true)
     }
 }
