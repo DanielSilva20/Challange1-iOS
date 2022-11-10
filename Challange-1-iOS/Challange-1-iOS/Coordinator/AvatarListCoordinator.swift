@@ -8,7 +8,8 @@
 import UIKit
 import CoreData
 
-class AvatarListCoordinator: Coordinator { var childCoordinators: [Coordinator] = []
+class AvatarListCoordinator: Coordinator {
+    var childCoordinators: [Coordinator] = []
     unowned let navigationController: UINavigationController
     weak var delegate: BackToMainViewControllerDelegate?
 
