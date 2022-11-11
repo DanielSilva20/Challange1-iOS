@@ -8,6 +8,8 @@
 import Foundation
 import CoreData
 
+import RxSwift
+
 class LiveEmojiService: EmojiService {
     var emojis: [Emoji] = []
 
@@ -45,9 +47,10 @@ class LiveEmojiService: EmojiService {
             }
         }
     }
+    func rxGetEmojisList() -> Single<[Emoji]> {
+            return networkManager.rxExecuteNetworkCall(EmojiAPI.getEmojis)
+                .map { (emojisResult: EmojisAPICAllResult) in
+                        return emojisResult.emojis
+                    }
+        }
 }
-/*
-protocol EmojiPresenter: EmojiStorageDelegate {
-    var emojiService: EmojiService? { get set }
-}
-*/

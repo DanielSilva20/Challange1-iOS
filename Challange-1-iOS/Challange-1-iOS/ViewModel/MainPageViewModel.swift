@@ -41,10 +41,12 @@ class MainPageViewModel {
 
                 // Verifica se o url já foi guardado no ongoingRequests
                 if observable == nil {
-                    self.ongoingRequests[url?.absoluteString ?? ""] = self.dataOfUrl(url).share(replay: 1, scope: .forever)
+                    self.ongoingRequests[url?.absoluteString ?? ""] = self.dataOfUrl(url).share(replay: 1,
+                                                                                                scope: .forever)
                 }
 
-                guard let observable = self.ongoingRequests[url?.absoluteString ?? ""] else { return Observable.never() }
+                guard let observable =
+                        self.ongoingRequests[url?.absoluteString ?? ""] else { return Observable.never() }
 
                 return observable
             })
@@ -81,6 +83,23 @@ class MainPageViewModel {
                 print("Error: \(failure)")
             }
         }
+    }
+
+    func rxGetRandomEmoji() {
+        emojiService?.rxGetEmojisList()
+            .observe(on: MainScheduler.instance)
+            .subscribe { [weak self] emojis in
+                    guard
+                        let self = self
+                        else { return }
+                let randomUrl = emojis.randomElement()?.emojiUrl
+                    self.rxEmojiImageUrl.onNext(randomUrl)
+            } onFailure: { error in
+                print("[GetEmojisList-ViewModel] \(error)")
+            } onDisposed: {
+                print("BUH-BYEEE!!!")
+            }
+            .disposed(by: disposeBag)
     }
 
     private func searchAvatar() {

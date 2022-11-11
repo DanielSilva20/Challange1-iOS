@@ -24,36 +24,40 @@ class MainViewController: BaseGenericViewController<MainView>, Coordinating {
                 guard image != nil else { return }
                 self?.genericView.emojiImage.stopLoading()
             })
-            .subscribe(genericView.emojiImage.rx.image)
-            .disposed(by: disposeBag)
+                .subscribe(genericView.emojiImage.rx.image)
+                .disposed(by: disposeBag)
 
-        getRandomEmoji()
+                getRandomEmoji()
 
-        self.navigationController?.navigationBar.tintColor = .appColor(name: .primary)
+                self.navigationController?.navigationBar.tintColor = .appColor(name: .primary)
 
-        // Code for RxSwift
+                // Code for RxSwift
                 genericView.rxRandomEmojiTap
-                    .subscribe(onNext: { [weak self] _ in
-                        self?.getRandomEmoji()
-                    })
-                    .disposed(by: disposeBag)
+                .subscribe(onNext: { [weak self] _ in
+                    self?.getRandomEmoji()
+                })
+                .disposed(by: disposeBag)
                 genericView.rxEmojiListTap
-                    .subscribe(onNext: { [weak self] _ in
-                        self?.didTapEmojisLIst()
-                    })
+                .subscribe(onNext: { [weak self] _ in
+                    self?.didTapEmojisLIst()
+                })
+                .disposed(by: disposeBag)
                 genericView.rxAvatarListTap
-                    .subscribe(onNext: { [weak self] _ in
-                        self?.didTapAvatarsList()
-                    })
+                .subscribe(onNext: { [weak self] _ in
+                    self?.didTapAvatarsList()
+                })
+                .disposed(by: disposeBag)
                 genericView.rxAppleReposTap
-                    .subscribe(onNext: { [weak self] _ in
-                        self?.didTapAppleRepos()
-                    })
+                .subscribe(onNext: { [weak self] _ in
+                    self?.didTapAppleRepos()
+                })
+                .disposed(by: disposeBag)
                 genericView.rxSearchTap
-                    .subscribe(onNext: { [weak self] _ in
-                        self?.saveSearchContent()
-                    })
-    }
+                .subscribe(onNext: { [weak self] _ in
+                    self?.saveSearchContent()
+                })
+                .disposed(by: disposeBag)
+                }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -72,7 +76,8 @@ class MainViewController: BaseGenericViewController<MainView>, Coordinating {
     }
 
     func getRandomEmoji() {
-        viewModel?.getRandom()
+//        viewModel?.getRandom()
+        viewModel?.rxGetRandomEmoji()
     }
 
     func saveSearchContent() {
