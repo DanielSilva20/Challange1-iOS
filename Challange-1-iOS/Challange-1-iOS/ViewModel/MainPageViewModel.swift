@@ -71,19 +71,18 @@ class MainPageViewModel {
             .observe(on: MainScheduler.instance)
             .debug("dataOfUrl")
     }
-
-    func getRandom() {
-        emojiService?.getEmojisList {(result: Result<[Emoji], Error>) in
-            switch result {
-            case .success(let success):
-                guard let url = success.randomElement()?.emojiUrl else { return }
-//                self.emojiImageUrl.value = url
-                self.rxEmojiImageUrl.onNext(url)
-            case .failure(let failure):
-                print("Error: \(failure)")
-            }
-        }
-    }
+//
+//    func getRandom() {
+//        emojiService?.getEmojisList {(result: Result<[Emoji], Error>) in
+//            switch result {
+//            case .success(let success):
+//                guard let url = success.randomElement()?.emojiUrl else { return }
+//                self.rxEmojiImageUrl.onNext(url)
+//            case .failure(let failure):
+//                print("Error: \(failure)")
+//            }
+//        }
+//    }
 
     func rxGetRandomEmoji() {
         emojiService?.rxGetEmojisList()
@@ -94,10 +93,6 @@ class MainPageViewModel {
                         else { return }
                 let randomUrl = emojis.randomElement()?.emojiUrl
                     self.rxEmojiImageUrl.onNext(randomUrl)
-            } onFailure: { error in
-                print("[GetEmojisList-ViewModel] \(error)")
-            } onDisposed: {
-                print("BUH-BYEEE!!!")
             }
             .disposed(by: disposeBag)
     }

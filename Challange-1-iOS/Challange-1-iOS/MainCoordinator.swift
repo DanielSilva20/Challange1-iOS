@@ -11,14 +11,14 @@ import UIKit
 class MainCoordinator: Coordinator {
     var navigationController: UINavigationController?
     var mainPageViewModel: MainPageViewModel?
-    var emojiViewModel: EmojiViewModel?
-    var avatarViewModel: AvatarViewModel?
+    var emojiViewModel: EmojiListViewModel?
+    var avatarViewModel: AvatarListViewModel?
     var appleReposViewModel: AppleReposViewModel?
 
     init(emojiService: EmojiService, avatarService: AvatarService, appleReposService: AppleReposService) {
         self.mainPageViewModel = MainPageViewModel(emojiService: emojiService, avatarService: avatarService)
-        self.emojiViewModel = EmojiViewModel(emojiService: emojiService)
-        self.avatarViewModel = AvatarViewModel(avatarService: avatarService)
+        self.emojiViewModel = EmojiListViewModel(emojiService: emojiService)
+        self.avatarViewModel = AvatarListViewModel(avatarService: avatarService)
         self.appleReposViewModel = AppleReposViewModel(appleReposService: appleReposService)
     }
 

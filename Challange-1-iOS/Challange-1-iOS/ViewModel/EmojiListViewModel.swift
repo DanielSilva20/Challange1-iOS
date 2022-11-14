@@ -1,5 +1,5 @@
 //
-//  EmojiViewModel.swift
+//  EmojiListViewModel.swift
 //  Challange-1-iOS
 //
 //  Created by Daniel Silva on 10/27/22.
@@ -10,11 +10,8 @@ import UIKit
 
 import RxSwift
 
-class EmojiViewModel {
+class EmojiListViewModel {
     var emojiService: EmojiService?
-
-//    let emojisList: Box<[Emoji]?> = Box(nil)
-//    let rxEmojiList: Observable<[Emoji]?>
 
     let backgroundScheduler = ConcurrentDispatchQueueScheduler(qos: .background)
 
@@ -58,15 +55,26 @@ class EmojiViewModel {
             .observe(on: MainScheduler.instance)
     }
 
-    func getEmojis() {
-        emojiService?.getEmojisList({ (result: Result<[Emoji], Error>) in
-            switch result {
-            case .success(var success):
-                success.sort()
-                self._rxEmojiList.onNext(success)
-            case .failure(let failure):
-                print("Error: \(failure)")
-            }
-        })
+    //    func getEmojis() {
+    //        emojiService?.getEmojisList({ (result: Result<[Emoji], Error>) in
+    //            switch result {
+    //            case .success(var success):
+    //                success.sort()
+    //                self._rxEmojiList.onNext(success)
+    //            case .failure(let failure):
+    //                print("Error: \(failure)")
+    //            }
+    //        })
+    //    }
+
+    func rxGetEmojis() -> Single<[Emoji]> {
+        guard let emojiService = emojiService else {
+            return Single<[Emoji]>.never()
+        }
+        return emojiService.rxGetEmojisList()
+            .flatMap({ result in
+                let emojis: [Emoji] = result.sorted()
+                return Single<[Emoji]>.just(emojis)
+            })
     }
 }

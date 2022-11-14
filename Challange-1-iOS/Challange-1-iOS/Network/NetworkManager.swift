@@ -70,19 +70,15 @@ class NetworkManager {
                             single(.failure(error))
                             return
                         }
-                        print("hello")
                         guard let data = data,
                               let result = try? decoder.decode(ResultType.self, from: data)
                         else {
                             single(.failure(APIError.parseError))
                             return
                         }
-
                         single(.success(result))
                     }
-
                     task.resume()
-
                     return Disposables.create { task.cancel() }
                 }
         }

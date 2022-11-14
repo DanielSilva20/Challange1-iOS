@@ -8,6 +8,12 @@
 import UIKit
 import CoreData
 
+import RxSwift
+
+enum PersistenceError: Error {
+    case fetchError
+}
+
 class EmojiPersistence {
     private let persistentContainer: NSPersistentContainer
 
@@ -59,5 +65,27 @@ class EmojiPersistence {
         }
 
         return emojisArray
+    }
+
+    func rxFetchEmojisData() -> Single<[Emoji]> {
+        return Single<[Emoji]>.create { single in
+
+            let managedContext = self.persistentContainer.viewContext
+
+            // 2
+            let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "EmojiEntity")
+
+            guard
+                let resultFetch = try? managedContext.fetch(fetchRequest)
+            else {
+                single(.failure(PersistenceError.fetchError))
+                return Disposables.create {}
+            }
+            let result: [Emoji] = resultFetch.compactMap({ item -> Emoji? in
+                item.toEmoji()
+            })
+            single(.success(result))
+            return Disposables.create {  }
+        }
     }
 }

@@ -11,7 +11,7 @@ import RxSwift
 class EmojisListViewController: BaseGenericViewController<EmojisListView>, Coordinating {
     var coordinator: Coordinator?
     var emojisList: [Emoji]?
-    var viewModel: EmojiViewModel?
+    var viewModel: EmojiListViewModel?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,11 +20,23 @@ class EmojisListViewController: BaseGenericViewController<EmojisListView>, Coord
     }
 
     override func viewWillAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        viewModel?.rxEmojiList
-            .subscribe(rx.emojisList)
+        super.viewWillAppear(animated)
+//        viewModel?.rxEmojiList
+//            .subscribe(rx.emojisList)
+//            .disposed(by: disposeBag)
+//        viewModel?.getEmojis()
+        viewModel?.rxGetEmojis()
+            .observe(on: MainScheduler.instance)
+            .subscribe(onSuccess: { [weak self] emojiList in
+                guard let self = self else { return }
+                self.emojisList = emojiList
+                self.genericView.collectionView.reloadData()
+            }, onFailure: { error in
+                print("[GET EMOJIS LIST] -  \(error)")
+            }, onDisposed: {
+                print("[GET EMOJIS LIST] - Disposed")
+            })
             .disposed(by: disposeBag)
-        viewModel?.getEmojis()
     }
 }
 

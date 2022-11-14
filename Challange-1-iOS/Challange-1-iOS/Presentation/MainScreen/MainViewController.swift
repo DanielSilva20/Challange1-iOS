@@ -18,7 +18,6 @@ class MainViewController: BaseGenericViewController<MainView>, Coordinating {
     override func viewDidLoad() {
         super.viewDidLoad()
         genericView.emojiImage.showLoading()
-
         viewModel?.rxEmojiImage
             .do(onNext: { [weak self] image in
                 guard image != nil else { return }
@@ -76,7 +75,7 @@ class MainViewController: BaseGenericViewController<MainView>, Coordinating {
     }
 
     func getRandomEmoji() {
-//        viewModel?.getRandom()
+        //        viewModel?.getRandom()
         viewModel?.rxGetRandomEmoji()
     }
 

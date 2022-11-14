@@ -10,7 +10,7 @@ import UIKit
 class AvatarsListViewController: BaseGenericViewController<AvatarsListView>, Coordinating {
     var coordinator: Coordinator?
     var avatars: [Avatar] = []
-    var viewModel: AvatarViewModel?
+    var viewModel: AvatarListViewModel?
 
     override func viewDidLoad() {
         super.viewDidLoad()

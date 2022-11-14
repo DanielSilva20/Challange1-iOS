@@ -26,7 +26,7 @@ class EmojiCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 
-    func setUpCell(viewModel: EmojiViewModel) {
+    func setUpCell(viewModel: EmojiListViewModel) {
     }
 
     func setUpConstraints() {

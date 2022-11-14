@@ -1,5 +1,5 @@
 //
-//  AvatarViewModel.swift
+//  AvatarListViewModel.swift
 //  Challange-1-iOS
 //
 //  Created by Daniel Silva on 10/27/22.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-class AvatarViewModel {
+class AvatarListViewModel {
     var avatarService: AvatarService?
 
     var avatarList: Box<[Avatar]?> = Box(nil)
