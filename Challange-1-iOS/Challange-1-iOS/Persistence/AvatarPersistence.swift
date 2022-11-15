@@ -42,24 +42,41 @@ class AvatarPersistence {
 
     }
 
-    func fetchAvatarData(_ resulthandler: @escaping ([Avatar]) -> Void) {
-        var array: [NSManagedObject]
-        var avatarArray: [Avatar]
+//    func fetchAvatarData(_ resulthandler: @escaping ([Avatar]) -> Void) {
+//        var array: [NSManagedObject]
+//        var avatarArray: [Avatar]
+//
+//        let managedContext = persistentContainer.viewContext
+//
+//        // 2
+//        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "AvatarEntity")
+//
+//        // 3
+//        do {
+//            array = try managedContext.fetch(fetchRequest)
+//            avatarArray = array.compactMap({ item -> Avatar? in
+//                item.toAvatar()
+//            })
+//            resulthandler(avatarArray)
+//        } catch let error as NSError {
+//            print("Could not fetch. \(error), \(error.userInfo)")
+//        }
+//    }
 
-        let managedContext = persistentContainer.viewContext
+    func rxFetchAvatarData() -> Single<[Avatar]> {
+        return Single<[Avatar]>.create { single in
+            let managedContext = self.persistentContainer.viewContext
+            let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "AvatarEntity")
 
-        // 2
-        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "AvatarEntity")
-
-        // 3
-        do {
-            array = try managedContext.fetch(fetchRequest)
-            avatarArray = array.compactMap({ item -> Avatar? in
+            guard let fetchedRequest = try? managedContext.fetch(fetchRequest) else {
+                single(.failure(PersistenceError.fetchError))
+                return Disposables.create()
+            }
+            let avatars: [Avatar] = fetchedRequest.compactMap { item -> Avatar? in
                 item.toAvatar()
-            })
-            resulthandler(avatarArray)
-        } catch let error as NSError {
-            print("Could not fetch. \(error), \(error.userInfo)")
+            }
+            single(.success(avatars))
+            return Disposables.create()
         }
     }
 

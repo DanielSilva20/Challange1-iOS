@@ -22,12 +22,16 @@ class LiveAvatarService: AvatarService {
 
     var avatars: [Avatar] = []
 
-    func fetchAvatarList(_ resultHandler: @escaping ([Avatar]) -> Void) {
-        persistence.fetchAvatarData { (result: [Avatar]) in
-            if result.count != 0 {
-                resultHandler(result)
-            }
-        }
+//    func fetchAvatarList(_ resultHandler: @escaping ([Avatar]) -> Void) {
+//        persistence.fetchAvatarData { (result: [Avatar]) in
+//            if result.count != 0 {
+//                resultHandler(result)
+//            }
+//        }
+//    }
+    
+    func rxFetchAvatarList() -> Single<[Avatar]> {
+        persistence.rxFetchAvatarData()
     }
 
 //    func getAvatar(searchText: String, _ resultHandler: @escaping (Result<Avatar, Error>) -> Void) {

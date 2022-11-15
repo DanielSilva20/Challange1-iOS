@@ -6,6 +6,13 @@
 //
 
 import Foundation
+import UIKit
+
+import RxSwift
+
+enum ServiceError: Error {
+    case cannotInstanciate
+}
 
 class AvatarListViewModel {
     var avatarService: AvatarService?
@@ -16,10 +23,14 @@ class AvatarListViewModel {
         self.avatarService = avatarService
     }
 
-    func getAvatars() {
-        avatarService?.fetchAvatarList({ (result: [Avatar]) in
-            self.avatarList.value = result
-        })
+    func getAvatars() -> Single<[Avatar]> {
+//        avatarService?.fetchAvatarList({ (result: [Avatar]) in
+//            self.avatarList.value = result
+//        })
+        guard let avatarService = avatarService else {
+            return Single<[Avatar]>.error(ServiceError.cannotInstanciate)
+        }
+        return avatarService.rxFetchAvatarList()
     }
 
     func deleteAvatar(avatar: Avatar, at index: Int) {

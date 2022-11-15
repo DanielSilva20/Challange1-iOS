@@ -7,6 +7,8 @@
 
 import UIKit
 
+import RxSwift
+
 class AvatarsListViewController: BaseGenericViewController<AvatarsListView>, Coordinating {
     var coordinator: Coordinator?
     var avatars: [Avatar] = []
@@ -22,17 +24,27 @@ class AvatarsListViewController: BaseGenericViewController<AvatarsListView>, Coo
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.viewModel?.avatarList.bind(listener: { [weak self] avatarList in
-            guard
-                let self = self,
-                let avatarList = avatarList else { return }
-            self.avatars = avatarList
-            DispatchQueue.main.async {
-                self.genericView.collectionView.reloadData()
-            }
-        })
+//        self.viewModel?.avatarList.bind(listener: { [weak self] avatarList in
+//            guard
+//                let self = self,
+//                let avatarList = avatarList else { return }
+//            self.avatars = avatarList
+//            DispatchQueue.main.async {
+//                self.genericView.collectionView.reloadData()
+//            }
+//        })
 
         viewModel?.getAvatars()
+            .observe(on: MainScheduler.instance)
+            .subscribe(onSuccess: { [weak self] success in
+                guard let self = self else { return }
+                self.avatars = success
+            }, onFailure: { error in
+                print("[GET AVATARS LIST] -  \(error)")
+            }, onDisposed: {
+                print("[GET AVATARS LIST] - Disposed")
+            })
+            .disposed(by: disposeBag)
     }
 
     override func viewDidAppear(_ animated: Bool) {
