@@ -13,13 +13,17 @@ class MainPageViewModel {
     var emojiService: EmojiService?
     var avatarService: AvatarService?
 
-    var searchQuery: Box<String?> = Box(nil)
+//    var searchQuery: Box<String?> = Box(nil)
 
     let backgroundScheduler = SerialDispatchQueueScheduler(internalSerialQueueName: "MainPageViewModel.backgroundScheduler")
 
     private var rxEmojiImageUrl: BehaviorSubject<URL?> = BehaviorSubject(value: nil)
     private var _rxEmojiImage: BehaviorSubject<UIImage?> = BehaviorSubject(value: nil)
     var rxEmojiImage: Observable<UIImage?> { _rxEmojiImage.asObservable() }
+
+    private var rxSearchAvatarName: PublishSubject<String> = PublishSubject()
+    private var _rxSearchAvatar: PublishSubject<UIImage?> = PublishSubject()
+    var rxSearchAvatar: Observable<UIImage?> { _rxSearchAvatar.asObservable() }
 
     let disposeBag = DisposeBag()
     var ongoingRequests: [String: Observable<UIImage?>] = [:]
@@ -28,9 +32,9 @@ class MainPageViewModel {
         self.emojiService = emojiService
         self.avatarService = avatarService
 
-        self.searchQuery.bind { [weak self] _ in
-            self?.searchAvatar()
-        }
+//        self.searchQuery.bind { [weak self] _ in
+//            self?.searchAvatar
+//        }
 
         rxEmojiImageUrl
             .debug("rxEmojiImageUrl")
@@ -52,6 +56,18 @@ class MainPageViewModel {
             })
             .debug("rxEmojiImage")
             .subscribe(_rxEmojiImage)
+            .disposed(by: disposeBag)
+
+        rxSearchAvatarName
+            .debug("rxSearchAvatarName")
+            .flatMap({ avatarName in
+                return avatarService.rxGetAvatar(avatarName: avatarName)
+            })
+            .flatMap({ avatar -> Observable<UIImage?> in
+                return self.dataOfUrl(avatar.avatarUrl)
+            })
+            .debug("rxSearchAvatar")
+            .subscribe(_rxSearchAvatar)
             .disposed(by: disposeBag)
 
         print("end init")
@@ -87,29 +103,36 @@ class MainPageViewModel {
     func rxGetRandomEmoji() {
         emojiService?.rxGetEmojisList()
             .observe(on: MainScheduler.instance)
-            .subscribe { [weak self] emojis in
+            .subscribe(
+                onSuccess: { [weak self] emojis in
                     guard
                         let self = self
-                        else { return }
-                let randomUrl = emojis.randomElement()?.emojiUrl
+                    else { return }
+                    let randomUrl = emojis.randomElement()?.emojiUrl
                     self.rxEmojiImageUrl.onNext(randomUrl)
-            }
+                }, onFailure: { error in
+                    print("[rxGetRandomEmoji-ViewModel] \(error)")
+                }, onDisposed: {
+                    print("[rxGetRandomEmoji-ViewModel] - Disposed")
+                })
             .disposed(by: disposeBag)
     }
 
-    private func searchAvatar() {
-        guard let searchQuery = searchQuery.value else { return }
+//    private func searchAvatar() {
+//        guard let searchQuery = searchQuery.value else { return }
+//
+//        avatarService?.getAvatar(searchText: searchQuery, { (result: Result<Avatar, Error>) in
+//            switch result {
+//            case .success(let success):
+//                let avatarUrl = success.avatarUrl
+//                self.rxEmojiImageUrl.onNext(avatarUrl)
+//            case .failure(let failure):
+//                print("Failure: \(failure)")
+//            }
+//        })
+//    }
 
-        avatarService?.getAvatar(searchText: searchQuery, { (result: Result<Avatar, Error>) in
-            switch result {
-            case .success(let success):
-                let avatarUrl = success.avatarUrl
-//                self.emojiImageUrl.value = avatarUrl
-                self.rxEmojiImageUrl.onNext(avatarUrl)
-            case .failure(let failure):
-                print("Failure: \(failure)")
-//                self.emojiImageUrl.value = nil
-            }
-        })
+    func rxSearchAvatarName(avatarName: String) {
+        rxSearchAvatarName.onNext(avatarName)
     }
 }

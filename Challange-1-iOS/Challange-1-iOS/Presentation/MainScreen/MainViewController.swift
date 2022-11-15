@@ -18,6 +18,10 @@ class MainViewController: BaseGenericViewController<MainView>, Coordinating {
     override func viewDidLoad() {
         super.viewDidLoad()
         genericView.emojiImage.showLoading()
+        viewModel?.rxSearchAvatar
+            .subscribe(genericView.emojiImage.rx.image)
+            .disposed(by: disposeBag)
+
         viewModel?.rxEmojiImage
             .do(onNext: { [weak self] image in
                 guard image != nil else { return }
@@ -80,7 +84,9 @@ class MainViewController: BaseGenericViewController<MainView>, Coordinating {
     }
 
     func saveSearchContent() {
-        viewModel?.searchQuery.value = genericView.searchBar.text
+        guard let avatarName = genericView.searchBar.text else { return }
+        viewModel?.rxSearchAvatarName(avatarName: avatarName)
+//        viewModel?.searchQuery.value = genericView.searchBar.text
         genericView.searchBar.text = ""
     }
 }
