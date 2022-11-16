@@ -18,12 +18,8 @@ class EmojiListViewModel {
     let disposeBag = DisposeBag()
     var ongoingRequests: [String: Observable<UIImage>] = [:]
 
-    private var _rxEmojiList: PublishSubject<[Emoji]?> = PublishSubject()
-    var rxEmojiList: Observable<[Emoji]?> { _rxEmojiList.asObservable() }
-
     init(emojiService: EmojiService) {
         self.emojiService = emojiService
-        _rxEmojiList.disposed(by: disposeBag)
     }
 
     func imageAtUrl(url: URL) -> Observable<UIImage> {

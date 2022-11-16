@@ -7,6 +7,8 @@
 
 import Foundation
 
+import RxSwift
+
 class LiveAppleReposService: AppleReposService {
 
     private var networkManager: NetworkManager = .init()
@@ -25,5 +27,10 @@ class LiveAppleReposService: AppleReposService {
                 print("Error: \(failure)")
             }
         }
+    }
+
+    func rxGetAppleReposList(itemsPerPage: Int, pageNumer: Int) -> Observable<[AppleRepos]> {
+        return networkManager.rxExecuteNetworkCall(AppleReposApi.getAppleRepos(perPage: itemsPerPage, page: pageNumer))
+            .asObservable()
     }
 }

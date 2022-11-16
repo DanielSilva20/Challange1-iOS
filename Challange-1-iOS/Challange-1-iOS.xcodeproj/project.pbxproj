@@ -280,6 +280,7 @@
 			children = (
 				0817A4F228E1AE2F007217C2 /* AppleReposViewController.swift */,
 				08A8A0B7291947AD009DACAB /* AppleReposView.swift */,
+				0826D3862902A8D100439C98 /* MockAppleReposDataSource.swift */,
 			);
 			path = AppleReposScreen;
 			sourceTree = "<group>";
@@ -352,7 +353,6 @@
 				08A6CB65290140DE00FF4B92 /* AppleReposService.swift */,
 				08A6CB5F2900037D00FF4B92 /* LiveAppleReposService.swift */,
 				08A6CB672901410C00FF4B92 /* MockAppleReposService.swift */,
-				0826D3862902A8D100439C98 /* MockAppleReposDataSource.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
