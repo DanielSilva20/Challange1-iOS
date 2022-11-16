@@ -16,10 +16,11 @@ class AppleReposViewModel {
 
     var appleReposService: AppleReposService?
 
-    var appleReposList: Box<[AppleRepos]?> = Box([])
+//    var appleReposList: Box<[AppleRepos]?> = Box([])
     var isEnd: Box<Bool> = Box(false)
 
     private var appleReposArray: [AppleRepos] = []
+
     private var _rxAppleRepos: PublishSubject<[AppleRepos]> = PublishSubject()
     var rxAppleRepos: Observable<[AppleRepos]> { _rxAppleRepos.asObservable() }
 
@@ -27,6 +28,7 @@ class AppleReposViewModel {
 
     init(appleReposService: AppleReposService) {
         self.appleReposService = appleReposService
+
     }
 
 //    func getRepos() {
@@ -50,16 +52,30 @@ class AppleReposViewModel {
             return
         }
         self.pageNumber += 1
+
+//        appleReposService.rxGetAppleReposList(itemsPerPage: itemsPerPage, pageNumer: pageNumber)
+//            .debug("RXGETREPOS")
+//            .map({ appleRepos -> [AppleRepos] in
+//                self.appleReposArray.append(contentsOf: appleRepos)
+//                if appleRepos.count < self.itemsPerPage {
+//                    self.isEnd.value = true
+//                }
+//                return self.appleReposArray
+//            })
+//            .subscribe(_rxAppleRepos)
+//            .disposed(by: disposeBag)
+
         appleReposService.rxGetAppleReposList(itemsPerPage: itemsPerPage, pageNumer: pageNumber)
-            .flatMap({ [weak self] appleRepos -> Observable<[AppleRepos]> in
-                guard let self = self else { return Observable.never() }
+            .subscribe(onSuccess: { [weak self] appleRepos in
+                guard let self = self else { return }
                 self.appleReposArray.append(contentsOf: appleRepos)
                 if appleRepos.count < self.itemsPerPage {
                     self.isEnd.value = true
                 }
-                return Observable<[AppleRepos]>.just(self.appleReposArray)
+                self._rxAppleRepos.onNext(self.appleReposArray)
             })
-            .subscribe(_rxAppleRepos)
             .disposed(by: disposeBag)
+
     }
+
 }

@@ -27,22 +27,22 @@ class MockAppleReposService: AppleReposService {
         resultHandler(.success(currentRepos))
     }
 
-    func rxGetAppleReposList(itemsPerPage: Int, pageNumer: Int) -> Observable<[AppleRepos]> {
+    func rxGetAppleReposList(itemsPerPage: Int, pageNumer: Int) -> Single<[AppleRepos]> {
 //        return Single<[Emoji]>.create { [weak self] single in
 //            guard let self = self else {  return Disposables.create() }
 //
 //            single(.success(self.mockedEmojis.emojis))
 //            return Disposables.create()
 //        }
-        return Observable<[AppleRepos]>.create { observer in
+        return Single<[AppleRepos]>.create { single in
             var currentRepos: [AppleRepos] = []
             let endIndex: Int = itemsPerPage * pageNumer
             let startIndex: Int = endIndex - itemsPerPage
             for index in startIndex...endIndex - 1 where index < self.mockedAppleRepos.appleRepos.count {
                 currentRepos.append(self.mockedAppleRepos.appleRepos[index])
             }
-
-            observer.onNext(currentRepos)
+            single(.success(currentRepos))
+//            single.onNext(currentRepos)
 
             return Disposables.create()
         }
