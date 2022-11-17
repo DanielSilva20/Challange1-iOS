@@ -8,7 +8,7 @@
 import UIKit
 
 class AvatarsListViewController: BaseGenericViewController<AvatarsListView> {
-    weak var delegate: AvatarListViewControllerDelegate?
+    weak var delegate: BackToMainViewControllerDelegate?
     var avatars: [Avatar] = []
     var viewModel: AvatarViewModel?
 
@@ -35,8 +35,8 @@ class AvatarsListViewController: BaseGenericViewController<AvatarsListView> {
         viewModel?.getAvatars()
     }
 
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
+    override func viewDidDisappear(_ animated: Bool) {
+        self.delegate?.navigateBackToMainPage()
     }
 }
 

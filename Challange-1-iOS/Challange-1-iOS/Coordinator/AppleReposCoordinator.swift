@@ -28,8 +28,8 @@ class AppleReposCoordinator: Coordinator {
     }
 }
 
-extension AppleReposCoordinator: AppleReposViewControllerDelegate {
-    func navigateToMainPage() {
+extension AppleReposCoordinator: BackToMainViewControllerDelegate {
+    func navigateBackToMainPage() {
         self.delegate?.navigateBackToMainPage()
     }
 }

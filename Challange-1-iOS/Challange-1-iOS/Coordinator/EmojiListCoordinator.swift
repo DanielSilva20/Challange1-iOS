@@ -30,8 +30,8 @@ class EmojiListCoordinator: Coordinator {
     }
 }
 
-extension EmojiListCoordinator: EmojiListViewControllerDelegate {
-    func navigateToMainPage() {
+extension EmojiListCoordinator: BackToMainViewControllerDelegate {
+    func navigateBackToMainPage() {
         self.delegate?.navigateBackToMainPage()
     }
 }

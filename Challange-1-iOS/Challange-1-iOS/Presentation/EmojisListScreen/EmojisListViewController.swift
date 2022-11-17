@@ -8,7 +8,7 @@
 import UIKit
 
 class EmojisListViewController: BaseGenericViewController<EmojisListView> {
-    weak var delegate: EmojiListViewControllerDelegate?
+    weak var delegate: BackToMainViewControllerDelegate?
     var emojisList: [Emoji] = []
     var viewModel: EmojiViewModel?
 
@@ -32,7 +32,7 @@ class EmojisListViewController: BaseGenericViewController<EmojisListView> {
     }
 
     override func viewDidDisappear(_ animated: Bool) {
-        self.delegate?.navigateToMainPage()
+        self.delegate?.navigateBackToMainPage()
     }
 }
 

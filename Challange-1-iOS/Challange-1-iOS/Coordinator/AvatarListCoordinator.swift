@@ -30,8 +30,8 @@ class AvatarListCoordinator: Coordinator {
     }
 }
 
-extension AvatarListCoordinator: AvatarListViewControllerDelegate {
-    func navigateToMainPage() {
+extension AvatarListCoordinator: BackToMainViewControllerDelegate {
+    func navigateBackToMainPage() {
         self.delegate?.navigateBackToMainPage()
     }
 }

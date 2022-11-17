@@ -8,7 +8,7 @@
 import UIKit
 
 class AppleReposViewController: BaseGenericViewController<AppleReposView> {
-    weak var delegate: AppleReposViewControllerDelegate?
+    weak var delegate: BackToMainViewControllerDelegate?
     private var appleRepos: [AppleRepos] = []
 
     private var addedToView: Bool = false
@@ -44,6 +44,10 @@ class AppleReposViewController: BaseGenericViewController<AppleReposView> {
             guard let self = self else { return }
             self.isEnd = ended
         })
+    }
+
+    override func viewDidDisappear(_ animated: Bool) {
+        self.delegate?.navigateBackToMainPage()
     }
 }
 
