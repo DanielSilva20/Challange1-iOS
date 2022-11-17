@@ -11,7 +11,7 @@ import CoreData
 final class MainViewCoordinator: Coordinator {
 
     var childCoordinators: [Coordinator] = []
-    unowned let navigationController: UINavigationController
+    let navigationController: UINavigationController
 
     var application: Application
 

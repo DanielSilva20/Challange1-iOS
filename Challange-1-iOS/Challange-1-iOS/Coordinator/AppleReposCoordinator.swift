@@ -10,7 +10,7 @@ import CoreData
 
 class AppleReposCoordinator: Coordinator {
     var childCoordinators: [Coordinator] = []
-    unowned let navigationController: UINavigationController
+    let navigationController: UINavigationController
     weak var delegate: BackToMainViewControllerDelegate?
 
     var appleReposViewModel: AppleReposViewModel?
