@@ -1,5 +1,6 @@
 import UIKit
 import CoreData
+import RxSwift
 
 class AvatarPersistence {
     var avatarsPersistenceList: [NSManagedObject] = []
@@ -40,45 +41,77 @@ class AvatarPersistence {
 
     }
 
-    func fetchAvatarData(_ resulthandler: @escaping ([Avatar]) -> Void) {
-        var array: [NSManagedObject]
-        var avatarArray: [Avatar]
+//    func fetchAvatarData(_ resulthandler: @escaping ([Avatar]) -> Void) {
+//        var array: [NSManagedObject]
+//        var avatarArray: [Avatar]
+//
+//        let managedContext = persistentContainer.viewContext
+//
+//        // 2
+//        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "AvatarEntity")
+//
+//        // 3
+//        do {
+//            array = try managedContext.fetch(fetchRequest)
+//            avatarArray = array.compactMap({ item -> Avatar? in
+//                item.toAvatar()
+//            })
+//            resulthandler(avatarArray)
+//        } catch let error as NSError {
+//            print("Could not fetch. \(error), \(error.userInfo)")
+//        }
+//    }
 
-        let managedContext = persistentContainer.viewContext
+    func rxFetchAvatarData() -> Single<[Avatar]> {
+        return Single<[Avatar]>.create { single in
+            let managedContext = self.persistentContainer.viewContext
+            let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "AvatarEntity")
 
-        // 2
-        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "AvatarEntity")
-
-        // 3
-        do {
-            array = try managedContext.fetch(fetchRequest)
-            avatarArray = array.compactMap({ item -> Avatar? in
+            guard let fetchedRequest = try? managedContext.fetch(fetchRequest) else {
+                single(.failure(PersistenceError.fetchError))
+                return Disposables.create()
+            }
+            let avatars: [Avatar] = fetchedRequest.compactMap { item -> Avatar? in
                 item.toAvatar()
-            })
-            resulthandler(avatarArray)
-        } catch let error as NSError {
-            print("Could not fetch. \(error), \(error.userInfo)")
+            }
+            single(.success(avatars))
+            return Disposables.create()
         }
     }
 
-    func checkIfItemExist(login: String, _ resultHandler: @escaping (Result<[Avatar], Error>) -> Void) {
-        var avatar: [Avatar]
+//    func checkIfItemExist(login: String, _ resultHandler: @escaping (Result<[Avatar], Error>) -> Void) {
+//        var avatar: [Avatar]
+//
+//        let managedContext = persistentContainer.viewContext
+//
+//        let fetchRequest = NSFetchRequest<NSManagedObject>.init(entityName: "AvatarEntity")
+//        fetchRequest.predicate = NSPredicate(format: "login ==[cd] %@", login)
+//
+//        do {
+//            let matchAvatar = try managedContext.fetch(fetchRequest)
+//            avatar = matchAvatar.compactMap({ item -> Avatar? in
+//                return item.toAvatar()
+//            })
+//            resultHandler(.success(avatar))
+//        } catch {
+//            print(error)
+//            resultHandler(.failure(error))
+//        }
+//    }
 
-        let managedContext = persistentContainer.viewContext
+    func rxCheckIfItemExist(avatarName: String) -> Observable<Avatar?> {
+        return Observable<Avatar?>.create({ observer in
+            let managedContext = self.persistentContainer.viewContext
 
-        let fetchRequest = NSFetchRequest<NSManagedObject>.init(entityName: "AvatarEntity")
-        fetchRequest.predicate = NSPredicate(format: "login ==[cd] %@", login)
+            let fetchRequest = NSFetchRequest<NSManagedObject>.init(entityName: "AvatarEntity")
+            fetchRequest.predicate = NSPredicate(format: "login ==[cd] %@", avatarName)
 
-        do {
-            let matchAvatar = try managedContext.fetch(fetchRequest)
-            avatar = matchAvatar.compactMap({ item -> Avatar? in
-                return item.toAvatar()
-            })
-            resultHandler(.success(avatar))
-        } catch {
-            print(error)
-            resultHandler(.failure(error))
-        }
+            guard let matchAvatar = try? managedContext.fetch(fetchRequest) else { return Disposables.create() }
+
+            observer.onNext(matchAvatar.first?.toAvatar())
+
+            return Disposables.create()
+        })
     }
 
     func delete(avatarObject: Avatar) {

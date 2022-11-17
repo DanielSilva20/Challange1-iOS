@@ -7,7 +7,6 @@
 
 import Foundation
 import UIKit
-//
 import RxSwift
 
 class BaseGenericViewController<View: BaseGenericView>: UIViewController {

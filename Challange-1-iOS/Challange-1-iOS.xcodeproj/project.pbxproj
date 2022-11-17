@@ -43,9 +43,9 @@
 		089CA0B528E31F8000386DF0 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 089CA0B428E31F8000386DF0 /* Alamofire */; };
 		089F9410290A8C4B00C3072E /* MainPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 089F940F290A8C4B00C3072E /* MainPageViewModel.swift */; };
 		089F9412290A8CC400C3072E /* Box.swift in Sources */ = {isa = PBXBuildFile; fileRef = 089F9411290A8CC400C3072E /* Box.swift */; };
-		089F9416290AD0D900C3072E /* EmojiViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 089F9415290AD0D900C3072E /* EmojiViewModel.swift */; };
+		089F9416290AD0D900C3072E /* EmojiListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 089F9415290AD0D900C3072E /* EmojiListViewModel.swift */; };
 		089F9418290AD20500C3072E /* MockEmojisDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 089F9417290AD20500C3072E /* MockEmojisDataSource.swift */; };
-		089F941A290AE14300C3072E /* AvatarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 089F9419290AE14300C3072E /* AvatarViewModel.swift */; };
+		089F941A290AE14300C3072E /* AvatarListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 089F9419290AE14300C3072E /* AvatarListViewModel.swift */; };
 		08A6CB5C28FFFD8500FF4B92 /* AppleRepos.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A6CB5B28FFFD8500FF4B92 /* AppleRepos.swift */; };
 		08A6CB5E2900033F00FF4B92 /* AppleReposApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A6CB5D2900033F00FF4B92 /* AppleReposApi.swift */; };
 		08A6CB602900037D00FF4B92 /* LiveAppleReposService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A6CB5F2900037D00FF4B92 /* LiveAppleReposService.swift */; };
@@ -53,11 +53,18 @@
 		08A6CB66290140DE00FF4B92 /* AppleReposService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A6CB65290140DE00FF4B92 /* AppleReposService.swift */; };
 		08A6CB682901410C00FF4B92 /* MockAppleReposService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A6CB672901410C00FF4B92 /* MockAppleReposService.swift */; };
 		08A8A0B8291947AD009DACAB /* AppleReposView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A8A0B7291947AD009DACAB /* AppleReposView.swift */; };
+
+
+		08B55894291BB48B00C38014 /* Observable+Optional.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08B55893291BB48B00C38014 /* Observable+Optional.swift */; };
+
+
 		08B27D36291D16AD00DF4030 /* MainViewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08B27D35291D16AD00DF4030 /* MainViewCoordinator.swift */; };
 		08B27D38291D193100DF4030 /* EmojiListCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08B27D37291D193100DF4030 /* EmojiListCoordinator.swift */; };
 		08B27D3C291D4F2700DF4030 /* AvatarListCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08B27D3B291D4F2700DF4030 /* AvatarListCoordinator.swift */; };
 		08B27D3E291D582700DF4030 /* AppleReposCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08B27D3D291D582700DF4030 /* AppleReposCoordinator.swift */; };
 		08B27D40291D5E9200DF4030 /* Application.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08B27D3F291D5E9200DF4030 /* Application.swift */; };
+
+
 		08B6D33628F5611600BBCD38 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 081F2B9728DDC2860003AB99 /* MainViewController.swift */; };
 		08B6D33728F561EE00BBCD38 /* ColorProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 087F8DD328F42CBE00D1C77B /* ColorProvider.swift */; };
 		08B6D39C28F5849600BBCD38 /* EmojiPersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08B6D39B28F5849600BBCD38 /* EmojiPersistence.swift */; };
@@ -115,9 +122,9 @@
 		08950FE029127CAA008A0B4A /* NSManagedObject+Emoji.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSManagedObject+Emoji.swift"; sourceTree = "<group>"; };
 		089F940F290A8C4B00C3072E /* MainPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPageViewModel.swift; sourceTree = "<group>"; };
 		089F9411290A8CC400C3072E /* Box.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Box.swift; sourceTree = "<group>"; };
-		089F9415290AD0D900C3072E /* EmojiViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiViewModel.swift; sourceTree = "<group>"; };
+		089F9415290AD0D900C3072E /* EmojiListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiListViewModel.swift; sourceTree = "<group>"; };
 		089F9417290AD20500C3072E /* MockEmojisDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockEmojisDataSource.swift; sourceTree = "<group>"; };
-		089F9419290AE14300C3072E /* AvatarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarViewModel.swift; sourceTree = "<group>"; };
+		089F9419290AE14300C3072E /* AvatarListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarListViewModel.swift; sourceTree = "<group>"; };
 		08A6CB5B28FFFD8500FF4B92 /* AppleRepos.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleRepos.swift; sourceTree = "<group>"; };
 		08A6CB5D2900033F00FF4B92 /* AppleReposApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleReposApi.swift; sourceTree = "<group>"; };
 		08A6CB5F2900037D00FF4B92 /* LiveAppleReposService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveAppleReposService.swift; sourceTree = "<group>"; };
@@ -125,11 +132,18 @@
 		08A6CB65290140DE00FF4B92 /* AppleReposService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleReposService.swift; sourceTree = "<group>"; };
 		08A6CB672901410C00FF4B92 /* MockAppleReposService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockAppleReposService.swift; sourceTree = "<group>"; };
 		08A8A0B7291947AD009DACAB /* AppleReposView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleReposView.swift; sourceTree = "<group>"; };
+
+
+		08B55893291BB48B00C38014 /* Observable+Optional.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Observable+Optional.swift"; sourceTree = "<group>"; };
+
+
 		08B27D35291D16AD00DF4030 /* MainViewCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewCoordinator.swift; sourceTree = "<group>"; };
 		08B27D37291D193100DF4030 /* EmojiListCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiListCoordinator.swift; sourceTree = "<group>"; };
 		08B27D3B291D4F2700DF4030 /* AvatarListCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarListCoordinator.swift; sourceTree = "<group>"; };
 		08B27D3D291D582700DF4030 /* AppleReposCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleReposCoordinator.swift; sourceTree = "<group>"; };
 		08B27D3F291D5E9200DF4030 /* Application.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Application.swift; sourceTree = "<group>"; };
+
+
 		08B6D39B28F5849600BBCD38 /* EmojiPersistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiPersistence.swift; sourceTree = "<group>"; };
 		08B6D39E28F5B7B600BBCD38 /* EmojiList.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = EmojiList.xcdatamodel; sourceTree = "<group>"; };
 		08B6D3A028F6C52400BBCD38 /* View+ActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+ActivityIndicator.swift"; sourceTree = "<group>"; };
@@ -284,8 +298,8 @@
 			isa = PBXGroup;
 			children = (
 				089F940F290A8C4B00C3072E /* MainPageViewModel.swift */,
-				089F9415290AD0D900C3072E /* EmojiViewModel.swift */,
-				089F9419290AE14300C3072E /* AvatarViewModel.swift */,
+				089F9415290AD0D900C3072E /* EmojiListViewModel.swift */,
+				089F9419290AE14300C3072E /* AvatarListViewModel.swift */,
 				08FDDEA5290C1DAE00986A42 /* AppleReposViewModel.swift */,
 			);
 			path = ViewModel;
@@ -296,6 +310,7 @@
 			children = (
 				0817A4F228E1AE2F007217C2 /* AppleReposViewController.swift */,
 				08A8A0B7291947AD009DACAB /* AppleReposView.swift */,
+				0826D3862902A8D100439C98 /* MockAppleReposDataSource.swift */,
 			);
 			path = AppleReposScreen;
 			sourceTree = "<group>";
@@ -352,6 +367,7 @@
 				08702180290843080055B9FF /* UICollectionViewCell+ReusableView.swift */,
 				08702182290843310055B9FF /* UITableViewCell+ReusableView.swift */,
 				089F9411290A8CC400C3072E /* Box.swift */,
+				08B55893291BB48B00C38014 /* Observable+Optional.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -380,7 +396,6 @@
 				08A6CB65290140DE00FF4B92 /* AppleReposService.swift */,
 				08A6CB5F2900037D00FF4B92 /* LiveAppleReposService.swift */,
 				08A6CB672901410C00FF4B92 /* MockAppleReposService.swift */,
-				0826D3862902A8D100439C98 /* MockAppleReposDataSource.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -516,14 +531,23 @@
 				08B6D3A128F6C52400BBCD38 /* View+ActivityIndicator.swift in Sources */,
 				089F9412290A8CC400C3072E /* Box.swift in Sources */,
 				0817A4F128E1AE17007217C2 /* AvatarsListViewController.swift in Sources */,
+
+
+				089F941A290AE14300C3072E /* AvatarListViewModel.swift in Sources */,
+				0817A4F728E1B898007217C2 /* MainCoordinator.swift in Sources */,
+
+
 				089F941A290AE14300C3072E /* AvatarViewModel.swift in Sources */,
+
+
 				08A6CB5C28FFFD8500FF4B92 /* AppleRepos.swift in Sources */,
 				08FB470128E48246000CC6E7 /* Emoji.swift in Sources */,
+				08B55894291BB48B00C38014 /* Observable+Optional.swift in Sources */,
 				081F2B9428DDC2860003AB99 /* AppDelegate.swift in Sources */,
 				0817FB4C28EEE40E00092812 /* EmojiService.swift in Sources */,
 				08B27D3E291D582700DF4030 /* AppleReposCoordinator.swift in Sources */,
 				0817FB4A28EEE32100092812 /* MockEmojiService.swift in Sources */,
-				089F9416290AD0D900C3072E /* EmojiViewModel.swift in Sources */,
+				089F9416290AD0D900C3072E /* EmojiListViewModel.swift in Sources */,
 				089F9410290A8C4B00C3072E /* MainPageViewModel.swift in Sources */,
 				08FB470B28E4AB51000CC6E7 /* AvatarCell.swift in Sources */,
 				08BB8FC428EC798200CE4576 /* EmojiResponse.swift in Sources */,

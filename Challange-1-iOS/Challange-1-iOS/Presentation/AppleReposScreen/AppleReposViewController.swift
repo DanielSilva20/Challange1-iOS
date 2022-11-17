@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import RxSwift
 
 class AppleReposViewController: BaseGenericViewController<AppleReposView> {
     weak var delegate: BackToMainViewControllerDelegate?
@@ -25,21 +26,35 @@ class AppleReposViewController: BaseGenericViewController<AppleReposView> {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        viewModel?.appleReposList.bind(listener: { [weak self] newRepos in
-            guard
-                let self = self,
-                let newRepos = newRepos else { return }
-            self.appleRepos = newRepos
-
-            DispatchQueue.main.async { [weak self] in
-                guard let self = self else { return }
+        viewModel?.rxAppleRepos
+            .observe(on: MainScheduler.instance)
+            .subscribe(onNext: { repos in
+                self.appleRepos = repos
                 self.addedToView = true
                 if self.genericView.tableView.contentSize.height < self.genericView.tableView.frame.size.height {
-                    self.viewModel?.getRepos()
+                    self.viewModel?.rxGetRepos()
                 }
                 self.genericView.tableView.reloadData()
-            }
-        })
+            }, onDisposed: {
+                print("APPLE REPOS DISPOSED")
+            })
+            .disposed(by: disposeBag)
+        viewModel?.rxGetRepos()
+        //        viewModel?.appleReposList.bind(listener: { [weak self] newRepos in
+        //            guard
+        //                let self = self,
+        //                let newRepos = newRepos else { return }
+        //            self.appleRepos = newRepos
+        //
+        //            DispatchQueue.main.async { [weak self] in
+        //                guard let self = self else { return }
+        //                self.addedToView = true
+        //                if self.genericView.tableView.contentSize.height < self.genericView.tableView.frame.size.height {
+        //                    self.viewModel?.getRepos()
+        //                }
+        //                self.genericView.tableView.reloadData()
+        //            }
+        //        })
         viewModel?.isEnd.bind(listener: { [weak self] ended in
             guard let self = self else { return }
             self.isEnd = ended
@@ -58,13 +73,12 @@ extension AppleReposViewController: UITableViewDataSource, UITableViewDelegate {
         let offset = scrollView.contentOffset.y
         let heightVisibleScroll = scrollView.frame.size.height
         let heightTable = scrollView.contentSize.height
-
         if offset > 0
             && (offset + heightVisibleScroll) > (heightTable - (heightVisibleScroll*0.20))
             && addedToView
             && !isEnd {
             addedToView = false
-            viewModel?.getRepos()
+            viewModel?.rxGetRepos()
         }
     }
 

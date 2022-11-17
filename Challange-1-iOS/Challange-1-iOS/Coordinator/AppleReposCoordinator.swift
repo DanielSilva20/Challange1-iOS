@@ -13,17 +13,19 @@ class AppleReposCoordinator: Coordinator {
     let navigationController: UINavigationController
     weak var delegate: BackToMainViewControllerDelegate?
 
-    var appleReposViewModel: AppleReposViewModel?
+    var appleReposService: AppleReposService?
 
-    required init(navigationController: UINavigationController) {
+    required init(navigationController: UINavigationController, appleReposService: AppleReposService) {
         self.navigationController = navigationController
+        self.appleReposService = appleReposService
     }
 
     func start() {
         let appleReposViewController: AppleReposViewController = AppleReposViewController()
-        let appleReposService: AppleReposService = MockAppleReposService()
+        guard let appleReposService = appleReposService else { return }
+        let viewModel = AppleReposViewModel(appleReposService: appleReposService)
         appleReposViewController.delegate = self
-        appleReposViewController.viewModel = AppleReposViewModel(appleReposService: appleReposService)
+        appleReposViewController.viewModel = viewModel
         self.navigationController.pushViewController(appleReposViewController, animated: true)
     }
 }

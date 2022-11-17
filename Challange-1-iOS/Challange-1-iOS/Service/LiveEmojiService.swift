@@ -7,6 +7,7 @@
 
 import Foundation
 import CoreData
+import RxSwift
 
 class LiveEmojiService: EmojiService {
     var emojis: [Emoji] = []
@@ -29,25 +30,43 @@ class LiveEmojiService: EmojiService {
         } else {
             networkManager.executeNetworkCall(
                 EmojiAPI.getEmojis) { [weak self] (result: Result<EmojisAPICAllResult, Error>) in
-                guard let self = self else { return }
-                switch result {
-                case .success(let success):
-                    success.emojis.forEach { emoji in
-                        DispatchQueue.main.async { [weak self] in
-                            guard let self = self else { return }
-                            self.persistence.saveEmoji(name: emoji.name, url: emoji.emojiUrl.absoluteString)
+                    guard let self = self else { return }
+                    switch result {
+                    case .success(let success):
+                        success.emojis.forEach { emoji in
+                            DispatchQueue.main.async { [weak self] in
+                                guard let self = self else { return }
+                                self.persistence.saveEmoji(name: emoji.name, url: emoji.emojiUrl.absoluteString)
+                            }
                         }
+                        resultHandler(.success(success.emojis))
+                    case .failure(let failure):
+                        print("Error: \(failure)")
                     }
-                    resultHandler(.success(success.emojis))
-                case .failure(let failure):
-                    print("Error: \(failure)")
                 }
+        }
+    }
+
+    func rxGetEmojisList() -> Single<[Emoji]> {
+        return persistence.rxFetchEmojisData()
+            .flatMap({ fetchedEmojis in
+                if fetchedEmojis.isEmpty {
+                    return self.networkManager.rxExecuteNetworkCall(EmojiAPI.getEmojis)
+                        .map { (emojisResult: EmojisAPICAllResult) in
+                            self.persistEmojis(emojis: emojisResult.emojis)
+                            return emojisResult.emojis
+                        }
+                }
+                return Single<[Emoji]>.just(fetchedEmojis)
+            })
+    }
+
+    func persistEmojis(emojis: [Emoji]) {
+        emojis.forEach { emoji in
+            DispatchQueue.main.async { [weak self] in
+                guard let self = self else { return }
+                self.persistence.saveEmoji(name: emoji.name, url: emoji.emojiUrl.absoluteString)
             }
         }
     }
 }
-/*
-protocol EmojiPresenter: EmojiStorageDelegate {
-    var emojiService: EmojiService? { get set }
-}
-*/

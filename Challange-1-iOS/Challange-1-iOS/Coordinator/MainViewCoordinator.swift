@@ -49,7 +49,8 @@ extension MainViewCoordinator: MainViewControllerDelegate {
     }
 
     func navigateToAppleRepos() {
-        let appleReposCoordinator = AppleReposCoordinator(navigationController: navigationController)
+        let appleReposCoordinator = AppleReposCoordinator(navigationController: navigationController,
+                                                          appleReposService: application.appleReposService)
         appleReposCoordinator.delegate = self
         childCoordinators.append(appleReposCoordinator)
         appleReposCoordinator.start()

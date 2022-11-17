@@ -7,11 +7,13 @@
 
 import UIKit
 import Alamofire
+import RxSwift
 
 class EmojiCell: UICollectionViewCell {
 
     let imageView: UIImageView
     private var dataTask: URLSessionTask?
+    var reusableDisposeBag = DisposeBag()
 
     override init(frame: CGRect) {
         imageView = .init(frame: .zero)
@@ -24,9 +26,7 @@ class EmojiCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 
-    func setUpCell(url: URL) {
-        dataTask = imageView.createDownloadDataTask(from: url)
-        dataTask?.resume()
+    func setUpCell(viewModel: EmojiListViewModel) {
     }
 
     func setUpConstraints() {
@@ -42,6 +42,7 @@ class EmojiCell: UICollectionViewCell {
         super.prepareForReuse()
         dataTask?.cancel()
         imageView.image = nil
+        reusableDisposeBag = DisposeBag()
     }
 
 }

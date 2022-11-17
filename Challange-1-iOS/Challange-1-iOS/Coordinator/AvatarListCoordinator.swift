@@ -23,7 +23,10 @@ class AvatarListCoordinator: Coordinator {
     func start() {
         let avatarListViewController: AvatarsListViewController = AvatarsListViewController()
         avatarListViewController.delegate = self
-        let viewModel = AvatarViewModel()
+        guard let avatarService = avatarService else {
+            return
+        }
+        let viewModel = AvatarListViewModel(avatarService: avatarService)
         viewModel.avatarService = avatarService
         avatarListViewController.viewModel = viewModel
         self.navigationController.pushViewController(avatarListViewController, animated: true)

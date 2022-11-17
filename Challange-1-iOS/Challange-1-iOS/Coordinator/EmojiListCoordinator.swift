@@ -23,7 +23,10 @@ class EmojiListCoordinator: Coordinator {
     func start() {
         let emojiListViewController: EmojisListViewController = EmojisListViewController()
         emojiListViewController.delegate = self
-        let viewModel = EmojiViewModel()
+        guard let emojiService = emojiService else {
+            return
+        }
+        let viewModel = EmojiListViewModel(emojiService: emojiService)
         viewModel.emojiService = emojiService
         emojiListViewController.viewModel = viewModel
         self.navigationController.pushViewController(emojiListViewController, animated: true)

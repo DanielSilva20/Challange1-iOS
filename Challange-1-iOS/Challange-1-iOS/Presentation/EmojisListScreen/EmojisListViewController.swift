@@ -6,11 +6,12 @@
 //
 
 import UIKit
+import RxSwift
 
 class EmojisListViewController: BaseGenericViewController<EmojisListView> {
     weak var delegate: BackToMainViewControllerDelegate?
     var emojisList: [Emoji] = []
-    var viewModel: EmojiViewModel?
+    var viewModel: EmojiListViewModel?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,15 +21,23 @@ class EmojisListViewController: BaseGenericViewController<EmojisListView> {
     }
 
     override func viewWillAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        viewModel?.emojisList.bind(listener: { [weak self] emojiArray in
-            guard let emojiArray = emojiArray else { return }
-            self?.emojisList = emojiArray
-            DispatchQueue.main.async { [weak self] in
-                self?.genericView.collectionView.reloadData()
-            }
-        })
-        viewModel?.getEmojis()
+        super.viewWillAppear(animated)
+        //        viewModel?.rxEmojiList
+        //            .subscribe(rx.emojisList)
+        //            .disposed(by: disposeBag)
+        //        viewModel?.getEmojis()
+        viewModel?.rxGetEmojis()
+            .observe(on: MainScheduler.instance)
+            .subscribe(onSuccess: { [weak self] emojiList in
+                guard let self = self else { return }
+                self.emojisList = emojiList
+                self.genericView.collectionView.reloadData()
+            }, onFailure: { error in
+                print("[GET EMOJIS LIST] -  \(error)")
+            }, onDisposed: {
+                print("[GET EMOJIS LIST] - Disposed")
+            })
+            .disposed(by: disposeBag)
     }
 
     deinit {
@@ -51,7 +60,11 @@ extension EmojisListViewController: UICollectionViewDataSource {
 
         let url = emojisList[indexPath.row].emojiUrl
 
-        cell.setUpCell(url: url)
+        guard let viewModel = viewModel else { return UICollectionViewCell() }
+        viewModel.imageAtUrl(url: url)
+            .asOptional()
+            .subscribe(cell.imageView.rx.image)
+            .disposed(by: cell.reusableDisposeBag)
 
         return cell
     }

@@ -18,52 +18,75 @@ class MainViewController: BaseGenericViewController<MainView> {
     override func viewDidLoad() {
         super.viewDidLoad()
         genericView.emojiImage.showLoading()
+        viewModel?.rxSearchAvatar
+            .subscribe(genericView.emojiImage.rx.image)
+            .disposed(by: disposeBag)
 
-        viewModel?.emojiImageUrl.bind(listener: { url in
-            guard let url = url else { return }
-            let dataTask = self.genericView.emojiImage.createDownloadDataTask(from: url)
-            dataTask.resume()
+        viewModel?.rxEmojiImage
+            .do(onNext: { [weak self] image in
+                guard image != nil else { return }
+                self?.genericView.emojiImage.stopLoading()
+            })
+                .subscribe(genericView.emojiImage.rx.image)
+                .disposed(by: disposeBag)
 
-             self.genericView.emojiImage.stopLoading()
-        })
+                getRandomEmoji()
 
-        getRandomEmoji()
+                self.navigationController?.navigationBar.tintColor = .appColor(name: .primary)
 
-        self.navigationController?.navigationBar.tintColor = .appColor(name: .primary)
-
-        genericView.btnEmojisList.addTarget(self, action: #selector(didTapEmojisLIst), for: .touchUpInside)
-        genericView.btnRandomEmoji.addTarget(self, action: #selector(getRandomEmoji), for: .touchUpInside)
-        genericView.btnAvatarsList.addTarget(self, action: #selector(didTapAvatarsList), for: .touchUpInside)
-        genericView.btnAppleRepos.addTarget(self, action: #selector(didTapAppleRepos), for: .touchUpInside)
-        genericView.btnSearch.addTarget(self, action: #selector(saveSearchContent), for: .touchUpInside)
-
-    }
+                // Code for RxSwift
+                genericView.rxRandomEmojiTap
+                .subscribe(onNext: { [weak self] _ in
+                    self?.getRandomEmoji()
+                })
+                .disposed(by: disposeBag)
+                genericView.rxEmojiListTap
+                .subscribe(onNext: { [weak self] _ in
+                    self?.didTapEmojisLIst()
+                })
+                .disposed(by: disposeBag)
+                genericView.rxAvatarListTap
+                .subscribe(onNext: { [weak self] _ in
+                    self?.didTapAvatarsList()
+                })
+                .disposed(by: disposeBag)
+                genericView.rxAppleReposTap
+                .subscribe(onNext: { [weak self] _ in
+                    self?.didTapAppleRepos()
+                })
+                .disposed(by: disposeBag)
+                genericView.rxSearchTap
+                .subscribe(onNext: { [weak self] _ in
+                    self?.saveSearchContent()
+                })
+                .disposed(by: disposeBag)
+                }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
     }
 
-    @objc func didTapEmojisLIst(_ sender: UIButton) {
+    func didTapEmojisLIst() {
         self.delegate?.navigateToEmojiList()
-//        coordinator?.eventOccurred(with: .buttonEmojisListTapped)
     }
 
-    @objc func didTapAvatarsList(_ sender: UIButton) {
+    func didTapAvatarsList() {
         self.delegate?.navigateToAvatarList()
-//        coordinator?.eventOccurred(with: .buttonAvatarsListTapped)
     }
 
-    @objc func didTapAppleRepos(_ sender: UIButton) {
+    func didTapAppleRepos() {
         self.delegate?.navigateToAppleRepos()
-//        coordinator?.eventOccurred(with: .buttonAppleReposTapped)
     }
 
-    @objc func getRandomEmoji() {
-        viewModel?.getRandom()
+    func getRandomEmoji() {
+        //        viewModel?.getRandom()
+        viewModel?.rxGetRandomEmoji()
     }
 
-    @objc func saveSearchContent() {
-        viewModel?.searchQuery.value = genericView.searchBar.text
+    func saveSearchContent() {
+        guard let avatarName = genericView.searchBar.text else { return }
+        viewModel?.rxSearchAvatarName(avatarName: avatarName)
+        //        viewModel?.searchQuery.value = genericView.searchBar.text
         genericView.searchBar.text = ""
     }
 }

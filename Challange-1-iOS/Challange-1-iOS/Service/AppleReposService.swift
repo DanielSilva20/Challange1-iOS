@@ -6,9 +6,12 @@
 //
 
 import Foundation
+import RxSwift
 
 protocol AppleReposService {
     func getAppleReposList(itemsPerPage: Int,
                            pageNumber: Int,
                            _ resultHandler: @escaping (Result<[AppleRepos], Error>) -> Void)
+
+    func rxGetAppleReposList(itemsPerPage: Int, pageNumer: Int) -> Single<[AppleRepos]>
 }
