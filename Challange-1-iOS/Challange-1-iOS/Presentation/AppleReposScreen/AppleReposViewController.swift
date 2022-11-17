@@ -7,12 +7,8 @@
 
 import UIKit
 
-public protocol AppleReposViewControllerDelegate: AnyObject {
-    func navigateToMainPage()
-}
-
 class AppleReposViewController: BaseGenericViewController<AppleReposView> {
-    public weak var delegate: AppleReposViewControllerDelegate?
+    weak var delegate: AppleReposViewControllerDelegate?
     private var appleRepos: [AppleRepos] = []
 
     private var addedToView: Bool = false

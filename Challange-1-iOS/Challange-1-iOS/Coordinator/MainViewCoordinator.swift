@@ -61,13 +61,3 @@ extension MainViewCoordinator: BackToMainViewControllerDelegate {
         childCoordinators.removeLast()
     }
 }
-
-protocol BackToMainViewControllerDelegate: AnyObject {
-    func navigateBackToMainPage()
-}
-
-public protocol MainViewControllerDelegate: AnyObject {
-    func navigateToEmojiList()
-    func navigateToAvatarList()
-    func navigateToAppleRepos()
-}

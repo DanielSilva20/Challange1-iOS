@@ -3,7 +3,7 @@ import Alamofire
 import CoreData
 
 class MainViewController: BaseGenericViewController<MainView> {
-    public weak var delegate: MainViewControllerDelegate?
+    weak var delegate: MainViewControllerDelegate?
     var networkManager: NetworkManager = .init()
     var viewModel: MainPageViewModel?
 

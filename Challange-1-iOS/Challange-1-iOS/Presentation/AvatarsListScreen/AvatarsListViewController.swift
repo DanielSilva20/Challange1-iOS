@@ -7,12 +7,8 @@
 
 import UIKit
 
-public protocol AvatarListViewControllerDelegate: AnyObject {
-    func navigateToMainPage()
-}
-
 class AvatarsListViewController: BaseGenericViewController<AvatarsListView> {
-    public weak var delegate: AvatarListViewControllerDelegate?
+    weak var delegate: AvatarListViewControllerDelegate?
     var avatars: [Avatar] = []
     var viewModel: AvatarViewModel?
 

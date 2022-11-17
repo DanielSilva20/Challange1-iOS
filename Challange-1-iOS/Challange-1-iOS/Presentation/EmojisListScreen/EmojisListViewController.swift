@@ -7,12 +7,8 @@
 
 import UIKit
 
-public protocol EmojiListViewControllerDelegate: AnyObject {
-    func navigateToMainPage()
-}
-
 class EmojisListViewController: BaseGenericViewController<EmojisListView> {
-    public weak var delegate: EmojiListViewControllerDelegate?
+    weak var delegate: EmojiListViewControllerDelegate?
     var emojisList: [Emoji] = []
     var viewModel: EmojiViewModel?
 
@@ -38,10 +34,6 @@ class EmojisListViewController: BaseGenericViewController<EmojisListView> {
     override func viewDidDisappear(_ animated: Bool) {
         self.delegate?.navigateToMainPage()
     }
-
-//    @objc func navigateBackToMainPage() {
-//        self.delegate?.navigateToMainPage()
-//    }
 }
 
 extension EmojisListViewController: UICollectionViewDataSource {
