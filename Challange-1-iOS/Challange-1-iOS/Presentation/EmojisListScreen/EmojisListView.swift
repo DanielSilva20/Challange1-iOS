@@ -9,6 +9,7 @@ import UIKit
 
 class EmojisListView: BaseGenericView {
     var collectionView: UICollectionView
+//    var btnBack: UIBarButtonItem
 
     required init() {
         let layout = UICollectionViewFlowLayout()
@@ -18,6 +19,7 @@ class EmojisListView: BaseGenericView {
         layout.minimumInteritemSpacing = 4
 
         collectionView = .init(frame: .zero, collectionViewLayout: layout)
+//        btnBack = .init()
 
         super.init()
     }

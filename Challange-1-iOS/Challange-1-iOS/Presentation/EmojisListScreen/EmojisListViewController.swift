@@ -7,8 +7,8 @@
 
 import UIKit
 
-class EmojisListViewController: BaseGenericViewController<EmojisListView>, Coordinating {
-    var coordinator: Coordinator?
+class EmojisListViewController: BaseGenericViewController<EmojisListView> {
+    weak var delegate: BackToMainViewControllerDelegate?
     var emojisList: [Emoji] = []
     var viewModel: EmojiViewModel?
 
@@ -16,6 +16,7 @@ class EmojisListViewController: BaseGenericViewController<EmojisListView>, Coord
         super.viewDidLoad()
         title = "Emojis List"
         genericView.collectionView.dataSource = self
+
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -28,6 +29,10 @@ class EmojisListViewController: BaseGenericViewController<EmojisListView>, Coord
             }
         })
         viewModel?.getEmojis()
+    }
+
+    deinit {
+        self.delegate?.navigateBackToMainPage()
     }
 }
 

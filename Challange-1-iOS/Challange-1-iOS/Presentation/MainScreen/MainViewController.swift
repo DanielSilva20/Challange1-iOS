@@ -2,8 +2,8 @@ import UIKit
 import Alamofire
 import CoreData
 
-class MainViewController: BaseGenericViewController<MainView>, Coordinating {
-    var coordinator: Coordinator?
+class MainViewController: BaseGenericViewController<MainView> {
+    weak var delegate: MainViewControllerDelegate?
     var networkManager: NetworkManager = .init()
     var viewModel: MainPageViewModel?
 
@@ -44,15 +44,18 @@ class MainViewController: BaseGenericViewController<MainView>, Coordinating {
     }
 
     @objc func didTapEmojisLIst(_ sender: UIButton) {
-        coordinator?.eventOccurred(with: .buttonEmojisListTapped)
+        self.delegate?.navigateToEmojiList()
+//        coordinator?.eventOccurred(with: .buttonEmojisListTapped)
     }
 
     @objc func didTapAvatarsList(_ sender: UIButton) {
-        coordinator?.eventOccurred(with: .buttonAvatarsListTapped)
+        self.delegate?.navigateToAvatarList()
+//        coordinator?.eventOccurred(with: .buttonAvatarsListTapped)
     }
 
     @objc func didTapAppleRepos(_ sender: UIButton) {
-        coordinator?.eventOccurred(with: .buttonAppleReposTapped)
+        self.delegate?.navigateToAppleRepos()
+//        coordinator?.eventOccurred(with: .buttonAppleReposTapped)
     }
 
     @objc func getRandomEmoji() {

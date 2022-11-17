@@ -10,15 +10,13 @@ import UIKit
 import RxSwift
 
 public class MainPageViewModel {
-    var emojiService: EmojiService?
-    var avatarService: AvatarService?
+    var application: Application
 
     let emojiImageUrl: Box<URL?> = Box(nil)
     var searchQuery: Box<String?> = Box(nil)
 
-    init(emojiService: EmojiService, avatarService: AvatarService) {
-        self.emojiService = emojiService
-        self.avatarService = avatarService
+    init(application: Application) {
+        self.application = application
 
         self.searchQuery.bind { [weak self] _ in
             self?.searchAvatar()
@@ -27,7 +25,7 @@ public class MainPageViewModel {
     }
 
     func getRandom() {
-        emojiService?.getEmojisList {(result: Result<[Emoji], Error>) in
+        application.emojiService.getEmojisList {(result: Result<[Emoji], Error>) in
             switch result {
             case .success(let success):
                 guard let url = success.randomElement()?.emojiUrl else { return }
@@ -41,7 +39,7 @@ public class MainPageViewModel {
     private func searchAvatar() {
         guard let searchQuery = searchQuery.value else { return }
 
-        avatarService?.getAvatar(searchText: searchQuery, { (result: Result<Avatar, Error>) in
+        application.avatarService.getAvatar(searchText: searchQuery, { (result: Result<Avatar, Error>) in
             switch result {
             case .success(let success):
                 let avatarUrl = success.avatarUrl
