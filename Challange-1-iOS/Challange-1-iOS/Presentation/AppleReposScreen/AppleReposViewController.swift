@@ -46,7 +46,7 @@ class AppleReposViewController: BaseGenericViewController<AppleReposView> {
         })
     }
 
-    override func viewDidDisappear(_ animated: Bool) {
+    deinit {
         self.delegate?.navigateBackToMainPage()
     }
 }

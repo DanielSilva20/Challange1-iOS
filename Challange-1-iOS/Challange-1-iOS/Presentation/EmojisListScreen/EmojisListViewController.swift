@@ -31,7 +31,7 @@ class EmojisListViewController: BaseGenericViewController<EmojisListView> {
         viewModel?.getEmojis()
     }
 
-    override func viewDidDisappear(_ animated: Bool) {
+    deinit {
         self.delegate?.navigateBackToMainPage()
     }
 }

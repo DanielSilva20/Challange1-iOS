@@ -35,7 +35,7 @@ class AvatarsListViewController: BaseGenericViewController<AvatarsListView> {
         viewModel?.getAvatars()
     }
 
-    override func viewDidDisappear(_ animated: Bool) {
+    deinit {
         self.delegate?.navigateBackToMainPage()
     }
 }
