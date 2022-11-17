@@ -9,9 +9,8 @@ import Foundation
 import UIKit
 import RxSwift
 
-class MainPageViewModel {
-    var emojiService: EmojiService?
-    var avatarService: AvatarService?
+public class MainPageViewModel {
+    var application: Application
 
 //    var searchQuery: Box<String?> = Box(nil)
 
@@ -28,9 +27,8 @@ class MainPageViewModel {
     let disposeBag = DisposeBag()
     var ongoingRequests: [String: Observable<UIImage?>] = [:]
 
-    init(emojiService: EmojiService, avatarService: AvatarService) {
-        self.emojiService = emojiService
-        self.avatarService = avatarService
+    init(application: Application) {
+        self.application = application
 
 //        self.searchQuery.bind { [weak self] _ in
 //            self?.searchAvatar
@@ -61,7 +59,7 @@ class MainPageViewModel {
         rxSearchAvatarName
             .debug("rxSearchAvatarName")
             .flatMap({ avatarName in
-                return avatarService.rxGetAvatar(avatarName: avatarName)
+                return application.avatarService.rxGetAvatar(avatarName: avatarName)
             })
             .flatMap({ avatar -> Observable<UIImage?> in
                 return self.dataOfUrl(avatar.avatarUrl)
@@ -101,7 +99,7 @@ class MainPageViewModel {
 //    }
 
     func rxGetRandomEmoji() {
-        emojiService?.rxGetEmojisList()
+        application.emojiService.rxGetEmojisList()
             .observe(on: MainScheduler.instance)
             .subscribe(
                 onSuccess: { [weak self] emojis in

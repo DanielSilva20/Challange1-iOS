@@ -11,15 +11,8 @@ import CoreData
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
-    var persistentContainer: NSPersistentContainer = {
-        let container = NSPersistentContainer(name: "Database")
-        container.loadPersistentStores(completionHandler: { (_, error) in
-            if let error = error as NSError? {
-                fatalError("Unresolved error \(error), \(error.userInfo)")
-            }
-        })
-        return container
-    }()
+
+    var mainViewCoordinator: MainViewCoordinator?
 
     func scene(_ scene: UIScene,
                willConnectTo session: UISceneSession,
@@ -31,16 +24,15 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         let navVC = UINavigationController()
 
-        let coordinator = MainCoordinator(emojiService: MockEmojiService(),
-                                          avatarService: LiveAvatarService(persistentContainer: persistentContainer),
-                                          appleReposService: LiveAppleReposService())
-        coordinator.navigationController = navVC
-
         window = UIWindow(windowScene: windowScene)
         window?.rootViewController = navVC
-        window?.makeKeyAndVisible()
 
-        coordinator.start()
+        let application: Application = .init()
+
+        mainViewCoordinator = MainViewCoordinator(navigationController: navVC, application: application)
+
+        mainViewCoordinator?.start()
+        window?.makeKeyAndVisible()
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

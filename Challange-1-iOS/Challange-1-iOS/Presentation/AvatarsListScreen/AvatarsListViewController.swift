@@ -9,8 +9,8 @@ import UIKit
 
 import RxSwift
 
-class AvatarsListViewController: BaseGenericViewController<AvatarsListView>, Coordinating {
-    var coordinator: Coordinator?
+class AvatarsListViewController: BaseGenericViewController<AvatarsListView> {
+    weak var delegate: BackToMainViewControllerDelegate?
     var avatars: [Avatar] = []
     var viewModel: AvatarListViewModel?
 
@@ -47,8 +47,8 @@ class AvatarsListViewController: BaseGenericViewController<AvatarsListView>, Coo
             .disposed(by: disposeBag)
     }
 
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
+    deinit {
+        self.delegate?.navigateBackToMainPage()
     }
 }
 

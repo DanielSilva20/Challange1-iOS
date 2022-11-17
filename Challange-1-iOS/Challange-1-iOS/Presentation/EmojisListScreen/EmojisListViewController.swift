@@ -8,15 +8,16 @@
 import UIKit
 import RxSwift
 
-class EmojisListViewController: BaseGenericViewController<EmojisListView>, Coordinating {
-    var coordinator: Coordinator?
-    var emojisList: [Emoji]?
+class EmojisListViewController: BaseGenericViewController<EmojisListView> {
+    weak var delegate: BackToMainViewControllerDelegate?
+    var emojisList: [Emoji] = []
     var viewModel: EmojiListViewModel?
 
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Emojis List"
         genericView.collectionView.dataSource = self
+
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -38,12 +39,16 @@ class EmojisListViewController: BaseGenericViewController<EmojisListView>, Coord
             })
             .disposed(by: disposeBag)
     }
+
+    deinit {
+        self.delegate?.navigateBackToMainPage()
+    }
 }
 
 extension EmojisListViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
 
-        guard let countEmojis = emojisList?.count else { return 0 }
+        let countEmojis = emojisList.count
 
         return countEmojis
     }
@@ -53,7 +58,7 @@ extension EmojisListViewController: UICollectionViewDataSource {
 
         let cell: EmojiCell = collectionView.dequeueReusableCell(for: indexPath)
 
-        guard let url = emojisList?[indexPath.row].emojiUrl else { return UICollectionViewCell() }
+        let url = emojisList[indexPath.row].emojiUrl
 
         guard let viewModel = viewModel else { return UICollectionViewCell() }
         viewModel.imageAtUrl(url: url)

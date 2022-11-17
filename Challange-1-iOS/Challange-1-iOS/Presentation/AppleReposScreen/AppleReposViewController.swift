@@ -9,13 +9,13 @@ import UIKit
 
 import RxSwift
 
-class AppleReposViewController: BaseGenericViewController<AppleReposView>, Coordinating {
+class AppleReposViewController: BaseGenericViewController<AppleReposView> {
+    weak var delegate: BackToMainViewControllerDelegate?
     private var appleRepos: [AppleRepos] = []
 
     private var addedToView: Bool = false
     private var isEnd: Bool = false
 
-    var coordinator: Coordinator?
     var viewModel: AppleReposViewModel?
 
     override func viewDidLoad() {
@@ -60,6 +60,10 @@ class AppleReposViewController: BaseGenericViewController<AppleReposView>, Coord
             guard let self = self else { return }
             self.isEnd = ended
         })
+    }
+
+    deinit {
+        self.delegate?.navigateBackToMainPage()
     }
 }
 
