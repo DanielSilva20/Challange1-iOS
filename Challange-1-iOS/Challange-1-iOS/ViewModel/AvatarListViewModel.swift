@@ -7,7 +7,6 @@
 
 import Foundation
 import UIKit
-
 import RxSwift
 
 enum ServiceError: Error {
@@ -24,9 +23,9 @@ class AvatarListViewModel {
     }
 
     func getAvatars() -> Single<[Avatar]> {
-//        avatarService?.fetchAvatarList({ (result: [Avatar]) in
-//            self.avatarList.value = result
-//        })
+        //        avatarService?.fetchAvatarList({ (result: [Avatar]) in
+        //            self.avatarList.value = result
+        //        })
         guard let avatarService = avatarService else {
             return Single<[Avatar]>.error(ServiceError.cannotInstanciate)
         }

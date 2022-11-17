@@ -1,13 +1,5 @@
-//
-//  EmojiPersistence.swift
-//  Challange-1-iOS
-//
-//  Created by Daniel Silva on 10/11/22.
-//
-
 import UIKit
 import CoreData
-
 import RxSwift
 
 enum PersistenceError: Error {

@@ -22,10 +22,10 @@ class EmojisListViewController: BaseGenericViewController<EmojisListView> {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-//        viewModel?.rxEmojiList
-//            .subscribe(rx.emojisList)
-//            .disposed(by: disposeBag)
-//        viewModel?.getEmojis()
+        //        viewModel?.rxEmojiList
+        //            .subscribe(rx.emojisList)
+        //            .disposed(by: disposeBag)
+        //        viewModel?.getEmojis()
         viewModel?.rxGetEmojis()
             .observe(on: MainScheduler.instance)
             .subscribe(onSuccess: { [weak self] emojiList in

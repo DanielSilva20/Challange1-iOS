@@ -34,7 +34,7 @@ class AvatarsListView: BaseGenericView {
     private func setUpViews() {
         collectionView.register(AvatarCell.self, forCellWithReuseIdentifier: AvatarCell.reuseCellIdentifier)
 
-//        collectionView.delegate = self
+        //        collectionView.delegate = self
     }
 
     private func addViewsToSuperview() {
@@ -52,22 +52,3 @@ class AvatarsListView: BaseGenericView {
         ])
     }
 }
-
-/*
-extension AvatarsListView: UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView,
-                        layout collectionViewLayout: UICollectionViewLayout,
-                        insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets(top: 1.0, left: 8.0, bottom: 1.0, right: 8.0)
-    }
-
-    func collectionView(_ collectionView: UICollectionView,
-                        layout collectionViewLayout: UICollectionViewLayout,
-                        sizeForItemAt indexPath: IndexPath) -> CGSize {
-
-        guard let layout = collectionViewLayout as? UICollectionViewFlowLayout else { return .zero }
-        let widthPerItem = collectionView.frame.width / 3 - layout.minimumInteritemSpacing
-        return CGSize(width: widthPerItem - 8, height: widthPerItem)
-    }
-}
-*/

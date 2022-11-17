@@ -7,7 +7,6 @@
 
 import Foundation
 import UIKit
-
 import RxSwift
 
 class AppleReposViewModel {
@@ -16,7 +15,7 @@ class AppleReposViewModel {
 
     var appleReposService: AppleReposService?
 
-//    var appleReposList: Box<[AppleRepos]?> = Box([])
+    //    var appleReposList: Box<[AppleRepos]?> = Box([])
     var isEnd: Box<Bool> = Box(false)
 
     private var appleReposArray: [AppleRepos] = []
@@ -31,21 +30,21 @@ class AppleReposViewModel {
 
     }
 
-//    func getRepos() {
-//        self.pageNumber += 1
-//        self.appleReposService?.getAppleReposList(itemsPerPage: itemsPerPage,
-//                                                  pageNumber: pageNumber, { ( result: Result<[AppleRepos], Error>) in
-//            switch result {
-//            case .success(let success):
-//                self.appleReposList.value?.append(contentsOf: success)
-//                if success.count < self.itemsPerPage {
-//                    self.isEnd.value = true
-//                }
-//            case .failure(let failure):
-//                print("[Error getting appleRepos data] : \(failure)")
-//            }
-//        })
-//    }
+    //    func getRepos() {
+    //        self.pageNumber += 1
+    //        self.appleReposService?.getAppleReposList(itemsPerPage: itemsPerPage,
+    //                                                  pageNumber: pageNumber, { ( result: Result<[AppleRepos], Error>) in
+    //            switch result {
+    //            case .success(let success):
+    //                self.appleReposList.value?.append(contentsOf: success)
+    //                if success.count < self.itemsPerPage {
+    //                    self.isEnd.value = true
+    //                }
+    //            case .failure(let failure):
+    //                print("[Error getting appleRepos data] : \(failure)")
+    //            }
+    //        })
+    //    }
 
     func rxGetRepos() {
         guard let appleReposService = appleReposService else {
@@ -53,17 +52,17 @@ class AppleReposViewModel {
         }
         self.pageNumber += 1
 
-//        appleReposService.rxGetAppleReposList(itemsPerPage: itemsPerPage, pageNumer: pageNumber)
-//            .debug("RXGETREPOS")
-//            .map({ appleRepos -> [AppleRepos] in
-//                self.appleReposArray.append(contentsOf: appleRepos)
-//                if appleRepos.count < self.itemsPerPage {
-//                    self.isEnd.value = true
-//                }
-//                return self.appleReposArray
-//            })
-//            .subscribe(_rxAppleRepos)
-//            .disposed(by: disposeBag)
+        //        appleReposService.rxGetAppleReposList(itemsPerPage: itemsPerPage, pageNumer: pageNumber)
+        //            .debug("RXGETREPOS")
+        //            .map({ appleRepos -> [AppleRepos] in
+        //                self.appleReposArray.append(contentsOf: appleRepos)
+        //                if appleRepos.count < self.itemsPerPage {
+        //                    self.isEnd.value = true
+        //                }
+        //                return self.appleReposArray
+        //            })
+        //            .subscribe(_rxAppleRepos)
+        //            .disposed(by: disposeBag)
 
         appleReposService.rxGetAppleReposList(itemsPerPage: itemsPerPage, pageNumer: pageNumber)
             .subscribe(onSuccess: { [weak self] appleRepos in

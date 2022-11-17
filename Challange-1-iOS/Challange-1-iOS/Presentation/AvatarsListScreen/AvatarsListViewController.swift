@@ -6,7 +6,6 @@
 //
 
 import UIKit
-
 import RxSwift
 
 class AvatarsListViewController: BaseGenericViewController<AvatarsListView> {
@@ -24,15 +23,15 @@ class AvatarsListViewController: BaseGenericViewController<AvatarsListView> {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-//        self.viewModel?.avatarList.bind(listener: { [weak self] avatarList in
-//            guard
-//                let self = self,
-//                let avatarList = avatarList else { return }
-//            self.avatars = avatarList
-//            DispatchQueue.main.async {
-//                self.genericView.collectionView.reloadData()
-//            }
-//        })
+        //        self.viewModel?.avatarList.bind(listener: { [weak self] avatarList in
+        //            guard
+        //                let self = self,
+        //                let avatarList = avatarList else { return }
+        //            self.avatars = avatarList
+        //            DispatchQueue.main.async {
+        //                self.genericView.collectionView.reloadData()
+        //            }
+        //        })
 
         viewModel?.getAvatars()
             .observe(on: MainScheduler.instance)

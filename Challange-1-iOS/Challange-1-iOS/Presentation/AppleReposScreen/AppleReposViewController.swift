@@ -6,7 +6,6 @@
 //
 
 import UIKit
-
 import RxSwift
 
 class AppleReposViewController: BaseGenericViewController<AppleReposView> {
@@ -40,22 +39,22 @@ class AppleReposViewController: BaseGenericViewController<AppleReposView> {
                 print("APPLE REPOS DISPOSED")
             })
             .disposed(by: disposeBag)
-            viewModel?.rxGetRepos()
-//        viewModel?.appleReposList.bind(listener: { [weak self] newRepos in
-//            guard
-//                let self = self,
-//                let newRepos = newRepos else { return }
-//            self.appleRepos = newRepos
-//
-//            DispatchQueue.main.async { [weak self] in
-//                guard let self = self else { return }
-//                self.addedToView = true
-//                if self.genericView.tableView.contentSize.height < self.genericView.tableView.frame.size.height {
-//                    self.viewModel?.getRepos()
-//                }
-//                self.genericView.tableView.reloadData()
-//            }
-//        })
+        viewModel?.rxGetRepos()
+        //        viewModel?.appleReposList.bind(listener: { [weak self] newRepos in
+        //            guard
+        //                let self = self,
+        //                let newRepos = newRepos else { return }
+        //            self.appleRepos = newRepos
+        //
+        //            DispatchQueue.main.async { [weak self] in
+        //                guard let self = self else { return }
+        //                self.addedToView = true
+        //                if self.genericView.tableView.contentSize.height < self.genericView.tableView.frame.size.height {
+        //                    self.viewModel?.getRepos()
+        //                }
+        //                self.genericView.tableView.reloadData()
+        //            }
+        //        })
         viewModel?.isEnd.bind(listener: { [weak self] ended in
             guard let self = self else { return }
             self.isEnd = ended

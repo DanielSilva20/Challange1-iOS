@@ -29,7 +29,7 @@ class LiveAvatarService: AvatarService {
 //            }
 //        }
 //    }
-    
+
     func rxFetchAvatarList() -> Single<[Avatar]> {
         persistence.rxFetchAvatarData()
     }

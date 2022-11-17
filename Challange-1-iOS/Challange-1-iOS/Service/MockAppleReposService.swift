@@ -6,7 +6,6 @@
 //
 
 import Foundation
-
 import RxSwift
 
 class MockAppleReposService: AppleReposService {
@@ -28,12 +27,12 @@ class MockAppleReposService: AppleReposService {
     }
 
     func rxGetAppleReposList(itemsPerPage: Int, pageNumer: Int) -> Single<[AppleRepos]> {
-//        return Single<[Emoji]>.create { [weak self] single in
-//            guard let self = self else {  return Disposables.create() }
-//
-//            single(.success(self.mockedEmojis.emojis))
-//            return Disposables.create()
-//        }
+        //        return Single<[Emoji]>.create { [weak self] single in
+        //            guard let self = self else {  return Disposables.create() }
+        //
+        //            single(.success(self.mockedEmojis.emojis))
+        //            return Disposables.create()
+        //        }
         return Single<[AppleRepos]>.create { single in
             var currentRepos: [AppleRepos] = []
             let endIndex: Int = itemsPerPage * pageNumer
@@ -42,7 +41,7 @@ class MockAppleReposService: AppleReposService {
                 currentRepos.append(self.mockedAppleRepos.appleRepos[index])
             }
             single(.success(currentRepos))
-//            single.onNext(currentRepos)
+            //            single.onNext(currentRepos)
 
             return Disposables.create()
         }

@@ -86,7 +86,7 @@ class MainViewController: BaseGenericViewController<MainView> {
     func saveSearchContent() {
         guard let avatarName = genericView.searchBar.text else { return }
         viewModel?.rxSearchAvatarName(avatarName: avatarName)
-//        viewModel?.searchQuery.value = genericView.searchBar.text
+        //        viewModel?.searchQuery.value = genericView.searchBar.text
         genericView.searchBar.text = ""
     }
 }
