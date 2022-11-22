@@ -26,7 +26,7 @@ class LiveEmojiService: EmojiService {
         return persistence.rxFetchEmojisData()
             .flatMap({ fetchedEmojis in
                 if fetchedEmojis.isEmpty {
-                    return self.networkManager.rxExecuteNetworkCall(EmojiAPI.getEmojis)
+                    return self.networkManager.rx.executeNetworkCall(EmojiAPI.getEmojis)
                         .map { (emojisResult: EmojisAPICAllResult) in
                             self.persistEmojis(emojis: emojisResult.emojis)
                             return emojisResult.emojis

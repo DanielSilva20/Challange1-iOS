@@ -63,12 +63,12 @@ class AvatarPersistence {
         })
     }
 
-    func delete(avatarObject: Avatar) -> Completable {
+    func delete(avatar: Avatar) -> Completable {
         return Completable.create { completable in
             let managedContext = self.persistentContainer.viewContext
 
             let fetchRequest = NSFetchRequest<NSManagedObject>.init(entityName: "AvatarEntity")
-            fetchRequest.predicate = NSPredicate(format: "login = %@", avatarObject.login)
+            fetchRequest.predicate = NSPredicate(format: "login = %@", avatar.login)
 
             do {
                 let avatarToDelete = try managedContext.fetch(fetchRequest)

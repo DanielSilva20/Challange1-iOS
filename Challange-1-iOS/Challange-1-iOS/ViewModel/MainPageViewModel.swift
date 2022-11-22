@@ -30,10 +30,6 @@ public class MainPageViewModel {
     init(application: Application) {
         self.application = application
 
-//        self.searchQuery.bind { [weak self] _ in
-//            self?.searchAvatar
-//        }
-
         rxEmojiImageUrl
             .debug("rxEmojiImageUrl")
             .flatMap({ [weak self] url -> Observable<UIImage?> in
@@ -85,18 +81,6 @@ public class MainPageViewModel {
             .observe(on: MainScheduler.instance)
             .debug("dataOfUrl")
     }
-//
-//    func getRandom() {
-//        emojiService?.getEmojisList {(result: Result<[Emoji], Error>) in
-//            switch result {
-//            case .success(let success):
-//                guard let url = success.randomElement()?.emojiUrl else { return }
-//                self.rxEmojiImageUrl.onNext(url)
-//            case .failure(let failure):
-//                print("Error: \(failure)")
-//            }
-//        }
-//    }
 
     func rxGetRandomEmoji() {
         application.emojiService.rxGetEmojisList()
@@ -115,20 +99,6 @@ public class MainPageViewModel {
                 })
             .disposed(by: disposeBag)
     }
-
-//    private func searchAvatar() {
-//        guard let searchQuery = searchQuery.value else { return }
-//
-//        avatarService?.getAvatar(searchText: searchQuery, { (result: Result<Avatar, Error>) in
-//            switch result {
-//            case .success(let success):
-//                let avatarUrl = success.avatarUrl
-//                self.rxEmojiImageUrl.onNext(avatarUrl)
-//            case .failure(let failure):
-//                print("Failure: \(failure)")
-//            }
-//        })
-//    }
 
     func rxSearchAvatarName(avatarName: String) {
         rxSearchAvatarName.onNext(avatarName)

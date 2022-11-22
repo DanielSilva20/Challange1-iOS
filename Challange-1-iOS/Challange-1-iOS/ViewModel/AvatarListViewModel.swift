@@ -9,11 +9,6 @@ import Foundation
 import UIKit
 import RxSwift
 
-enum ServiceError: Error {
-    case cannotInstanciate
-    case deleteError
-}
-
 class AvatarListViewModel {
     var avatarService: AvatarService?
 

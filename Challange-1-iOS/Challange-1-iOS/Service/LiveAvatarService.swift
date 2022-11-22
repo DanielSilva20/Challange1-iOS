@@ -28,14 +28,14 @@ class LiveAvatarService: AvatarService {
     }
 
     func deleteAvatar(avatarToDelete: Avatar) -> Completable {
-        persistence.delete(avatarObject: avatarToDelete)
+        persistence.delete(avatar: avatarToDelete)
     }
 
     func rxGetAvatar(avatarName: String) -> Observable<Avatar> {
         persistence.rxCheckIfItemExist(avatarName: avatarName)
             .flatMap({ avatar -> Observable<Avatar> in
                 guard let avatar = avatar else {
-                    return self.networkManager.rxExecuteNetworkCall(AvatarAPI.getAvatars(avatarName))
+                    return self.networkManager.rx.executeNetworkCall(AvatarAPI.getAvatars(avatarName))
                         .do { (result: Avatar) in
                             self.persistence.saveAvatar(currentAvatar: result).subscribe(onError: { error in
                                 print("Error saving Avatar from API call: \(error)")

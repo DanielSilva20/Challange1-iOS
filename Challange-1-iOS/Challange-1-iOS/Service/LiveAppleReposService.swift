@@ -29,6 +29,6 @@ class LiveAppleReposService: AppleReposService {
     }
 
     func rxGetAppleReposList(itemsPerPage: Int, pageNumer: Int) -> Single<[AppleRepos]> {
-        return networkManager.rxExecuteNetworkCall(AppleReposApi.getAppleRepos(perPage: itemsPerPage, page: pageNumer))
+        return networkManager.rx.executeNetworkCall(AppleReposApi.getAppleRepos(perPage: itemsPerPage, page: pageNumer))
     }
 }
