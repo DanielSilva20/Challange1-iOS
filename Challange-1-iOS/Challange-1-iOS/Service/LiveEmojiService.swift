@@ -11,6 +11,7 @@ import RxSwift
 
 class LiveEmojiService: EmojiService {
     var emojis: [Emoji] = []
+    let disposeBag = DisposeBag()
 
     private var networkManager: NetworkManager = .init()
     private var persistentContainer: NSPersistentContainer
@@ -19,32 +20,6 @@ class LiveEmojiService: EmojiService {
     }
     init(persistentContainer: NSPersistentContainer) {
         self.persistentContainer = persistentContainer
-    }
-
-    func getEmojisList(_ resultHandler: @escaping (Result<[Emoji], Error>) -> Void) {
-        var fetchedEmojis: [Emoji] = []
-        fetchedEmojis = persistence.fetchEmojisData()
-
-        if !fetchedEmojis.isEmpty {
-            resultHandler(.success(fetchedEmojis))
-        } else {
-            networkManager.executeNetworkCall(
-                EmojiAPI.getEmojis) { [weak self] (result: Result<EmojisAPICAllResult, Error>) in
-                    guard let self = self else { return }
-                    switch result {
-                    case .success(let success):
-                        success.emojis.forEach { emoji in
-                            DispatchQueue.main.async { [weak self] in
-                                guard let self = self else { return }
-                                self.persistence.saveEmoji(name: emoji.name, url: emoji.emojiUrl.absoluteString)
-                            }
-                        }
-                        resultHandler(.success(success.emojis))
-                    case .failure(let failure):
-                        print("Error: \(failure)")
-                    }
-                }
-        }
     }
 
     func rxGetEmojisList() -> Single<[Emoji]> {
@@ -62,10 +37,14 @@ class LiveEmojiService: EmojiService {
     }
 
     func persistEmojis(emojis: [Emoji]) {
-        emojis.forEach { emoji in
-            DispatchQueue.main.async { [weak self] in
-                guard let self = self else { return }
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            emojis.forEach { emoji in
                 self.persistence.saveEmoji(name: emoji.name, url: emoji.emojiUrl.absoluteString)
+                    .subscribe(onError: { error in
+                        print("Error saving Emojis from API call: \(error)")
+                    })
+                    .disposed(by: self.disposeBag)
             }
         }
     }
