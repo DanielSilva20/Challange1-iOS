@@ -27,7 +27,7 @@ class LiveAvatarService: AvatarService {
         persistence.rxFetchAvatarData()
     }
 
-    func deleteAvatar(avatarToDelete: Avatar) {
+    func deleteAvatar(avatarToDelete: Avatar) -> Completable {
         persistence.delete(avatarObject: avatarToDelete)
     }
 

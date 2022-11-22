@@ -5,6 +5,7 @@ import RxSwift
 enum PersistenceError: Error {
     case fetchError
     case saveError
+    case deleteError
 }
 
 class EmojiPersistence {

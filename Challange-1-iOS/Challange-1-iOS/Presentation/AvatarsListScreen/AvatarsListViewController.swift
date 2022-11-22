@@ -75,6 +75,14 @@ extension AvatarsListViewController: UICollectionViewDataSource, UICollectionVie
         alert.addAction(UIAlertAction(title: "Cancel", style: .default))
         alert.addAction(UIAlertAction(title: "Delete", style: .destructive, handler: { (_: UIAlertAction) in
             self.viewModel?.deleteAvatar(avatar: avatar, at: indexPath.row)
+                .subscribe(onCompleted: {
+                    self.avatars.remove(at: indexPath.row)
+                    self.genericView.collectionView.reloadData()
+                    print("Avatar deleted")
+                }, onError: { error in
+                    print("ERROR DELETING: \(error)")
+                })
+                .disposed(by: self.disposeBag)
         }))
         self.present(alert, animated: true, completion: nil)
     }
