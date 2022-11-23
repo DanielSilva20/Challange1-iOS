@@ -21,4 +21,5 @@ enum PersistenceError: Error {
     case fetchError
     case saveError
     case deleteError
+    case selfError
 }

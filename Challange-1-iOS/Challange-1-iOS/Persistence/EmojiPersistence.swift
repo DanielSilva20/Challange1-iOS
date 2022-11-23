@@ -10,7 +10,11 @@ class EmojiPersistence {
     }
 
     func saveEmoji(name: String, url: String) -> Completable {
-        return Completable.create { completable in
+        return Completable.create { [weak self] completable in
+            guard let self = self else {
+                completable(.error(PersistenceError.selfError))
+                return Disposables.create {}
+            }
             let managedContext = self.persistentContainer.viewContext
             let entity = NSEntityDescription.entity(forEntityName: "EmojiEntity",
                                                     in: managedContext)!

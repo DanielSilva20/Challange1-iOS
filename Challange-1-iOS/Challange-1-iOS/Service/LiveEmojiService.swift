@@ -15,11 +15,10 @@ class LiveEmojiService: EmojiService {
 
     private var networkManager: NetworkManager = .init()
     private var persistentContainer: NSPersistentContainer
-    private var persistence: EmojiPersistence {
-        return .init(persistentContainer: persistentContainer)
-    }
+    private let persistence: EmojiPersistence
     init(persistentContainer: NSPersistentContainer) {
         self.persistentContainer = persistentContainer
+        self.persistence = EmojiPersistence.init(persistentContainer: persistentContainer)
     }
 
     func rxGetEmojisList() -> Single<[Emoji]> {
