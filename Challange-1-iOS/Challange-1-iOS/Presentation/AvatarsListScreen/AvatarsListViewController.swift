@@ -69,21 +69,18 @@ extension AvatarsListViewController: UICollectionViewDataSource, UICollectionVie
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let avatar = self.avatars[indexPath.row]
-        let message: String = "Are you sure that you really want to delete \(avatar.login)?"
-        let alert = UIAlertController(title: "Deleting \(avatar.login)...", message: message, preferredStyle: .alert)
-
-        alert.addAction(UIAlertAction(title: "Cancel", style: .default))
-        alert.addAction(UIAlertAction(title: "Delete", style: .destructive, handler: { (_: UIAlertAction) in
-            self.viewModel?.deleteAvatar(avatar: avatar, at: indexPath.row)
+        let alert = genericView.createDeleteAlert(name: avatar.login) { [weak self] in
+            guard let self = self else { return }
+            self.viewModel?.deleteAvatar(avatar: avatar)
                 .subscribe(onCompleted: {
                     self.avatars.remove(at: indexPath.row)
                     self.genericView.collectionView.reloadData()
                     print("Avatar deleted")
-                }, onError: { error in
-                    print("ERROR DELETING: \(error)")
-                })
+                    }, onError: { error in
+                        print("ERROR DELETING: \(error)")
+                    })
                 .disposed(by: self.disposeBag)
-        }))
+        }
         self.present(alert, animated: true, completion: nil)
     }
 }

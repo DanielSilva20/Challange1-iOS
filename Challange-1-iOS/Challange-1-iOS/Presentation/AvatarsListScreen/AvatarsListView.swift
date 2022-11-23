@@ -51,4 +51,16 @@ class AvatarsListView: BaseGenericView {
             collectionView.rightAnchor.constraint(equalTo: rightAnchor)
         ])
     }
+
+    func createDeleteAlert(name: String, _ deleteFunction: @escaping () -> Void) -> UIAlertController {
+        let message: String = "Are you sure that you really want to delete \(name)?"
+        let alert = UIAlertController(title: "Deleting \(name)...", message: message, preferredStyle: .alert)
+
+        alert.addAction(UIAlertAction(title: "Cancel", style: .default))
+        alert.addAction(UIAlertAction(title: "Delete", style: .destructive, handler: { (_: UIAlertAction) in
+            deleteFunction()
+        }))
+
+        return alert
+    }
 }

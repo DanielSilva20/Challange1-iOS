@@ -28,8 +28,7 @@ class AvatarListViewModel {
         return avatarService.rxFetchAvatarList()
     }
 
-    func deleteAvatar(avatar: Avatar, at index: Int) -> Completable {
-//        avatarList.value?.remove(at: index)
+    func deleteAvatar(avatar: Avatar) -> Completable {
         guard let avatarService = avatarService else {
             return Completable.error(ServiceError.deleteError)
         }
