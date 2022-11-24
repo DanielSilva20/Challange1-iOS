@@ -9,10 +9,6 @@ import Foundation
 import UIKit
 import RxSwift
 
-enum ServiceError: Error {
-    case cannotInstanciate
-}
-
 class AvatarListViewModel {
     var avatarService: AvatarService?
 
@@ -32,8 +28,10 @@ class AvatarListViewModel {
         return avatarService.rxFetchAvatarList()
     }
 
-    func deleteAvatar(avatar: Avatar, at index: Int) {
-        avatarService?.deleteAvatar(avatarToDelete: avatar)
-        avatarList.value?.remove(at: index)
+    func deleteAvatar(avatar: Avatar) -> Completable {
+        guard let avatarService = avatarService else {
+            return Completable.error(ServiceError.deleteError)
+        }
+        return avatarService.deleteAvatar(avatarToDelete: avatar)
     }
 }

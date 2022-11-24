@@ -8,7 +8,7 @@ protocol AvatarService {
 
     func rxFetchAvatarList() -> Single<[Avatar]>
 
-    func deleteAvatar(avatarToDelete: Avatar)
+    func deleteAvatar(avatarToDelete: Avatar) -> Completable
 
     func rxGetAvatar(avatarName: String) -> Observable<Avatar>
 }

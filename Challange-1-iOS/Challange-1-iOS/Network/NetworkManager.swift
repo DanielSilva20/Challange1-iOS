@@ -25,7 +25,7 @@ enum APIError: Error {
     case parseError
 }
 
-class NetworkManager {
+class NetworkManager: ReactiveCompatible {
 
     static func initialize() {
         URLSession.shared.configuration.urlCache?.diskCapacity = 100 * 1024 * 1024
@@ -54,8 +54,10 @@ class NetworkManager {
 
         task.resume()
     }
+}
 
-    func rxExecuteNetworkCall<ResultType: Decodable>(_ call: APIProtocol) -> Single<ResultType> {
+extension Reactive where Base: NetworkManager {
+    func executeNetworkCall<ResultType: Decodable>(_ call: APIProtocol) -> Single<ResultType> {
         let decoder = JSONDecoder()
         var request = URLRequest(url: call.url)
         request.httpMethod = call.method.rawValue

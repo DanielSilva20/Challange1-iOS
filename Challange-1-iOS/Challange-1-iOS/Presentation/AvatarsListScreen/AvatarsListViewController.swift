@@ -23,15 +23,6 @@ class AvatarsListViewController: BaseGenericViewController<AvatarsListView> {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        //        self.viewModel?.avatarList.bind(listener: { [weak self] avatarList in
-        //            guard
-        //                let self = self,
-        //                let avatarList = avatarList else { return }
-        //            self.avatars = avatarList
-        //            DispatchQueue.main.async {
-        //                self.genericView.collectionView.reloadData()
-        //            }
-        //        })
 
         viewModel?.getAvatars()
             .observe(on: MainScheduler.instance)
@@ -48,6 +39,25 @@ class AvatarsListViewController: BaseGenericViewController<AvatarsListView> {
 
     deinit {
         self.delegate?.navigateBackToMainPage()
+    }
+
+    func deleteAvatarTest(indexPath: IndexPath) {
+        let avatar = self.avatars[indexPath.row]
+        let message: String = "Are you sure that you really want to delete \(avatar.login)?"
+        let alert = UIAlertController(title: "Deleting \(avatar.login)...", message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Cancel", style: .default))
+        alert.addAction(UIAlertAction(title: "Delete", style: .destructive, handler: { (_: UIAlertAction) in
+            self.viewModel?.deleteAvatar(avatar: avatar)
+                .subscribe(onCompleted: {
+                    self.avatars.remove(at: indexPath.row)
+                    self.genericView.collectionView.reloadData()
+                    print("Avatar deleted")
+                }, onError: { error in
+                    print("ERROR DELETING: \(error)")
+                })
+                .disposed(by: self.disposeBag)
+        }))
+        self.present(alert, animated: true, completion: nil)
     }
 }
 
@@ -68,14 +78,6 @@ extension AvatarsListViewController: UICollectionViewDataSource, UICollectionVie
         return cell
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let avatar = self.avatars[indexPath.row]
-        let message: String = "Are you sure that you really want to delete \(avatar.login)?"
-        let alert = UIAlertController(title: "Deleting \(avatar.login)...", message: message, preferredStyle: .alert)
-
-        alert.addAction(UIAlertAction(title: "Cancel", style: .default))
-        alert.addAction(UIAlertAction(title: "Delete", style: .destructive, handler: { (_: UIAlertAction) in
-            self.viewModel?.deleteAvatar(avatar: avatar, at: indexPath.row)
-        }))
-        self.present(alert, animated: true, completion: nil)
+        deleteAvatarTest(indexPath: indexPath)
     }
 }

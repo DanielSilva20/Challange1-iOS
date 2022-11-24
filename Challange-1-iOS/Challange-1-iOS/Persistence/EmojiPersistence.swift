@@ -2,10 +2,6 @@ import UIKit
 import CoreData
 import RxSwift
 
-enum PersistenceError: Error {
-    case fetchError
-}
-
 class EmojiPersistence {
     private let persistentContainer: NSPersistentContainer
 
@@ -13,28 +9,29 @@ class EmojiPersistence {
         self.persistentContainer = persistentContainer
     }
 
-    func saveEmoji(name: String, url: String) {
-
-            // 1
+    func saveEmoji(name: String, url: String) -> Completable {
+        return Completable.create { [weak self] completable in
+            guard let self = self else {
+                completable(.error(PersistenceError.selfError))
+                return Disposables.create {}
+            }
             let managedContext = self.persistentContainer.viewContext
-
-            // 2
             let entity = NSEntityDescription.entity(forEntityName: "EmojiEntity",
                                                     in: managedContext)!
-
             let emoji = NSManagedObject(entity: entity,
                                         insertInto: managedContext)
-
-            // 3
             emoji.setValue(name, forKeyPath: "name")
             emoji.setValue(url, forKeyPath: "url")
-
-            // 4
             do {
                 try managedContext.save()
             } catch let error as NSError {
                 print("Could not save. \(error), \(error.userInfo)")
+                completable(.error(PersistenceError.saveError))
+                return Disposables.create {}
             }
+            completable(.completed)
+            return Disposables.create {}
+        }
     }
 
     func fetchEmojisData() -> [Emoji] {

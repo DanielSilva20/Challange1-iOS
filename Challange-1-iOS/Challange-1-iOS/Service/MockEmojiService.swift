@@ -7,11 +7,6 @@ class MockEmojiService: EmojiService {
 
     var emojis: [Emoji] = []
 
-    func getEmojisList(_ resultHandler: @escaping (Result<[Emoji], Error>) -> Void) {
-        emojis = mockedEmojis.emojis
-        resultHandler(.success(emojis))
-    }
-
     func rxGetEmojisList() -> Single<[Emoji]> {
         return Single<[Emoji]>.create { [weak self] single in
             guard let self = self else {  return Disposables.create() }
