@@ -9,7 +9,7 @@ class EmojiPersistence {
         self.persistentContainer = persistentContainer
     }
 
-    func saveEmoji(name: String, url: String) -> Completable {
+    func save(emoji: Emoji) -> Completable {
         return Completable.create { [weak self] completable in
             guard let self = self else {
                 completable(.error(PersistenceError.selfError))
@@ -18,10 +18,10 @@ class EmojiPersistence {
             let managedContext = self.persistentContainer.viewContext
             let entity = NSEntityDescription.entity(forEntityName: "EmojiEntity",
                                                     in: managedContext)!
-            let emoji = NSManagedObject(entity: entity,
+            let savedEmoji = NSManagedObject(entity: entity,
                                         insertInto: managedContext)
-            emoji.setValue(name, forKeyPath: "name")
-            emoji.setValue(url, forKeyPath: "url")
+            savedEmoji.setValue(emoji.name, forKeyPath: "name")
+            savedEmoji.setValue(emoji.emojiUrl.absoluteString, forKeyPath: "url")
             do {
                 try managedContext.save()
             } catch let error as NSError {
@@ -32,28 +32,6 @@ class EmojiPersistence {
             completable(.completed)
             return Disposables.create {}
         }
-    }
-
-    func fetchEmojisData() -> [Emoji] {
-        var array: [NSManagedObject] = []
-        var emojisArray: [Emoji] = []
-
-        let managedContext = persistentContainer.viewContext
-
-        // 2
-        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "EmojiEntity")
-
-        // 3
-        do {
-            array = try managedContext.fetch(fetchRequest)
-            emojisArray = array.compactMap({ item -> Emoji? in
-                item.toEmoji()
-            })
-        } catch let error as NSError {
-            print("Could not fetch. \(error), \(error.userInfo)")
-        }
-
-        return emojisArray
     }
 
     func rxFetchEmojisData() -> Single<[Emoji]> {

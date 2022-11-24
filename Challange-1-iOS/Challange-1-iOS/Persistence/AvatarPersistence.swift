@@ -9,16 +9,16 @@ class AvatarPersistence {
         self.persistentContainer = persistentContainer
     }
 
-    func saveAvatar(currentAvatar: Avatar) -> Completable {
+    func save(avatar: Avatar) -> Completable {
         return Completable.create { completable in
             let managedContext = self.persistentContainer.viewContext
             let entity = NSEntityDescription.entity(forEntityName: "AvatarEntity",
                                          in: managedContext)!
-            let avatar = NSManagedObject(entity: entity,
+            let avatarToSave = NSManagedObject(entity: entity,
                                          insertInto: managedContext)
-            avatar.setValue(currentAvatar.login, forKeyPath: "login")
-            avatar.setValue(currentAvatar.id, forKey: "id")
-            avatar.setValue(currentAvatar.avatarUrl.absoluteString, forKey: "avatarUrl")
+            avatarToSave.setValue(avatar.login, forKeyPath: "login")
+            avatarToSave.setValue(avatar.id, forKey: "id")
+            avatarToSave.setValue(avatar.avatarUrl.absoluteString, forKey: "avatarUrl")
             do {
               try managedContext.save()
             } catch let error as NSError {

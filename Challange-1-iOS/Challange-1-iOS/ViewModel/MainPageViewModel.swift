@@ -12,8 +12,6 @@ import RxSwift
 public class MainPageViewModel {
     var application: Application
 
-//    var searchQuery: Box<String?> = Box(nil)
-
     let backgroundScheduler = SerialDispatchQueueScheduler(internalSerialQueueName: "MainPageViewModel.backgroundScheduler")
 
     private var rxEmojiImageUrl: BehaviorSubject<URL?> = BehaviorSubject(value: nil)

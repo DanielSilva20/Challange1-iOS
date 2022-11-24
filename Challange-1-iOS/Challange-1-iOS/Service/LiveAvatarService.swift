@@ -10,7 +10,6 @@ import CoreData
 import RxSwift
 
 class LiveAvatarService: AvatarService {
-
     private var networkManager: NetworkManager = .init()
     private var persistence: AvatarPersistence {
         return .init(persistentContainer: persistentContainer)
@@ -27,8 +26,8 @@ class LiveAvatarService: AvatarService {
         persistence.rxFetchAvatarData()
     }
 
-    func deleteAvatar(avatarToDelete: Avatar) -> Completable {
-        persistence.delete(avatar: avatarToDelete)
+    func delete(_ avatar: Avatar) -> Completable {
+        persistence.delete(avatar: avatar)
     }
 
     func rxGetAvatar(avatarName: String) -> Observable<Avatar> {
@@ -37,7 +36,7 @@ class LiveAvatarService: AvatarService {
                 guard let avatar = avatar else {
                     return self.networkManager.rx.executeNetworkCall(AvatarAPI.getAvatars(avatarName))
                         .do { (result: Avatar) in
-                            self.persistence.saveAvatar(currentAvatar: result).subscribe(onError: { error in
+                            self.persistence.save(avatar: result).subscribe(onError: { error in
                                 print("Error saving Avatar from API call: \(error)")
                             })
                             .disposed(by: self.disposeBag)

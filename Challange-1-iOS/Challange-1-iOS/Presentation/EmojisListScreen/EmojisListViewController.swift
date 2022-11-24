@@ -69,9 +69,3 @@ extension EmojisListViewController: UICollectionViewDataSource {
         return cell
     }
 }
-
-// extension EmojisListViewController: EmojiStorageDelegate {
-//    func emojiListUpdated() {
-//        collectionView.reloadData()
-//    }
-// }

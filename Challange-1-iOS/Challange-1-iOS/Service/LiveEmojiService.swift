@@ -1,10 +1,3 @@
-//
-//  LiveEmojiService.swift
-//  Challange-1-iOS
-//
-//  Created by Daniel Silva on 9/28/22.
-//
-
 import Foundation
 import CoreData
 import RxSwift
@@ -39,7 +32,7 @@ class LiveEmojiService: EmojiService {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
             emojis.forEach { emoji in
-                self.persistence.saveEmoji(name: emoji.name, url: emoji.emojiUrl.absoluteString)
+                self.persistence.save(emoji: emoji)
                     .subscribe(onError: { error in
                         print("Error saving Emojis from API call: \(error)")
                     })

@@ -22,8 +22,6 @@ class MockedDataSource: NSObject, UICollectionViewDataSource {
 
         let url = mockedEmojis.emojis[indexPath.row].emojiUrl
 
-//        cell.setUpCell(url: url)
-
         return cell
     }
 }

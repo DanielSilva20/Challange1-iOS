@@ -27,7 +27,6 @@ class EmojiListViewModel {
                 guard let self = self else { return Observable.never() }
                 let observable = self.ongoingRequests[url.absoluteString]
 
-                // Verifica se o url já foi guardado no ongoingRequests
                 if observable == nil {
                     self.ongoingRequests[url.absoluteString] = self.dataOfUrl(url)
                 }
@@ -49,18 +48,6 @@ class EmojiListViewModel {
             .share(replay: 1, scope: .forever)
             .observe(on: MainScheduler.instance)
     }
-
-    //    func getEmojis() {
-    //        emojiService?.getEmojisList({ (result: Result<[Emoji], Error>) in
-    //            switch result {
-    //            case .success(var success):
-    //                success.sort()
-    //                self._rxEmojiList.onNext(success)
-    //            case .failure(let failure):
-    //                print("Error: \(failure)")
-    //            }
-    //        })
-    //    }
 
     func rxGetEmojis() -> Single<[Emoji]> {
         guard let emojiService = emojiService else {

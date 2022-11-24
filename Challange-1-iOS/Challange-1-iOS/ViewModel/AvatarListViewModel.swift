@@ -12,26 +12,21 @@ import RxSwift
 class AvatarListViewModel {
     var avatarService: AvatarService?
 
-    var avatarList: Box<[Avatar]?> = Box(nil)
-
     init(avatarService: AvatarService) {
         self.avatarService = avatarService
     }
 
     func getAvatars() -> Single<[Avatar]> {
-        //        avatarService?.fetchAvatarList({ (result: [Avatar]) in
-        //            self.avatarList.value = result
-        //        })
         guard let avatarService = avatarService else {
             return Single<[Avatar]>.error(ServiceError.cannotInstanciate)
         }
         return avatarService.rxFetchAvatarList()
     }
 
-    func deleteAvatar(avatar: Avatar) -> Completable {
+    func delete(_ avatar: Avatar) -> Completable {
         guard let avatarService = avatarService else {
             return Completable.error(ServiceError.deleteError)
         }
-        return avatarService.deleteAvatar(avatarToDelete: avatar)
+        return avatarService.delete(avatar)
     }
 }

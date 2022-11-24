@@ -79,7 +79,6 @@ class MainViewController: BaseGenericViewController<MainView> {
     }
 
     func getRandomEmoji() {
-        //        viewModel?.getRandom()
         viewModel?.rxGetRandomEmoji()
     }
 
@@ -90,9 +89,3 @@ class MainViewController: BaseGenericViewController<MainView> {
         genericView.searchBar.text = ""
     }
 }
-
-// extension MainViewController: EmojiStorageDelegate {
-//    func emojiListUpdated() {
-//        getRandomEmoji()
-//    }
-// }

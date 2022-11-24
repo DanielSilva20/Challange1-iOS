@@ -47,7 +47,7 @@ class AvatarsListViewController: BaseGenericViewController<AvatarsListView> {
         let alert = UIAlertController(title: "Deleting \(avatar.login)...", message: message, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Cancel", style: .default))
         alert.addAction(UIAlertAction(title: "Delete", style: .destructive, handler: { (_: UIAlertAction) in
-            self.viewModel?.deleteAvatar(avatar: avatar)
+            self.viewModel?.delete(avatar)
                 .subscribe(onCompleted: {
                     self.avatars.remove(at: indexPath.row)
                     self.genericView.collectionView.reloadData()
